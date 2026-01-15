@@ -13,6 +13,7 @@ result-*
 result
 repl-result-*
 tags
+test-container.nix
 !pkgs/development/python-modules/result
 /doc/NEWS.html
 /doc/NEWS.txt

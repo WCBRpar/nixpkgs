@@ -2015,6 +2015,9 @@ with pkgs;
     inherit (gst_all_1) gstreamer gst-plugins-base;
   };
 
+  onlyoffice-workspace = callPackage ../servers/onlyoffice/workspace { };
+
+
   nltk-data = recurseIntoAttrs (callPackage ../tools/text/nltk-data { });
 
   seabios-coreboot = seabios.override { ___build-type = "coreboot"; };

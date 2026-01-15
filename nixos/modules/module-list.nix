@@ -1449,6 +1449,7 @@
   ./services/networking/zeronsd.nix
   ./services/networking/zerotierone.nix
   ./services/networking/znc/default.nix
+  ./services/office/onlyoffice-workspace/default.nix
   ./services/printing/cups-pdf.nix
   ./services/printing/cupsd.nix
   ./services/printing/ipp-usb.nix
