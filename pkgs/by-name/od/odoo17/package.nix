@@ -91,7 +91,7 @@ python.pkgs.buildPythonApplication rec {
     pytz
     pyusb
     qrcode
-    reportlab
+    (reportlab.override { enableRasterPdf = true; enableCairo = true; })
     requests
     rjsmin
     urllib3
