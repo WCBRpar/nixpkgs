@@ -12,57 +12,50 @@ in
 
     domain = mkOption {
       type = types.str;
-      example = "office.wcbrpar.com";
-      description = "Domínio para o ONLYOFFICE Workspace";
+      example = "localhost";
+      description = "FQDN for the OnlyOffice instance.";
     };
 
     enableBackup = mkOption {
       type = types.bool;
       default = true;
-      description = "Ativar backups automáticos diários dos bancos de dados";
+      description = "Activate daily backups for MySQL and PostgreSQL databases";
     };
 
     database = {
       host = mkOption {
         type = types.str;
         default = "localhost";
+        description = "The Postgresql hostname OnlyOffice should use.";
       };
       name = mkOption {
         type = types.str;
         default = "onlyoffice";
+        description = "The name of database OnlyOffice should use. ";
       };
       user = mkOption {
         type = types.str;
         default = "onlyoffice";
+        description = "The username OnlyOffice should use to connect to Postgresql.";
       };
       passwordFile = mkOption {
         type = types.nullOr types.path;
         default = null;
-        description = "Caminho para o arquivo contendo a senha do banco de dados";
+        description = "Path to a file that contains the password OnlyOffice should use to connect to Postgresql. ";
       };
     };
   };
 
   config = mkIf cfg.enable {
-    # 1. Dependências de Sistema com Configurações de Segurança
+    # 1. Dependências de Sistema (Globais)
     services.mysql = {
       enable = true;
       package = pkgs.mysql80;
-      settings = {
-        mysqld = {
-          innodb_flush_log_at_trx_commit = 1; # Máxima segurança contra perda de dados
-          innodb_doublewrite = 1;
-        };
-      };
     };
 
     services.postgresql = {
       enable = true;
       package = pkgs.postgresql;
-      settings = {
-        fsync = "on";
-        synchronous_commit = "on";
-      };
     };
 
     # Backups Automáticos
@@ -106,43 +99,59 @@ in
       oo-pkgs.documentServer
       pkgs.mono
       pkgs.dotnet-sdk_7
+      # Script de verificação de saúde do OnlyOffice
+      (pkgs.writeShellScriptBin "onlyoffice-healthcheck" ''
+        echo "--- Verificando Serviços OnlyOffice ---"
+        systemctl is-active onlyoffice-communityserver --quiet && echo "[OK] Community Server" || echo "[ERRO] Community Server parado"
+        systemctl is-active mysql --quiet && echo "[OK] MySQL" || echo "[ERRO] MySQL parado"
+        systemctl is-active postgresql --quiet && echo "[OK] PostgreSQL" || echo "[ERRO] PostgreSQL parado"
+        curl -s -I http://localhost:8088 | grep -q "HTTP/1.1 200" && echo "[OK] Web Interface (Port 8088)" || echo "[ERRO] Web Interface não responde"
+      '')
     ];
 
-    # 4. Configuração de Systemd com Dependências de Parada Segura
+    # 4. Configuração de Systemd com ISOLAMENTO DE SEGURANÇA
     systemd.services.onlyoffice-communityserver = {
       description = "ONLYOFFICE Community Server";
-
-      # After: Garante ordem de início
-      # Requires: Se o banco parar, o OnlyOffice para imediatamente
-      after = [
-        "mysql.service"
-        "postgresql.service"
-        "redis-onlyoffice.service"
-        "rabbitmq.service"
-        "elasticsearch.service"
-        "network.target"
-      ];
-      requires = [
-        "mysql.service"
-        "postgresql.service"
-      ];
-
+      after = [ "mysql.service" "postgresql.service" "redis-onlyoffice.service" "rabbitmq.service" "elasticsearch.service" "network.target" ];
+      requires = [ "mysql.service" "postgresql.service" ];
       wantedBy = [ "multi-user.target" ];
 
       serviceConfig = {
         ExecStart = "${pkgs.mono}/bin/mono ${oo-pkgs.communityServer}/var/www/onlyoffice/Services/TeamLabSvc/TeamLabSvc.exe";
         Restart = "always";
         User = "onlyoffice";
+        Group = "onlyoffice";
 
-        # Dá tempo para o serviço encerrar conexões antes do SIGKILL
-        TimeoutStopSec = "30s";
+        # --- ISOLAMENTO E PROTEÇÃO ---
+        # Impede que o serviço altere arquivos do sistema
+        ProtectSystem = "strict";
+        # Permite escrita apenas nos diretórios necessários do OnlyOffice
+        ReadWritePaths = [
+          "/var/www/onlyoffice"
+          "/var/log/onlyoffice"
+          "/var/lib/onlyoffice"
+        ];
+        # Protege configurações globais de banco de dados contra escrita
+        ReadOnlyPaths = [
+          "/etc/mysql"
+          "/etc/postgresql"
+          "/etc/my.cnf"
+        ];
+        # Impede acesso direto aos dados brutos de outros bancos
+        InaccessiblePaths = [
+          "/var/lib/mysql"
+          "/var/lib/postgresql"
+        ];
+        # Outras proteções
+        PrivateTmp = true;
+        NoNewPrivileges = true;
+        DevicePolicy = "closed";
+        ProtectControlGroups = true;
+        ProtectKernelModules = true;
+        ProtectKernelTunables = true;
+        RestrictAddressFamilies = [ "AF_INET" "AF_INET6" "AF_UNIX" ];
       };
     };
-
-    # Ajuste global para dar tempo aos bancos de dados no desligamento do sistema
-    systemd.extraConfig = ''
-      DefaultTimeoutStopSec=90s
-    '';
   };
 }
 
