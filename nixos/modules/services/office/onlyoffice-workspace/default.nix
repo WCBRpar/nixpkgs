@@ -4,7 +4,6 @@ with lib;
 
 let
   cfg = config.services.onlyoffice.workspace;
-  # Acessar o conjunto de pacotes definido no all-packages.nix
   oo-pkgs = pkgs.onlyoffice-workspace;
 in
 {
@@ -13,25 +12,28 @@ in
 
     domain = mkOption {
       type = types.str;
-      example = "localhost";
-      description = "FQDN for the OnlyOffice instance.";
+      example = "office.wcbrpar.com";
+      description = "Domínio para o ONLYOFFICE Workspace";
+    };
+
+    enableBackup = mkOption {
+      type = types.bool;
+      default = true;
+      description = "Ativar backups automáticos diários dos bancos de dados";
     };
 
     database = {
       host = mkOption {
         type = types.str;
         default = "localhost";
-        description = "The Postgresql hostname OnlyOffice should use.";
       };
       name = mkOption {
         type = types.str;
         default = "onlyoffice";
-        description = "The name of database OnlyOffice should use. ";
       };
       user = mkOption {
         type = types.str;
         default = "onlyoffice";
-        description = "The username OnlyOffice should use to connect to Postgresql.";
       };
       passwordFile = mkOption {
         type = types.nullOr types.path;
@@ -42,15 +44,36 @@ in
   };
 
   config = mkIf cfg.enable {
-    # 1. Dependências de Sistema
+    # 1. Dependências de Sistema com Configurações de Segurança
     services.mysql = {
       enable = true;
       package = pkgs.mysql80;
+      settings = {
+        mysqld = {
+          innodb_flush_log_at_trx_commit = 1; # Máxima segurança contra perda de dados
+          innodb_doublewrite = 1;
+        };
+      };
     };
 
     services.postgresql = {
       enable = true;
       package = pkgs.postgresql;
+      settings = {
+        fsync = "on";
+        synchronous_commit = "on";
+      };
+    };
+
+    # Backups Automáticos
+    services.mysqlBackup = mkIf cfg.enableBackup {
+      enable = true;
+      databases = [ cfg.database.name ];
+    };
+
+    services.postgresqlBackup = mkIf cfg.enableBackup {
+      enable = true;
+      databases = [ cfg.database.name ];
     };
 
     services.redis.servers.onlyoffice = {
@@ -70,7 +93,7 @@ in
       enable = true;
       virtualHosts."${cfg.domain}" = {
         locations."/" = {
-          proxyPass = "http://127.0.0.1:8088"; # Porta padrão do Community Server
+          proxyPass = "http://127.0.0.1:8088";
           proxyWebsockets = true;
         };
       };
@@ -85,17 +108,41 @@ in
       pkgs.dotnet-sdk_7
     ];
 
-    # 4. Configuração de Systemd (Exemplo simplificado)
+    # 4. Configuração de Systemd com Dependências de Parada Segura
     systemd.services.onlyoffice-communityserver = {
       description = "ONLYOFFICE Community Server";
-      after = [ "mysql.service" "redis-onlyoffice.service" "rabbitmq.service" "elasticsearch.service" ];
+
+      # After: Garante ordem de início
+      # Requires: Se o banco parar, o OnlyOffice para imediatamente
+      after = [
+        "mysql.service"
+        "postgresql.service"
+        "redis-onlyoffice.service"
+        "rabbitmq.service"
+        "elasticsearch.service"
+        "network.target"
+      ];
+      requires = [
+        "mysql.service"
+        "postgresql.service"
+      ];
+
       wantedBy = [ "multi-user.target" ];
+
       serviceConfig = {
         ExecStart = "${pkgs.mono}/bin/mono ${oo-pkgs.communityServer}/var/www/onlyoffice/Services/TeamLabSvc/TeamLabSvc.exe";
         Restart = "always";
         User = "onlyoffice";
+
+        # Dá tempo para o serviço encerrar conexões antes do SIGKILL
+        TimeoutStopSec = "30s";
       };
     };
+
+    # Ajuste global para dar tempo aos bancos de dados no desligamento do sistema
+    systemd.extraConfig = ''
+      DefaultTimeoutStopSec=90s
+    '';
   };
 }
 

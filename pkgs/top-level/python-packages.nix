@@ -156,6 +156,8 @@ self: super: with self; {
 
   ahocorasick-rs = callPackage ../development/python-modules/ahocorasick-rs { };
 
+  ai-edge-litert = callPackage ../development/python-modules/ai-edge-litert { };
+
   aigpy = callPackage ../development/python-modules/aigpy { };
 
   ailment = callPackage ../development/python-modules/ailment { };
@@ -1715,7 +1717,7 @@ self: super: with self; {
   backoff = callPackage ../development/python-modules/backoff { };
 
   backports-asyncio-runner =
-    if pythonAtLeast "3.11" then
+    if pythonAtLeast "3.12" then
       null
     else
       callPackage ../development/python-modules/backports-asyncio-runner { };
@@ -1730,7 +1732,11 @@ self: super: with self; {
 
   backports-shutil-which = callPackage ../development/python-modules/backports-shutil-which { };
 
-  backports-strenum = callPackage ../development/python-modules/backports-strenum { };
+  backports-strenum =
+    if pythonAtLeast "3.11" then
+      null
+    else
+      callPackage ../development/python-modules/backports-strenum { };
 
   backports-tarfile = callPackage ../development/python-modules/backports-tarfile { };
 
@@ -4775,7 +4781,7 @@ self: super: with self; {
   eccodes = toPythonModule (
     pkgs.eccodes.override {
       enablePython = true;
-      pythonPackages = self;
+      python3Packages = self;
     }
   );
 
@@ -11074,6 +11080,8 @@ self: super: with self; {
 
   nvchecker = callPackage ../development/python-modules/nvchecker { };
 
+  nvdlfw-inspect = callPackage ../development/python-modules/nvdlfw-inspect { };
+
   nvdlib = callPackage ../development/python-modules/nvdlib { };
 
   nvidia-dlprof-pytorch-nvtx =
@@ -13377,7 +13385,7 @@ self: super: with self; {
 
   pyemvue = callPackage ../development/python-modules/pyemvue { };
 
-  pyenchant = callPackage ../development/python-modules/pyenchant { inherit (pkgs) enchant2; };
+  pyenchant = callPackage ../development/python-modules/pyenchant { inherit (pkgs) enchant_2; };
 
   pyenphase = callPackage ../development/python-modules/pyenphase { };
 
@@ -13644,6 +13652,8 @@ self: super: with self; {
   pyindego = callPackage ../development/python-modules/pyindego { };
 
   pyinfra = callPackage ../development/python-modules/pyinfra { };
+
+  pyinfra-testgen = callPackage ../development/python-modules/pyinfra-testgen { };
 
   pyinotify = callPackage ../development/python-modules/pyinotify { };
 
