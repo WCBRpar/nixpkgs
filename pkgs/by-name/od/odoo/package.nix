@@ -66,6 +66,7 @@ python.pkgs.buildPythonApplication rec {
     psutil
     psycopg2
     pyopenssl
+    pycairo
     pypdf2
     pyserial
     python-dateutil
@@ -85,6 +86,12 @@ python.pkgs.buildPythonApplication rec {
     xlwt
     zeep
   ];
+
+  nativeBuildInputs = with python.pkgs; [
+    # ADIÇÃO: Necessário para construir o backend cairo do reportlab
+    cairo
+  ;
+
 
   # takes 5+ minutes and there are not files to strip
   dontStrip = true;
