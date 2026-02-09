@@ -90,7 +90,7 @@ python.pkgs.buildPythonApplication rec {
   nativeBuildInputs = with python.pkgs; [
     # ADIÇÃO: Necessário para construir o backend cairo do reportlab
     cairo
-  ;
+  ];
 
 
   # takes 5+ minutes and there are not files to strip
