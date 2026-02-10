@@ -87,10 +87,10 @@ python.pkgs.buildPythonApplication rec {
     zeep
   ];
 
-  nativeBuildInputs = with python.pkgs; [
-    # ADIÇÃO: Necessário para construir o backend cairo do reportlab
-    cairo
-  ];
+  # nativeBuildInputs = with python.pkgs; [
+  #   # ADIÇÃO: Necessário para construir o backend cairo do reportlab
+  #   cairo
+  # ];
 
 
   # takes 5+ minutes and there are not files to strip
