@@ -12790,7 +12790,7 @@
     email = "jokatzke@fastmail.com";
     github = "jokatzke";
     githubId = 46931073;
-    name = "Jonas Katzke";
+    name = "Josefine Katzke";
   };
   joko = {
     email = "ioannis.koutras@gmail.com";
@@ -18785,6 +18785,13 @@
     github = "netthier";
     githubId = 66856670;
   };
+  nettika = {
+    email = "nettika@leaf.ninja";
+    name = "Nettika";
+    github = "nettika-cat";
+    githubId = 131948390;
+    keys = [ { fingerprint = "6AC6 0C6F FA92 94AD AEA7  8C03 C357 EE70 D502 7BCC"; } ];
+  };
   networkexception = {
     name = "networkException";
     email = "nix@nwex.de";
@@ -18847,6 +18854,12 @@
     github = "nhooyr";
     githubId = 10180857;
     name = "Anmol Sethi";
+  };
+  ni5arga = {
+    email = "hello@ni5arga.com";
+    github = "ni5arga";
+    githubId = 45588772;
+    name = "Nisarga Adhikary";
   };
   nialov = {
     email = "nikolasovaskainen@gmail.com";
@@ -23268,6 +23281,12 @@
     githubId = 12877905;
     name = "Roman Volosatovs";
   };
+  rwxd = {
+    email = "git@rwxd.de";
+    github = "rwxd";
+    githubId = 40308458;
+    name = "rwxd";
+  };
   rxiao = {
     email = "ben.xiao@me.com";
     github = "benxiao";
@@ -27046,6 +27065,12 @@
     githubId = 67477750;
     name = "Tomkoid";
   };
+  TomMD = {
+    name = "Thomas M. DuBuisson";
+    email = "thomas.dubuisson@gmail.com";
+    github = "TomMD";
+    githubId = 137806;
+  };
   Tommimon = {
     name = "Tommaso Montanari";
     email = "sefymw7q8@mozmail.com";
@@ -27071,6 +27096,12 @@
     github = "tonybanters";
     githubId = 27378358;
     name = "tony";
+  };
+  tonybutt = {
+    email = "anthony@abutt.io";
+    github = "tonybutt";
+    githubId = 38566841;
+    name = "Anthony Butt";
   };
   toonn = {
     email = "nixpkgs@toonn.io";
@@ -27705,6 +27736,12 @@
     github = "deviant";
     githubId = 68829907;
   };
+  v3rm1n0 = {
+    name = "Niklas Choinowski";
+    email = "niklas.choinowski@proton.me";
+    github = "v3rm1n0";
+    githubId = 57269010;
+  };
   vaavaav = {
     name = "Pedro Peixoto";
     github = "vaavaav";
@@ -27968,8 +28005,9 @@
   };
   vinetos = {
     name = "vinetos";
-    email = "vinetosdev@gmail.com";
+    email = "contact+git@vinetos.fr";
     github = "vinetos";
+    matrix = "@vinetos:matrix.org";
     githubId = 10145351;
   };
   vinnymeller = {
