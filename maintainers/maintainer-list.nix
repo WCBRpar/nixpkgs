@@ -28831,6 +28831,15 @@
     githubId = 168610;
     name = "Ricardo M. Correia";
   };
+  wjjunyor = {
+    email = "wjjunyor@gmail.com";
+    github = "wjjunyor";
+    githubId = 105697122;
+    name = "Walter Queiroz";
+    keys = {
+      fingerprint = "106E 97B7 A469 BDA6 4DF3  13C3 E040 13EF 23E5 D3D3";
+    };
+  };
   wkral = {
     email = "william.kral@gmail.com";
     github = "wkral";
