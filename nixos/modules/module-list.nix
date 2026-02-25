@@ -911,6 +911,7 @@
   ./services/misc/ollama.nix
   ./services/misc/ombi.nix
   ./services/misc/omnom.nix
+  ./services/misc/openapi-tools
   ./services/misc/open-webui.nix
   ./services/misc/orthanc.nix
   ./services/misc/osrm.nix
