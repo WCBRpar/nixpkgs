@@ -710,6 +710,10 @@ with pkgs;
 
   makeDesktopItem = callPackage ../build-support/make-desktopitem { };
 
+  installFonts = makeSetupHook {
+    name = "install-fonts-hook";
+  } ../build-support/setup-hooks/install-fonts.sh;
+
   copyPkgconfigItems = makeSetupHook {
     name = "copy-pkg-config-items-hook";
   } ../build-support/setup-hooks/copy-pkgconfig-items.sh;
@@ -990,13 +994,8 @@ with pkgs;
     akkuPackages
     ;
 
-  alice-tools = callPackage ../tools/games/alice-tools {
-    withGUI = false;
-  };
-
-  alice-tools-qt5 = libsForQt5.callPackage ../tools/games/alice-tools { };
-
-  alice-tools-qt6 = qt6Packages.callPackage ../tools/games/alice-tools { };
+  alice-tools-qt5 = alice-tools.override { withQt5 = true; };
+  alice-tools-qt6 = alice-tools.override { withQt6 = true; };
 
   auditwheel = with python3Packages; toPythonApplication auditwheel;
 
@@ -1621,10 +1620,6 @@ with pkgs;
     extraPackages = [ ffmpeg ];
   };
 
-  compactor = callPackage ../applications/networking/compactor {
-    protobuf = protobuf_21;
-  };
-
   inherit (callPackages ../tools/misc/coreboot-utils { })
     msrtool
     cbmem
@@ -1851,11 +1846,6 @@ with pkgs;
       );
 
   mkspiffs-presets = recurseIntoAttrs (callPackages ../by-name/mk/mkspiffs/presets.nix { });
-
-  mobilizon = callPackage ../servers/mobilizon {
-    beamPackages = beam.packages.erlang_27.extend (self: super: { elixir = self.elixir_1_18; });
-    mobilizon-frontend = callPackage ../servers/mobilizon/frontend.nix { };
-  };
 
   nltk-data = recurseIntoAttrs (callPackage ../tools/text/nltk-data { });
 
@@ -2181,17 +2171,13 @@ with pkgs;
     websocketSupport = true;
   };
 
-  curl = curlMinimal.override (
-    {
-      idnSupport = true;
-      pslSupport = true;
-      zstdSupport = true;
-      http3Support = true;
-    }
-    // lib.optionalAttrs (!stdenv.hostPlatform.isStatic) {
-      brotliSupport = true;
-    }
-  );
+  curl = curlMinimal.override {
+    idnSupport = true;
+    pslSupport = true;
+    zstdSupport = true;
+    http3Support = true;
+    brotliSupport = true;
+  };
 
   curlWithGnuTls = curl.override {
     gnutlsSupport = true;
@@ -2779,8 +2765,6 @@ with pkgs;
 
   maubot = with python3Packages; toPythonApplication maubot;
 
-  mautrix-telegram = recurseIntoAttrs (callPackage ../servers/mautrix-telegram { });
-
   m2r = with python3Packages; toPythonApplication m2r;
 
   md2gemini = with python3.pkgs; toPythonApplication md2gemini;
@@ -3174,6 +3158,12 @@ with pkgs;
 
   update-systemd-resolved = callPackage ../tools/networking/openvpn/update-systemd-resolved.nix { };
 
+  openshadinglanguage = callPackage ../by-name/op/openshadinglanguage/package.nix {
+    libclang = llvmPackages_19.libclang;
+    clang = clang_19;
+    llvm = llvm_19;
+  };
+
   opentelemetry-collector = opentelemetry-collector-releases.otelcol;
   opentelemetry-collector-builder = callPackage ../tools/misc/opentelemetry-collector/builder.nix { };
   opentelemetry-collector-contrib = opentelemetry-collector-releases.otelcol-contrib;
@@ -3189,12 +3179,6 @@ with pkgs;
 
   opl3bankeditor = libsForQt5.callPackage ../tools/audio/opl3bankeditor { };
   opn2bankeditor = libsForQt5.callPackage ../tools/audio/opl3bankeditor/opn2bankeditor.nix { };
-
-  osl = libsForQt5.callPackage ../development/compilers/osl {
-    libclang = llvmPackages_19.libclang;
-    clang = clang_19;
-    llvm = llvm_19;
-  };
 
   p4c = callPackage ../development/compilers/p4c {
     protobuf = protobuf_21;
@@ -3245,8 +3229,6 @@ with pkgs;
     ssh = openssh;
   };
 
-  pfstools = libsForQt5.callPackage ../tools/graphics/pfstools { };
-
   phosh = callPackage ../applications/window-managers/phosh { };
 
   phosh-mobile-settings =
@@ -3274,10 +3256,6 @@ with pkgs;
   playwright = playwright-driver;
   playwright-driver = (callPackage ../development/web/playwright/driver.nix { }).playwright-core;
   playwright-test = (callPackage ../development/web/playwright/driver.nix { }).playwright-test;
-
-  plex = callPackage ../servers/plex { };
-
-  plexRaw = callPackage ../servers/plex/raw.nix { };
 
   tabview = with python3Packages; toPythonApplication tabview;
 
@@ -3838,6 +3816,8 @@ with pkgs;
   devpi-server = python3Packages.callPackage ../development/tools/devpi-server { };
 
   dprint-plugins = recurseIntoAttrs (callPackage ../by-name/dp/dprint/plugins { });
+
+  reaction-plugins = reaction.passthru.plugins;
 
   elm2nix = haskell.lib.compose.justStaticExecutables haskellPackages.elm2nix;
 
@@ -8122,14 +8102,6 @@ with pkgs;
   };
   cassandra = cassandra_4;
 
-  apache-jena = callPackage ../servers/nosql/apache-jena/binary.nix {
-    java = jre;
-  };
-
-  apache-jena-fuseki = callPackage ../servers/nosql/apache-jena/fuseki-binary.nix {
-    java = jre;
-  };
-
   inherit (callPackages ../servers/asterisk { })
     asterisk
     asterisk-stable
@@ -8170,7 +8142,6 @@ with pkgs;
   freshrss = callPackage ../servers/web-apps/freshrss { };
   freshrss-extensions = recurseIntoAttrs (callPackage ../servers/web-apps/freshrss/extensions { });
 
-  grafana = callPackage ../servers/monitoring/grafana { };
   grafanaPlugins = recurseIntoAttrs (callPackages ../servers/monitoring/grafana/plugins { });
 
   inherit (callPackage ../servers/hbase { })
@@ -8187,16 +8158,22 @@ with pkgs;
 
   buildHomeAssistantComponent = callPackage ../servers/home-assistant/build-custom-component { };
   home-assistant-custom-components = recurseIntoAttrs (
-    lib.packagesFromDirectoryRecursive {
-      inherit (home-assistant.python.pkgs) callPackage;
-      directory = ../servers/home-assistant/custom-components;
-    }
+    lib.makeExtensible (
+      self:
+      lib.packagesFromDirectoryRecursive {
+        inherit (home-assistant.python.pkgs) callPackage;
+        directory = ../servers/home-assistant/custom-components;
+      }
+    )
   );
   home-assistant-custom-lovelace-modules = recurseIntoAttrs (
-    lib.packagesFromDirectoryRecursive {
-      inherit callPackage;
-      directory = ../servers/home-assistant/custom-lovelace-modules;
-    }
+    lib.makeExtensible (
+      self:
+      lib.packagesFromDirectoryRecursive {
+        inherit callPackage;
+        directory = ../servers/home-assistant/custom-lovelace-modules;
+      }
+    )
   );
 
   home-assistant-cli = callPackage ../servers/home-assistant/cli.nix { };
@@ -8245,10 +8222,6 @@ with pkgs;
     kanidmWithSecretProvisioning_1_9
     ;
 
-  leafnode = callPackage ../servers/news/leafnode { };
-
-  leafnode1 = callPackage ../servers/news/leafnode/1.nix { };
-
   lemmy-server = callPackage ../servers/web-apps/lemmy/server.nix { };
 
   lemmy-ui = callPackage ../servers/web-apps/lemmy/ui.nix {
@@ -8258,13 +8231,6 @@ with pkgs;
   mailmanPackages = recurseIntoAttrs (callPackage ../servers/mail/mailman { });
   inherit (mailmanPackages) mailman mailman-hyperkitty;
   mailman-web = mailmanPackages.web;
-
-  mastodon = callPackage ../servers/mastodon {
-    nodejs-slim = nodejs-slim_22;
-    python3 = python311;
-    ruby = ruby_3_3;
-    yarn-berry = yarn-berry_4.override { nodejs = nodejs-slim_22; };
-  };
 
   micro-full = micro.wrapper.override {
     extraPackages = [
@@ -8344,8 +8310,6 @@ with pkgs;
     ];
   };
 
-  nsd = callPackage ../servers/dns/nsd (config.nsd or { });
-
   nsdiff = perlPackages.nsdiff;
 
   openafs = callPackage ../servers/openafs/1.8 { };
@@ -8359,12 +8323,6 @@ with pkgs;
   system-sendmail = lowPrio (callPackage ../servers/mail/system-sendmail { });
 
   # PulseAudio daemons
-
-  hsphfpd = callPackage ../servers/pulseaudio/hsphfpd.nix { };
-
-  pulseaudio = callPackage ../servers/pulseaudio { };
-
-  qpaeq = libsForQt5.callPackage ../servers/pulseaudio/qpaeq.nix { };
 
   pulseaudioFull = pulseaudio.override {
     x11Support = true;
@@ -8407,16 +8365,6 @@ with pkgs;
     boost = boost179.override { enableShared = false; };
   };
 
-  influxdb = callPackage ../servers/nosql/influxdb { };
-  influxdb2-server = callPackage ../servers/nosql/influxdb2 { };
-  influxdb2-cli = callPackage ../servers/nosql/influxdb2/cli.nix { };
-  influxdb2-token-manipulator = callPackage ../servers/nosql/influxdb2/token-manipulator.nix { };
-  influxdb2-provision = callPackage ../servers/nosql/influxdb2/provision.nix { };
-  # For backwards compatibility with older versions of influxdb2,
-  # which bundled the server and CLI into the same derivation. Will be
-  # removed in a few releases.
-  influxdb2 = callPackage ../servers/nosql/influxdb2/combined.nix { };
-
   mysql80 = callPackage ../servers/sql/mysql/8.0.x.nix {
     inherit (darwin) developer_cmds DarwinTools;
     boost = boost177; # Configure checks for specific version.
@@ -8431,16 +8379,6 @@ with pkgs;
     mir
     mir_2_15
     ;
-
-  icinga2 = callPackage ../servers/monitoring/icinga2 { };
-
-  icinga2-agent = callPackage ../servers/monitoring/icinga2 {
-    nameSuffix = "-agent";
-    withMysql = false;
-    withNotification = false;
-    withIcingadb = false;
-    withPerfdata = false;
-  };
 
   nagiosPlugins = recurseIntoAttrs (callPackages ../servers/monitoring/nagios-plugins { });
 
@@ -8494,12 +8432,6 @@ with pkgs;
   public-inbox = perlPackages.callPackage ../servers/mail/public-inbox { };
 
   pypiserver = with python3Packages; toPythonApplication pypiserver;
-
-  rethinkdb = callPackage ../servers/nosql/rethinkdb {
-    stdenv = clangStdenv;
-    libtool = cctools;
-    protobuf = protobuf_21;
-  };
 
   samba4 = callPackage ../servers/samba/4.x.nix { };
 
@@ -9239,10 +9171,6 @@ with pkgs;
     '';
   };
 
-  nullmailer = callPackage ../servers/mail/nullmailer {
-    stdenv = gccStdenv;
-  };
-
   openmoji-color = callPackage ../data/fonts/openmoji { fontFormats = [ "glyf_colr_0" ]; };
 
   openmoji-black = callPackage ../data/fonts/openmoji { fontFormats = [ "glyf" ]; };
@@ -9930,33 +9858,6 @@ with pkgs;
 
   avalonia-ilspy = callPackage ../applications/misc/avalonia-ilspy {
     inherit (darwin) autoSignDarwinBinariesHook;
-  };
-
-  imagemagick6_light = imagemagick6.override {
-    bzip2Support = false;
-    zlibSupport = false;
-    libX11Support = false;
-    libXtSupport = false;
-    fontconfigSupport = false;
-    freetypeSupport = false;
-    ghostscriptSupport = false;
-    libjpegSupport = false;
-    djvulibreSupport = false;
-    lcms2Support = false;
-    openexrSupport = false;
-    libpngSupport = false;
-    liblqr1Support = false;
-    librsvgSupport = false;
-    libtiffSupport = false;
-    libxml2Support = false;
-    openjpegSupport = false;
-    libwebpSupport = false;
-    libheifSupport = false;
-    libde265Support = false;
-  };
-
-  imagemagick6Big = imagemagick6.override {
-    ghostscriptSupport = true;
   };
 
   imagemagick_light = lowPrio (
@@ -12516,7 +12417,12 @@ with pkgs;
 
   zncModules = recurseIntoAttrs (callPackage ../applications/networking/znc/modules.nix { });
 
-  dart = callPackage ../development/compilers/dart { };
+  inherit
+    ({
+      dart-bin = callPackage ../development/compilers/dart { };
+    })
+    dart-bin
+    ;
 
   inherit
     ({
@@ -12524,6 +12430,8 @@ with pkgs;
     })
     dart-source
     ;
+
+  dart = if stdenv.hostPlatform.isLinux then dart-source else dart-bin;
 
   pub2nix = recurseIntoAttrs (callPackage ../build-support/dart/pub2nix { });
 
@@ -12615,6 +12523,8 @@ with pkgs;
   bcompare = libsForQt5.callPackage ../applications/version-management/bcompare { };
 
   xp-pen-deco-01-v2-driver = libsForQt5.xp-pen-deco-01-v2-driver;
+
+  radicle-node-unstable = callPackage ../by-name/ra/radicle-node/unstable.nix { };
 
   newlib-nano = newlib.override {
     nanoizeNewlib = true;
