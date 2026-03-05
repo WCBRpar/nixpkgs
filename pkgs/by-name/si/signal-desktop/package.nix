@@ -55,13 +55,13 @@ let
     '';
   });
 
-  version = "8.0.0";
+  version = "8.1.0";
 
   src = fetchFromGitHub {
     owner = "signalapp";
     repo = "Signal-Desktop";
     tag = "v${version}";
-    hash = "sha256-7Z9VoqNYTrAdIAeXVijJofThYuMMcDTVykwdWrpOmX0=";
+    hash = "sha256-pxylCBDEHOxcJeo/117661UMHSIKS7NSVJhwU48hPiA=";
   };
 
   sticker-creator = stdenv.mkDerivation (finalAttrs: {
@@ -163,15 +163,15 @@ stdenv.mkDerivation (finalAttrs: {
     fetcherVersion = 3;
     hash =
       if withAppleEmojis then
-        "sha256-BsHBdN9pk3Fi6HRJuMmMD9QU/iie2m1jZy/zSsIO6Q8="
+        "sha256-XYLpn4yXEF0xBM2XkgeeGBCDQZepLvKwDJunbefq3XU="
       else
-        "sha256-3HLBKd2KzGWUuhIWCPx2teub9isYMHKYw0cgPVOueQI=";
+        "sha256-f0aOXmjw/RtQ70qQjwuGxRxhsFMk1jaqGr2Y1YOpMGg=";
   };
 
   env = {
     ELECTRON_SKIP_BINARY_DOWNLOAD = "1";
     SIGNAL_ENV = "production";
-    SOURCE_DATE_EPOCH = 1772057792;
+    SOURCE_DATE_EPOCH = 1772664318;
   }
   // lib.optionalAttrs stdenv.hostPlatform.isDarwin {
     # Disable code signing during local macOS builds.
@@ -316,7 +316,7 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   meta = {
-    description = "Private, simple, and secure messenger (nixpkgs build)";
+    description = "Private, simple, and secure messenger";
     longDescription = ''
       Signal Desktop is an Electron application that links with your
       "Signal Android" or "Signal iOS" app.
