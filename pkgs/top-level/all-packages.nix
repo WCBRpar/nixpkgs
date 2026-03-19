@@ -791,6 +791,7 @@ with pkgs;
     base-fontawesome = callPackage ../by-name/ba/base-fontawesome/package.nix { };
     base-fontawesome-web-editor = callPackage ../by-name/ba/base-fontawesome-web-editor/package.nix { };
     base-name-search-improved = callPackage ../by-name/ba/base-name-search-improved/package.nix { };
+    base-sequence-option = callPackage ../by-name/ba/base-sequence-option/package.nix { };
     bus-alt-connection = callPackage ../by-name/bu/bus-alt-connection/package.nix { };
     dbfilter-from-header = callPackage ../by-name/db/dbfilter-from-header/package.nix { };
     sequence-python = callPackage ../by-name/se/sequence-python/package.nix { };
