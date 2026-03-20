@@ -1332,9 +1332,6 @@ with pkgs;
 
   winetricks = callPackage ../applications/emulators/wine/winetricks.nix { };
 
-  zsnes = pkgsi686Linux.callPackage ../applications/emulators/zsnes { };
-  zsnes2 = pkgsi686Linux.callPackage ../applications/emulators/zsnes/2.x.nix { };
-
   ### APPLICATIONS/EMULATORS/RETROARCH
 
   libretro = recurseIntoAttrs (callPackage ../applications/emulators/libretro { });
@@ -1710,7 +1707,7 @@ with pkgs;
 
   coreboot-configurator = libsForQt5.callPackage ../tools/misc/coreboot-configurator { };
 
-  intel-oneapi = callPackage ../development/libraries/intel-oneapi { };
+  intel-oneapi = recurseIntoAttrs (callPackage ../development/libraries/intel-oneapi { });
 
   cambrinary = python3Packages.callPackage ../applications/misc/cambrinary { };
 
@@ -5045,7 +5042,6 @@ with pkgs;
 
   inherit (beam.interpreters)
     erlang
-    erlang_29
     erlang_28
     erlang_27
     erlang_26
@@ -11180,10 +11176,6 @@ with pkgs;
   };
   vertcoind = callPackage ../applications/blockchains/vertcoin {
     withGui = false;
-  };
-
-  zcash = callPackage ../applications/blockchains/zcash {
-    stdenv = llvmPackages.stdenv;
   };
 
   beancount = with python3.pkgs; toPythonApplication beancount;
