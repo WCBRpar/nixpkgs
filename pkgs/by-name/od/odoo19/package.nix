@@ -9,7 +9,7 @@
 
 let
   odoo_version = "19.0";
-  odoo_release = "20260104";
+  odoo_release = "20260326";
   python = python312.override {
     self = python;
   };
