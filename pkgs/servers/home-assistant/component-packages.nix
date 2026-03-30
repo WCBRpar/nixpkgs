@@ -2,7 +2,7 @@
 # Do not edit!
 
 {
-  version = "2026.3.3";
+  version = "2026.3.4";
   components = {
     "3_day_blinds" =
       ps: with ps; [
@@ -2351,7 +2351,8 @@
       ];
     "hegel" =
       ps: with ps; [
-      ]; # missing inputs: hegel-ip-client
+        hegel-ip-client
+      ];
     "heicko" =
       ps: with ps; [
       ];
@@ -2664,7 +2665,8 @@
       ];
     "hypontech" =
       ps: with ps; [
-      ]; # missing inputs: hyponcloud
+        hyponcloud
+      ];
     "ialarm" =
       ps: with ps; [
         pyialarm
@@ -2903,7 +2905,8 @@
       ];
     "intelliclima" =
       ps: with ps; [
-      ]; # missing inputs: pyintelliclima
+        pyintelliclima
+      ];
     "intellifire" =
       ps: with ps; [
         intellifire4py
@@ -4027,7 +4030,8 @@
       ];
     "mta" =
       ps: with ps; [
-      ]; # missing inputs: py-nymta
+        py-nymta
+      ];
     "mullvad" =
       ps: with ps; [
         mullvad-api
@@ -4050,7 +4054,8 @@
       ];
     "myneomitis" =
       ps: with ps; [
-      ]; # missing inputs: pyaxencoapi
+        pyaxencoapi
+      ];
     "myq" =
       ps: with ps; [
       ];
@@ -5156,7 +5161,8 @@
       ];
     "redgtech" =
       ps: with ps; [
-      ]; # missing inputs: redgtech-api
+        redgtech-api
+      ];
     "refoss" =
       ps: with ps; [
         refoss-ha
@@ -5392,7 +5398,8 @@
       ];
     "saunum" =
       ps: with ps; [
-      ]; # missing inputs: pysaunum
+        pysaunum
+      ];
     "scene" =
       ps: with ps; [
       ];
@@ -6103,7 +6110,8 @@
       ];
     "systemnexa2" =
       ps: with ps; [
-      ]; # missing inputs: python-sn2
+        python-sn2
+      ];
     "tado" =
       ps: with ps; [
         python-tado
@@ -6490,7 +6498,8 @@
       ];
     "trane" =
       ps: with ps; [
-      ]; # missing inputs: steamloop
+        steamloop
+      ];
     "transmission" =
       ps: with ps; [
         transmission-rpc
@@ -6519,8 +6528,9 @@
     "tuya" =
       ps: with ps; [
         ha-ffmpeg
+        tuya-device-handlers
         tuya-device-sharing-sdk
-      ]; # missing inputs: tuya-device-handlers
+      ];
     "twentemilieu" =
       ps: with ps; [
         twentemilieu
@@ -7209,7 +7219,8 @@
       ];
     "zinvolt" =
       ps: with ps; [
-      ]; # missing inputs: zinvolt
+        zinvolt
+      ];
     "zodiac" =
       ps: with ps; [
       ];
@@ -7585,6 +7596,7 @@
     "hddtemp"
     "hdfury"
     "hdmi_cec"
+    "hegel"
     "heos"
     "here_travel_time"
     "hikvision"
@@ -7626,6 +7638,7 @@
     "hvv_departures"
     "hydrawise"
     "hyperion"
+    "hypontech"
     "ialarm"
     "iaqualink"
     "ibeacon"
@@ -7656,6 +7669,7 @@
     "input_text"
     "insteon"
     "integration"
+    "intelliclima"
     "intellifire"
     "intent"
     "intent_script"
@@ -7808,10 +7822,12 @@
     "mqtt_json"
     "mqtt_room"
     "mqtt_statestream"
+    "mta"
     "mullvad"
     "music_assistant"
     "mutesync"
     "my"
+    "myneomitis"
     "myq"
     "mysensors"
     "mystrom"
@@ -7976,6 +7992,7 @@
     "recorder"
     "recovery_mode"
     "reddit"
+    "redgtech"
     "refoss"
     "rehlko"
     "remember_the_milk"
@@ -8013,6 +8030,7 @@
     "samsungtv"
     "sanix"
     "satel_integra"
+    "saunum"
     "scene"
     "schedule"
     "schlage"
@@ -8119,6 +8137,7 @@
     "system_health"
     "system_log"
     "systemmonitor"
+    "systemnexa2"
     "tado"
     "tag"
     "tailscale"
@@ -8174,11 +8193,13 @@
     "trafikverket_ferry"
     "trafikverket_train"
     "trafikverket_weatherstation"
+    "trane"
     "transmission"
     "transport_nsw"
     "trend"
     "triggercmd"
     "tts"
+    "tuya"
     "twentemilieu"
     "twilio"
     "twinkly"
@@ -8285,6 +8306,7 @@
     "zeversolar"
     "zha"
     "zimi"
+    "zinvolt"
     "zodiac"
     "zone"
     "zoneminder"

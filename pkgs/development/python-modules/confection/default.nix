@@ -19,14 +19,14 @@
 
 buildPythonPackage (finalAttrs: {
   pname = "confection";
-  version = "1.2.2";
+  version = "1.3.3";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "explosion";
     repo = "confection";
     tag = "release-v${finalAttrs.version}";
-    hash = "sha256-C7TAfr7Xq4C+JJI7/XWX1mTf2IvvOQT+q/nnGojhbFU=";
+    hash = "sha256-64QwxK0Rl67n5vb/CuRJw/42A/SE9/Q5gtqITggYqhg=";
   };
 
   build-system = [
