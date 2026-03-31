@@ -1,7 +1,7 @@
 { fetchOdooAddon }:
 fetchOdooAddon {
   pname = "mail-multicompany";
-  version = "18.0";
+  version = "19.0";
   owner = "OCA";
   repo = "multi-company";
   subdir = "mail_multicompany";

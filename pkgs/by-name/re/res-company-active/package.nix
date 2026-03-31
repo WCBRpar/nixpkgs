@@ -1,7 +1,7 @@
 { fetchOdooAddon }:
 fetchOdooAddon {
   pname = "res-company-active";
-  version = "18.0";
+  version = "19.0";
   owner = "OCA";
   repo = "multi-company";
   subdir = "res_company_active";
