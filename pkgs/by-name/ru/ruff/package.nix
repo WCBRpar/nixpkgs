@@ -16,18 +16,18 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "ruff";
-  version = "0.15.7";
+  version = "0.15.10";
 
   src = fetchFromGitHub {
     owner = "astral-sh";
     repo = "ruff";
     tag = finalAttrs.version;
-    hash = "sha256-aDRFNJKvxuHPYaZtoM+93DxJGsTPMLKGBH5QhIiTh0Y=";
+    hash = "sha256-x+zqgIJATDWimxbh/VGt94HFiUSD4H9QD/49hnHgfuQ=";
   };
 
   cargoBuildFlags = [ "--package=ruff" ];
 
-  cargoHash = "sha256-m3VkHXhjemXVOFFVSUOVz0xD2Rc2pMsP+dnMYQD29uI=";
+  cargoHash = "sha256-EQERi5NSMUK7qfFYWilzhacYlK4ShQl9Koz8t/8I6+U=";
 
   nativeBuildInputs = [ installShellFiles ];
 
