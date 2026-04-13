@@ -833,6 +833,9 @@ with pkgs;
 
   odooAddons = with pkgs; recurseIntoAttrs {
 
+    # redcom.digital-odoo-addons (18.0)
+    contacts-political-party-PT = callPackage ../by-name/co/contacts-political-party-PT/package.nix { };
+
     # server-tools (18.0)
     base-fontawesome = callPackage ../by-name/ba/base-fontawesome/package.nix { };
     base-fontawesome-web-editor = callPackage ../by-name/ba/base-fontawesome-web-editor/package.nix { };
