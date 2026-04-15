@@ -9,7 +9,7 @@
 
 let
   odoo_version = "19.0";
-  odoo_release = "20260326";
+  odoo_release = "20260414";
   python = python312.override {
     self = python;
   };
@@ -22,11 +22,11 @@ python.pkgs.buildPythonApplication rec {
   src = fetchzip {
     url = "https://nightly.odoo.com/${odoo_version}/nightly/src/odoo_${version}.zip";
     name = "odoo-${version}";
-    hash = "sha256-Jh7eiJkjDClkCIMmddBtLnexUF48J0hBN4vLxHysxvo=";
+    hash = "sha256-0vvh7gbpf4jcpaam0di5ipsrpi4r91a0dsnsvwv90i0kwr3lhf67=";
   };
 
   # Remove makeWrapperArgs para evitar duplicação
-  makeWrapperArgs = [ ];
+  # makeWrapperArgs = [ ];
 
   # Usa postFixup para criar o wrapper corretamente
   postFixup = ''
