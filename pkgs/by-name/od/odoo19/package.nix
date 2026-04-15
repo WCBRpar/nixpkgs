@@ -20,20 +20,20 @@ python.pkgs.buildPythonApplication rec {
   pyproject = true;
 
   src = fetchzip {
-    # find latest version on https://nightly.odoo.com/${odoo_version}/nightly/src
     url = "https://nightly.odoo.com/${odoo_version}/nightly/src/odoo_${version}.zip";
     name = "odoo-${version}";
-    hash = "sha256-Jh7eiJkjDClkCIMmddBtLnexUF48J0hBN4vLxHysxvo="; # odoo
+    hash = "sha256-Jh7eiJkjDClkCIMmddBtLnexUF48J0hBN4vLxHysxvo=";
   };
 
-  makeWrapperArgs = [
-    "--prefix PATH : ${
-      lib.makeBinPath [
-        wkhtmltopdf
-        rtlcss
-      ]
-    }"
-  ];
+  # Remove makeWrapperArgs para evitar duplicação
+  makeWrapperArgs = [ ];
+
+  # Usa postFixup para criar o wrapper corretamente
+  postFixup = ''
+    wrapProgram $out/bin/.odoo-wrapped \
+      --prefix PATH : ${lib.makeBinPath [ wkhtmltopdf rtlcss ]} \
+      --set PYTHONNOUSERSITE 1
+  '';
 
   build-system = with python.pkgs; [
     setuptools
@@ -86,7 +86,6 @@ python.pkgs.buildPythonApplication rec {
     zeep
   ];
 
-  # takes 5+ minutes and there are not files to strip
   dontStrip = true;
 
   passthru = {
