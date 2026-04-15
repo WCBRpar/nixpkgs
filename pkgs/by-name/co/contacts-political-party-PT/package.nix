@@ -1,7 +1,7 @@
 { fetchOdooAddon }:
 fetchOdooAddon {
   pname = "contacts-political-party-PT";
-  version = "18.0";
+  version = "19.0";
   owner = "redcomdigital";
   repo = "odoo-addons";
   subdir = "contacts-political-party-PT";
