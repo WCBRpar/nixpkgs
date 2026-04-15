@@ -4537,6 +4537,8 @@ self: super: with self; {
 
   dns-lexicon = callPackage ../development/python-modules/dns-lexicon { };
 
+  dnsight = callPackage ../development/python-modules/dnsight { };
+
   dnslib = callPackage ../development/python-modules/dnslib { };
 
   dnspython = callPackage ../development/python-modules/dnspython { };
@@ -6912,6 +6914,8 @@ self: super: with self; {
 
   hatch = callPackage ../development/python-modules/hatch/default.nix { };
 
+  hatch-argparse-manpage = callPackage ../development/python-modules/hatch-argparse-manpage { };
+
   hatch-autorun = callPackage ../development/python-modules/hatch-autorun { };
 
   hatch-babel = callPackage ../development/python-modules/hatch-babel { };
@@ -6925,6 +6929,8 @@ self: super: with self; {
       { };
 
   hatch-fancy-pypi-readme = callPackage ../development/python-modules/hatch-fancy-pypi-readme { };
+
+  hatch-gettext = callPackage ../development/python-modules/hatch-gettext { };
 
   hatch-jupyter-builder = callPackage ../development/python-modules/hatch-jupyter-builder { };
 
@@ -20512,6 +20518,8 @@ self: super: with self; {
   umodbus = callPackage ../development/python-modules/umodbus { };
 
   unasync = callPackage ../development/python-modules/unasync { };
+
+  uncalled-for = callPackage ../development/python-modules/uncalled-for { };
 
   uncertainties = callPackage ../development/python-modules/uncertainties { };
 

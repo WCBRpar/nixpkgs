@@ -9625,12 +9625,6 @@ with pkgs;
     }
   );
 
-  librespot = callPackage ../applications/audio/librespot {
-    withALSA = stdenv.hostPlatform.isLinux;
-    withPulseAudio = config.pulseaudio or stdenv.hostPlatform.isLinux;
-    withPortAudio = stdenv.hostPlatform.isDarwin;
-  };
-
   linssid = libsForQt5.callPackage ../applications/networking/linssid { };
 
   deadd-notification-center = haskell.lib.compose.justStaticExecutables (
@@ -9850,10 +9844,6 @@ with pkgs;
   };
 
   jackmix_jack1 = jackmix.override { jack = jack1; };
-
-  jwm = callPackage ../applications/window-managers/jwm { };
-
-  jwm-settings-manager = callPackage ../applications/window-managers/jwm/jwm-settings-manager.nix { };
 
   inherit (callPackage ../applications/networking/cluster/k3s { })
     k3s_1_33
