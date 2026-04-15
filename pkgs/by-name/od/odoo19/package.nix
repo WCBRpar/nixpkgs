@@ -22,7 +22,7 @@ python.pkgs.buildPythonApplication rec {
   src = fetchzip {
     url = "https://nightly.odoo.com/${odoo_version}/nightly/src/odoo_${version}.zip";
     name = "odoo-${version}";
-    hash = "sha256-w0b7cPwDRErB9HhkCXEQHaXND/Dqtnvr7JWbphwYJrg=";
+    hash = "sha256-BZwvw4PgWBx5553b7s2E1smbHhGhGxfzJe/axY6hk1o=";
   };
 
   # Remove makeWrapperArgs para evitar duplicação
