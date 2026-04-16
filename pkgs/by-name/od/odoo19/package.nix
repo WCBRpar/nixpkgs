@@ -9,7 +9,7 @@
 
 let
   odoo_version = "19.0";
-  odoo_release = "20260104";
+  odoo_release = "20260415";
   python = python312.override {
     self = python;
   };
@@ -23,7 +23,7 @@ python.pkgs.buildPythonApplication rec {
     # find latest version on https://nightly.odoo.com/${odoo_version}/nightly/src
     url = "https://nightly.odoo.com/${odoo_version}/nightly/src/odoo_${version}.zip";
     name = "odoo-${version}";
-    hash = "sha256-JsbJ39zPZm4eyRTXkvdCMHwYaA08yUxZXcLglRn3kWs="; # odoo
+    hash = "sha256-BZwvw4PgWBx5553b7s2E1smbHhGhGxfzJe/axY6hk1o="; # odoo
   };
 
   makeWrapperArgs = [
