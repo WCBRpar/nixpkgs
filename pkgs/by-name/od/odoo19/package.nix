@@ -1,7 +1,3 @@
---- odoo19-package-fixed.nix (原始)
-
-
-+++ odoo19-package-fixed.nix (修改后)
 {
   lib,
   fetchzip,
