@@ -5,7 +5,7 @@
   rtlcss,
   wkhtmltopdf,
   nixosTests,
-  bash,
+  stdenv,
 }:
 
 let
@@ -87,17 +87,16 @@ python.pkgs.buildPythonApplication rec {
     # Remove o binário .odoo-wrapped gerado automaticamente e o link 'odoo'
     rm -f $out/bin/.odoo-wrapped $out/bin/odoo
 
-    # Cria um wrapper bash limpo manualmente
+    # Cria um wrapper bash limpo manualmente usando wrapProgramShell do stdenv
     cat > $out/bin/odoo <<EOF
-#!${bash}/bin/bash
+#!${stdenv.shell}
 export PYTHONNOUSERSITE=1
 exec ${python.interpreter} $out/lib/python${python.libPrefix}/site-packages/odoo/__main__.py "\$@"
 EOF
     chmod +x $out/bin/odoo
 
     # Aplica o wrapping manual apenas para PATH (wkhtmltopdf e rtlcss)
-    ${bash}/bin/wrapProgram $out/bin/odoo \
-      --prefix PATH : ${lib.makeBinPath [ wkhtmltopdf rtlcss ]}
+    ${stdenv.shell} -c 'source ${stdenv}/setup; wrapProgramShell $out/bin/odoo --prefix PATH : ${lib.makeBinPath [ wkhtmltopdf rtlcss ]}'
   '';
 
   # takes 5+ minutes and there are not files to strip
