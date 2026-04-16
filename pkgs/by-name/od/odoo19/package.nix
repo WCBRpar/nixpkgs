@@ -1,3 +1,7 @@
+--- odoo19-package-fixed.nix (原始)
+
+
++++ odoo19-package-fixed.nix (修改后)
 {
   lib,
   fetchzip,
@@ -5,6 +9,7 @@
   rtlcss,
   wkhtmltopdf,
   nixosTests,
+  bash,
 }:
 
 let
@@ -20,20 +25,14 @@ python.pkgs.buildPythonApplication rec {
   pyproject = true;
 
   src = fetchzip {
+    # find latest version on https://nightly.odoo.com/ ${odoo_version}/nightly/src
     url = "https://nightly.odoo.com/${odoo_version}/nightly/src/odoo_${version}.zip";
     name = "odoo-${version}";
-    hash = "sha256-BZwvw4PgWBx5553b7s2E1smbHhGhGxfzJe/axY6hk1o=";
+    hash = "sha256-Jh7eiJkjDClkCIMmddBtLnexUF48J0hBN4vLxHysxvo="; # odoo
   };
 
-  # Remove makeWrapperArgs para evitar duplicação
-  # makeWrapperArgs = [ ];
-
-  # Usa postFixup para criar o wrapper corretamente
-  postFixup = ''
-    wrapProgram $out/bin/.odoo-wrapped \
-      --prefix PATH : ${lib.makeBinPath [ wkhtmltopdf rtlcss ]} \
-      --set PYTHONNOUSERSITE 1
-  '';
+  # Desabilita o wrapper automático defeituoso que causa SyntaxError
+  makeWrapperArgs = [];
 
   build-system = with python.pkgs; [
     setuptools
@@ -86,6 +85,26 @@ python.pkgs.buildPythonApplication rec {
     zeep
   ];
 
+  # Correção manual do wrapper para evitar SyntaxError de bash
+  # O wrapper automático do buildPythonApplication gera código bash inválido
+  postFixup = ''
+    # Remove o binário .odoo-wrapped gerado automaticamente e o link 'odoo'
+    rm -f $out/bin/.odoo-wrapped $out/bin/odoo
+
+    # Cria um wrapper bash limpo manualmente
+    cat > $out/bin/odoo <<EOF
+#!${bash}/bin/bash
+export PYTHONNOUSERSITE=1
+exec ${python.interpreter} $out/lib/python${python.libPrefix}/site-packages/odoo/__main__.py "\$@"
+EOF
+    chmod +x $out/bin/odoo
+
+    # Aplica o wrapping manual apenas para PATH (wkhtmltopdf e rtlcss)
+    ${bash}/bin/wrapProgram $out/bin/odoo \
+      --prefix PATH : ${lib.makeBinPath [ wkhtmltopdf rtlcss ]}
+  '';
+
+  # takes 5+ minutes and there are not files to strip
   dontStrip = true;
 
   passthru = {
