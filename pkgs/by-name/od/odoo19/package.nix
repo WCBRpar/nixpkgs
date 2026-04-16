@@ -23,7 +23,7 @@ python.pkgs.buildPythonApplication rec {
     # find latest version on https://nightly.odoo.com/${odoo_version}/nightly/src
     url = "https://nightly.odoo.com/${odoo_version}/nightly/src/odoo_${version}.zip";
     name = "odoo-${version}";
-    hash = "sha256-BZwvw4PgWBx5553b7s2E1smbHhGhGxfzJe/axY6hk1o="; # odoo
+    hash = "sha256-BQOdeDzBFX8AXLhGJ7VOdD362pY3FQcHfxhJRsXq6iM="; # odoo
   };
 
   makeWrapperArgs = [
