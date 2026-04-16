@@ -24,7 +24,7 @@ python.pkgs.buildPythonApplication rec {
     # find latest version on https://nightly.odoo.com/ ${odoo_version}/nightly/src
     url = "https://nightly.odoo.com/${odoo_version}/nightly/src/odoo_${version}.zip";
     name = "odoo-${version}";
-    hash = "sha256-Jh7eiJkjDClkCIMmddBtLnexUF48J0hBN4vLxHysxvo="; # odoo
+    hash = "sha256-BZwvw4PgWBx5553b7s2E1smbHhGhGxfzJe/axY6hk1o="; # odoo
   };
 
   # Desabilita o wrapper automático defeituoso que causa SyntaxError
