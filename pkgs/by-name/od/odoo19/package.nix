@@ -5,12 +5,11 @@
   rtlcss,
   wkhtmltopdf,
   nixosTests,
-  stdenv,
 }:
 
 let
   odoo_version = "19.0";
-  odoo_release = "20260414";
+  odoo_release = "20260104";
   python = python312.override {
     self = python;
   };
@@ -21,14 +20,20 @@ python.pkgs.buildPythonApplication rec {
   pyproject = true;
 
   src = fetchzip {
-    # find latest version on https://nightly.odoo.com/ ${odoo_version}/nightly/src
+    # find latest version on https://nightly.odoo.com/${odoo_version}/nightly/src
     url = "https://nightly.odoo.com/${odoo_version}/nightly/src/odoo_${version}.zip";
     name = "odoo-${version}";
-    hash = "sha256-BZwvw4PgWBx5553b7s2E1smbHhGhGxfzJe/axY6hk1o="; # odoo
+    hash = "sha256-JsbJ39zPZm4eyRTXkvdCMHwYaA08yUxZXcLglRn3kWs="; # odoo
   };
 
-  # Desabilita o wrapper automático defeituoso que causa SyntaxError
-  makeWrapperArgs = [];
+  makeWrapperArgs = [
+    "--prefix PATH : ${
+      lib.makeBinPath [
+        wkhtmltopdf
+        rtlcss
+      ]
+    }"
+  ];
 
   build-system = with python.pkgs; [
     setuptools
@@ -80,24 +85,6 @@ python.pkgs.buildPythonApplication rec {
     xlwt
     zeep
   ];
-
-  # Correção manual do wrapper para evitar SyntaxError de bash
-  # O wrapper automático do buildPythonApplication gera código bash inválido
-  postFixup = ''
-    # Remove o binário .odoo-wrapped gerado automaticamente e o link 'odoo'
-    rm -f $out/bin/.odoo-wrapped $out/bin/odoo
-
-    # Cria um wrapper bash limpo manualmente
-    cat > $out/bin/odoo <<EOF
-#!${stdenv.shell}
-export PYTHONNOUSERSITE=1
-exec ${python.interpreter} $out/lib/${python.sitePackages}/odoo/__main__.py "\$@"
-EOF
-    chmod +x $out/bin/odoo
-
-    # Aplica o wrapping manual apenas para PATH (wkhtmltopdf e rtlcss)
-    wrapProgramShell $out/bin/odoo --prefix PATH : ${lib.makeBinPath [ wkhtmltopdf rtlcss ]}
-  '';
 
   # takes 5+ minutes and there are not files to strip
   dontStrip = true;
