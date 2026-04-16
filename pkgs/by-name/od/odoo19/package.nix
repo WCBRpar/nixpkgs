@@ -1,3 +1,7 @@
+--- odoo19-package-fixed.nix (原始)
+
+
++++ odoo19-package-fixed.nix (修改后)
 {
   lib,
   fetchzip,
@@ -87,16 +91,16 @@ python.pkgs.buildPythonApplication rec {
     # Remove o binário .odoo-wrapped gerado automaticamente e o link 'odoo'
     rm -f $out/bin/.odoo-wrapped $out/bin/odoo
 
-    # Cria um wrapper bash limpo manualmente usando wrapProgramShell do stdenv
+    # Cria um wrapper bash limpo manualmente
     cat > $out/bin/odoo <<EOF
 #!${stdenv.shell}
 export PYTHONNOUSERSITE=1
-exec ${python.interpreter} $out/lib/python${python.libPrefix}/site-packages/odoo/__main__.py "\$@"
+exec ${python.interpreter} $out/lib/${python.sitePackages}/odoo/__main__.py "\$@"
 EOF
     chmod +x $out/bin/odoo
 
     # Aplica o wrapping manual apenas para PATH (wkhtmltopdf e rtlcss)
-    ${stdenv.shell} -c 'source ${stdenv}/setup; wrapProgramShell $out/bin/odoo --prefix PATH : ${lib.makeBinPath [ wkhtmltopdf rtlcss ]}'
+    wrapProgramShell $out/bin/odoo --prefix PATH : ${lib.makeBinPath [ wkhtmltopdf rtlcss ]}
   '';
 
   # takes 5+ minutes and there are not files to strip
