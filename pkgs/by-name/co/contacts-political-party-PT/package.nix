@@ -5,5 +5,5 @@ fetchOdooAddon {
   owner = "redcomdigital";
   repo = "odoo-addons";
   subdir = "contacts_political_party_PT";
-  hash = "sha256-1QAWxRpYp+TPq0dmpfjofQOfsWpkSEAQhrxpB4bVdZw=";
+  hash = "sha256-N98yEu3wQ5wbRe3jlZpZSom2xAeryCJ4VgNdpPFqU3A=";
 }
