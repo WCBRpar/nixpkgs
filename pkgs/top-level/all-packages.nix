@@ -797,6 +797,15 @@ with pkgs;
     # account-financial-reporting (19.0)
     partner-statement = callPackage ../by-name/pa/partner-statement/package.nix { };
 
+    # dms (18.0)
+    dms = callPackage ../by-name/dm/dms-odoo/package.nix { };
+    dms-auto-classification = callPackage ../by-name/dm/dms-auto-classification/package.nix { };
+    dms-field = callPackage ../by-name/dm/dms-field/package.nix { };
+    dms-field-auto-classification = callPackage ../by-name/dm/dms-field-auto-classification/package.nix { };
+    dms-user-role = callPackage ../by-name/dm/dms-user-role/package.nix { };
+    hr-dms-field = callPackage ../by-name/hr/hr-dms-field/package.nix { };
+    web-editor-media-dialog-dms = callPackage ../by-name/we/web-editor-media-dialog-dms/package.nix { };
+
     # multi-company (19.0)
     account-invoice-inter-company = callPackage ../by-name/ac/account-invoice-inter-company/package.nix { };
     mail-multicompany = callPackage ../by-name/ma/mail-multicompany/package.nix { };
