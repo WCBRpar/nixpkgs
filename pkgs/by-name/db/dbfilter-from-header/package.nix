@@ -6,5 +6,5 @@ fetchOdooAddon {
   owner = "OCA";
   repo = "server-tools";
   subdir = "dbfilter_from_header";       # ← nome original do módulo Odoo (com underscore)
-  hash = "sha256-D57hZTa4nRuZsM9uGOX1Gz44VtJpbdL0Bi0bTLvHQe8=";
+  hash = "sha256-gEvlLC1kYcgx8/uOrMBRGsKusXSTV1vq/z382a+yxAs=";
 }

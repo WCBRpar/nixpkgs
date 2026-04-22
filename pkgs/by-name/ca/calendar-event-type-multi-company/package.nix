@@ -5,5 +5,5 @@ fetchOdooAddon {
   owner = "OCA";
   repo = "multi-company";
   subdir = "calendar_event_type_multi_company";
-  hash = "sha256-b067GA5nqW7ivT5nPf8aDulILLePFIIax3iEidAKRlE=";
+  hash = "sha256-cxEsUOHWn4a1wr9aHoPpofZmY5eh8lxnppyN143iobk=";
 }

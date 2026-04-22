@@ -12,7 +12,7 @@ buildGoModule (finalAttrs: {
     owner = "anacrolix";
     repo = "dms";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-C1XcaPQp+T0scrCBsvqjJrmUR0N7mJOQC9Z2TxvtYc8=";
+    hash = "sha256-MHnGdFN3WKAdHipgQks9XJLCCn/euQ/P8fA6/WQlCgs=";
   };
 
   vendorHash = "sha256-f6Jl78ZPLD7Oq4Bq8MBQpHEKnBvpyTWZ9qHa1fGOlgA=";
