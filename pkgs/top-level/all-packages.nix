@@ -852,7 +852,7 @@ with pkgs;
     dms = callPackage ../by-name/dm/dms-odoo/package.nix { };
     dms-auto-classification = callPackage ../by-name/dm/dms-auto-classification/package.nix { };
     dms-field = callPackage ../by-name/dm/dms-field/package.nix { };
-    dms-field-auto-classifications = callPackage ../by-name/dm/dms-field-auto-classification/package.nix { };
+    dms-field-auto-classification = callPackage ../by-name/dm/dms-field-auto-classification/package.nix { };
     dms-user-role = callPackage ../by-name/dm/dms-user-role/package.nix { };
     hr-dms-field = callPackage ../by-name/hr/hr-dms-field/package.nix { };
     web-editor-media-dialog-dms = callPackage ../by-name/we/web-editor-media-dialog-dms/package.nix { };
