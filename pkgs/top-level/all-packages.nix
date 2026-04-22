@@ -797,6 +797,47 @@ with pkgs;
     # account-financial-reporting (19.0)
     partner-statement = callPackage ../by-name/pa/partner-statement/package.nix { };
 
+    # contracts (18.0)
+    agreement-rebate-partner-company-group = callPackage ../by-name/ag/agreement-rebate-partner-company-group/package.nix { };
+    contract = callPackage ../by-name/co/contract/package.nix { };
+    contract-analytic-tag = callPackage ../by-name/co/contract-analytic-tag/package.nix { };
+    contract-forecast = callPackage ../by-name/co/contract-forecast/package.nix { };
+    contract-forecast-variable-quantity = callPackage ../by-name/co/contract-forecast-variable-quantity/package.nix { };
+    contract-invoice-auto-validate = callPackage ../by-name/co/contract-invoice-auto-validate/package.nix { };
+    contract-invoice-manually = callPackage ../by-name/co/contract-invoice-manually/package.nix { };
+    contract-invoice-start-end-dates = callPackage ../by-name/co/contract-invoice-start-end-dates/package.nix { };
+    contract-line-successor = callPackage ../by-name/co/contract-line-successor/package.nix { };
+    contract-mandate = callPackage ../by-name/co/contract-mandate/package.nix { };
+    contract-payment-mode = callPackage ../by-name/co/contract-payment-mode/package.nix { };
+    contract-price-revision = callPackage ../by-name/co/contract-price-revision/package.nix { };
+    contract-queue-job = callPackage ../by-name/co/contract-queue-job/package.nix { };
+    contract-refund-on-stop = callPackage ../by-name/co/contract-refund-on-stop/package.nix { };
+    contract-sale = callPackage ../by-name/co/contract-sale/package.nix { };
+    contract-sale-generation = callPackage ../by-name/co/contract-sale-generation/package.nix { };
+    contract-sale-invoicing = callPackage ../by-name/co/contract-sale-invoicing/package.nix { };
+    contract-sale-mandate = callPackage ../by-name/co/contract-sale-mandate/package.nix { };
+    contract-sale-payment-mode = callPackage ../by-name/co/contract-sale-payment-mode/package.nix { };
+    contract-sale-transmit-method = callPackage ../by-name/co/contract-sale-transmit-method/package.nix { };
+    contract-termination = callPackage ../by-name/co/contract-termination/package.nix { };
+    contract-transmit-method = callPackage ../by-name/co/contract-transmit-method/package.nix { };
+    contract-update-last-date-invoiced = callPackage ../by-name/co/contract-update-last-date-invoiced/package.nix{ };
+    contract-variable-qty-prorated = callPackage ../by-name/co/contract-variable-qty-prorated/package.nix { };
+    contract-variable-qty-timesheet = callPackage ../by-name/co/contract-variable-qty-timesheet/package.nix { };
+    contract-variable-quantity = callPackage ../by-name/co/contract-variable-quantity/package.nix { };
+    product-contract = callPackage ../by-name/pr/product-contract/package.nix { };
+    product-contract-recurrence-in-price = callPackage ../by-name/pr/product-contract-recurrence-in-price/package.nix { };
+    product-contract-variable-quantity = callPackage ../by-name/pr/product-contract-variable-quantity/package.nix{ };
+    subscription-oca = callPackage ../by-name/su/subscription-oca/package.nix { };
+
+    # dms (18.0)
+    dms = callPackage ../by-name/dm/dms-odoo/package.nix { };
+    dms-auto-classification = callPackage ../by-name/dm/dms-auto-classification/package.nix { };
+    dms-field = callPackage ../by-name/dm/dms-field/package.nix { };
+    dms-field-auto-classification = callPackage ../by-name/dm/dms-field-auto-classification/package.nix { };
+    dms-user-role = callPackage ../by-name/dm/dms-user-role/package.nix { };
+    hr-dms-field = callPackage ../by-name/hr/hr-dms-field/package.nix { };
+    web-editor-media-dialog-dms = callPackage ../by-name/we/web-editor-media-dialog-dms/package.nix { };
+
     # multi-company (19.0)
     account-invoice-inter-company = callPackage ../by-name/ac/account-invoice-inter-company/package.nix { };
     mail-multicompany = callPackage ../by-name/ma/mail-multicompany/package.nix { };
