@@ -168,6 +168,7 @@
   ./programs/appimage.nix
   ./programs/arp-scan.nix
   ./programs/atop.nix
+  ./programs/atuin.nix
   ./programs/ausweisapp.nix
   ./programs/autoenv.nix
   ./programs/autojump.nix
@@ -1699,6 +1700,7 @@
   ./services/web-apps/librespeed.nix
   ./services/web-apps/libretranslate.nix
   ./services/web-apps/limesurvey.nix
+  ./services/web-apps/linkding.nix
   ./services/web-apps/linkwarden.nix
   ./services/web-apps/lubelogger.nix
   ./services/web-apps/mainsail.nix
@@ -1780,6 +1782,7 @@
   ./services/web-apps/stash.nix
   ./services/web-apps/stirling-pdf.nix
   ./services/web-apps/strfry.nix
+  ./services/web-apps/strichliste.nix
   ./services/web-apps/suwayomi-server.nix
   ./services/web-apps/szurubooru.nix
   ./services/web-apps/tabbyapi.nix
@@ -1833,6 +1836,7 @@
   ./services/web-servers/traefik.nix
   ./services/web-servers/trafficserver/default.nix
   ./services/web-servers/ttyd.nix
+  ./services/web-servers/tusd.nix
   ./services/web-servers/unit/default.nix
   ./services/web-servers/uwsgi.nix
   ./services/web-servers/varnish/default.nix

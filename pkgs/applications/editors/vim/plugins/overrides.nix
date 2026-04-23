@@ -1,6 +1,7 @@
 {
   lib,
   stdenv,
+  config,
   # nixpkgs functions
   buildGoModule,
   callPackage,
@@ -193,10 +194,8 @@ assertNoAdditions {
   };
 
   aider-nvim = super.aider-nvim.overrideAttrs {
-    patches = [
-      (replaceVars ./patches/aider-nvim/bin.patch {
-        aider = lib.getExe aider-chat;
-      })
+    runtimeDeps = [
+      aider-chat
     ];
   };
 
@@ -243,10 +242,8 @@ assertNoAdditions {
   };
 
   aw-watcher-vim = super.aw-watcher-vim.overrideAttrs {
-    patches = [
-      (replaceVars ./patches/aw-watcher-vim/program_paths.patch {
-        curl = lib.getExe curl;
-      })
+    runtimeDeps = [
+      curl
     ];
   };
 
@@ -326,6 +323,10 @@ assertNoAdditions {
 
   blink-cmp-git = super.blink-cmp-git.overrideAttrs {
     dependencies = [ self.plenary-nvim ];
+  };
+
+  blink-cmp-latex = super.blink-cmp-latex.overrideAttrs {
+    dependencies = [ self.blink-cmp ];
   };
 
   blink-cmp-nixpkgs-maintainers = super.blink-cmp-nixpkgs-maintainers.overrideAttrs {
@@ -1384,14 +1385,14 @@ assertNoAdditions {
     nvimSkipModules = [
       # lua module '.init' not found
       "fzy.fzy-lua-native"
+      # Requires removed Neovim internal module vim.treesitter._highlight
+      "guihua.ts_obsolete.highlight"
     ];
   };
 
   gx-nvim = super.gx-nvim.overrideAttrs {
-    patches = lib.optionals stdenv.hostPlatform.isLinux [
-      (replaceVars ./patches/gx-nvim/fix-paths.patch {
-        inherit xdg-utils;
-      })
+    runtimeDeps = [
+      xdg-utils
     ];
 
     nvimRequireCheck = "gx";
@@ -1833,6 +1834,16 @@ assertNoAdditions {
     };
   });
 
+  live-share-nvim = super.live-share-nvim.overrideAttrs (old: {
+    nvimSkipModules = (old.nvimSkipModules or [ ]) ++ [
+      # These modules unconditionally load OpenSSL via LuaJIT FFI and abort in
+      # the headless require check on Darwin.
+      "live-share.host"
+      "live-share.guest"
+      "live-share.collab.crypto"
+    ];
+  });
+
   lsp-format-modifications-nvim = super.lsp-format-modifications-nvim.overrideAttrs {
     dependencies = [ self.plenary-nvim ];
   };
@@ -1928,10 +1939,8 @@ assertNoAdditions {
       };
     in
     super.markdown-preview-nvim.overrideAttrs {
-      patches = [
-        (replaceVars ./patches/markdown-preview-nvim/fix-node-paths.patch {
-          node = "${nodejs}/bin/node";
-        })
+      runtimeDeps = [
+        nodejs
       ];
       postInstall = ''
         cp -r ${nodeDep} $out/app/node_modules
@@ -2802,10 +2811,17 @@ assertNoAdditions {
     nvimSkipModules = [ "install_parsers" ];
   };
 
-  # TODO: raise warning at 26.04; drop at 26.11
-  nvim-treesitter-legacy = super.nvim-treesitter-legacy.overrideAttrs (
-    callPackage ./nvim-treesitter-legacy/overrides.nix { } self super
-  );
+  # TODO: raise warning at 26.05; drop at 26.11
+  nvim-treesitter-legacy =
+    let
+      drv = super.nvim-treesitter-legacy.overrideAttrs (
+        callPackage ./nvim-treesitter-legacy/overrides.nix { } self super
+      );
+    in
+    if config.allowAliases then
+      lib.warnOnInstantiate "nvim-treesitter-legacy is deprecated, please migrate to the new version. This will become an error in 26.11" drv
+    else
+      drv;
 
   nvim-treesitter-pairs = super.nvim-treesitter-pairs.overrideAttrs {
     dependencies = [ self.nvim-treesitter-legacy ];
@@ -2971,9 +2987,12 @@ assertNoAdditions {
   # The plugin depends on either skim-vim or fzf-vim, but we don't want to force the user so we
   # avoid choosing one of them and leave it to the user
   openscad-nvim = super.openscad-nvim.overrideAttrs {
+    runtimeDeps = [
+      openscad
+    ];
+
     buildInputs = [
       zathura
-      htop
       openscad
     ];
 
@@ -2982,12 +3001,6 @@ assertNoAdditions {
       "openscad"
       "openscad.snippets.openscad"
       "openscad.utilities"
-    ];
-    patches = [
-      (replaceVars ./patches/openscad.nvim/program_paths.patch {
-        htop = lib.getExe htop;
-        openscad = lib.getExe openscad;
-      })
     ];
   };
 
@@ -3073,12 +3086,14 @@ assertNoAdditions {
   };
 
   peek-nvim = super.peek-nvim.overrideAttrs (old: {
+    runtimeDeps = [
+      deno
+    ];
+
     patches = [
       # Patch peek-nvim to run using nixpkgs deno
       # This means end-users have to build peek-nvim the first time they use it...
-      (replaceVars ./patches/peek-nvim/cmd.patch {
-        deno = lib.getExe deno;
-      })
+      ./patches/peek-nvim/cmd.patch
     ];
   });
 
@@ -3123,10 +3138,8 @@ assertNoAdditions {
   };
 
   Preview-nvim = super.Preview-nvim.overrideAttrs {
-    patches = [
-      (replaceVars ./patches/preview-nvim/hardcode-mdt-binary-path.patch {
-        mdt = lib.getExe md-tui;
-      })
+    runtimeDeps = [
+      md-tui
     ];
   };
 
@@ -3137,14 +3150,29 @@ assertNoAdditions {
     ];
   };
 
-  python-mode = super.python-mode.overrideAttrs {
-    postPatch = ''
+  python-mode = super.python-mode.overrideAttrs (old: {
+    postPatch = (old.postPatch or "") + ''
       # NOTE: Fix broken symlink - the pytoolconfig directory was moved to src/
       # https://github.com/python-mode/python-mode/pull/1189#issuecomment-3109528360
       rm -f pymode/libs/pytoolconfig
       ln -sf ../../submodules/pytoolconfig/src/pytoolconfig pymode/libs/pytoolconfig
+
+      # The current source tarball only ships a subset of the historical
+      # submodules, so drop the now-dangling vendored linter symlinks.
+      rm -f \
+        pymode/libs/appdirs.py \
+        pymode/libs/astroid \
+        pymode/libs/mccabe.py \
+        pymode/libs/pycodestyle.py \
+        pymode/libs/pydocstyle \
+        pymode/libs/pyflakes \
+        pymode/libs/pylama \
+        pymode/libs/pylint \
+        pymode/libs/snowballstemmer \
+        pymode/libs/toml \
+        pymode/autopep8.py
     '';
-  };
+  });
 
   pywal-nvim = super.pywal-nvim.overrideAttrs {
     # Optional feline integration
@@ -3193,11 +3221,9 @@ assertNoAdditions {
   };
 
   ranger-nvim = super.ranger-nvim.overrideAttrs {
-    patches = [ ./patches/ranger.nvim/fix-paths.patch ];
-
-    postPatch = ''
-      substituteInPlace lua/ranger-nvim.lua --replace-fail '@ranger@' ${ranger}/bin/ranger
-    '';
+    runtimeDeps = [
+      ranger
+    ];
   };
 
   refactoring-nvim = super.refactoring-nvim.overrideAttrs {
