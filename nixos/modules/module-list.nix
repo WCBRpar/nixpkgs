@@ -728,6 +728,7 @@
   ./services/home-automation/esphome.nix
   ./services/home-automation/evcc.nix
   ./services/home-automation/govee2mqtt.nix
+  ./services/home-automation/home-assistant-matter-hub.nix
   ./services/home-automation/home-assistant.nix
   ./services/home-automation/homebridge.nix
   ./services/home-automation/matter-server.nix
@@ -1213,7 +1214,6 @@
   ./services/networking/geph.nix
   ./services/networking/ghostunnel.nix
   ./services/networking/git-daemon.nix
-  ./services/networking/globalprotect-vpn.nix
   ./services/networking/gns3-server.nix
   ./services/networking/gnunet.nix
   ./services/networking/go-autoconfig.nix
@@ -1227,6 +1227,7 @@
   ./services/networking/hans.nix
   ./services/networking/haproxy.nix
   ./services/networking/harmonia.nix
+  ./services/networking/headplane.nix
   ./services/networking/headscale.nix
   ./services/networking/hickory-dns.nix
   ./services/networking/hostapd.nix
@@ -1309,6 +1310,7 @@
   ./services/networking/netbird.nix
   ./services/networking/netbird/server.nix
   ./services/networking/netclient.nix
+  ./services/networking/netfoil.nix
   ./services/networking/networkd-dispatcher.nix
   ./services/networking/networkmanager.nix
   ./services/networking/newt.nix
@@ -1321,6 +1323,7 @@
   ./services/networking/nix-store-gcs-proxy.nix
   ./services/networking/nixops-dns.nix
   ./services/networking/nm-file-secret-agent.nix
+  ./services/networking/nmtrust.nix
   ./services/networking/nncp.nix
   ./services/networking/nntp-proxy.nix
   ./services/networking/nomad.nix
@@ -1841,6 +1844,7 @@
   ./services/web-servers/unit/default.nix
   ./services/web-servers/uwsgi.nix
   ./services/web-servers/varnish/default.nix
+  ./services/web-servers/vinyl-cache/default.nix
   ./services/x11/clight.nix
   ./services/x11/colord.nix
   ./services/x11/desktop-managers/default.nix
