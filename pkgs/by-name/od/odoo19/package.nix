@@ -5,13 +5,60 @@
   rtlcss,
   wkhtmltopdf,
   nixosTests,
+  fetchFromGitHub,
+  fetchhg,
+  cmake,
 }:
 
 let
   odoo_version = "19.0";
   odoo_release = "20260415";
+
+  # Definimos as dependências problemáticas como pacotes Python internos
   python = python312.override {
     self = python;
+    packageOverrides = pythonFinal: pythonPrev: {
+
+      # freetype-py corrigido
+      freetype-py = pythonPrev.freetype-py.overrideAttrs (old: {
+        pname = "freetype-py";
+        version = "2.3.0";
+        pyproject = true;
+        src = fetchFromGitHub {
+          owner = "rougier";
+          repo = "freetype-py";
+          rev = "v2.3.0";
+          hash = "sha256-dZyULhsogicYniXRDaPFAq+tkGiG14SZsjM/raKtNxU=";
+        };
+        # Impedimos o hook do cmake de configurar o projeto como C++
+        dontUseCmakeConfigure = true;
+        nativeBuildInputs = (old.nativeBuildInputs or []) ++ [
+          cmake
+          pythonPrev.setuptools
+          pythonPrev.setuptools-scm
+        ];
+        propagatedBuildInputs = (old.propagatedBuildInputs or []) ++ [
+          pythonPrev.certifi
+        ];
+      });
+
+      # rlPyCairo adicionado
+      rlPyCairo = pythonPrev.buildPythonPackage ({
+        pname = "rlPyCairo";
+        version = "0.3.0";
+        pyproject = true;
+        src = fetchhg {
+          url = "https://hg.reportlab.com/hg-public/rlPyCairo";
+          rev = "3c6cc9281052";
+          hash = "sha256-KlGG1Qw/TYkq96cE2cwqftZKozprbbufh4xpWoXLOL8=";
+        };
+        build-system = [ pythonPrev.setuptools ];
+        dependencies = [
+          pythonPrev.pycairo
+          pythonFinal.freetype-py
+        ];
+      });
+    };
   };
 in
 python.pkgs.buildPythonApplication rec {
@@ -20,10 +67,9 @@ python.pkgs.buildPythonApplication rec {
   pyproject = true;
 
   src = fetchzip {
-    # find latest version on https://nightly.odoo.com/${odoo_version}/nightly/src
     url = "https://nightly.odoo.com/${odoo_version}/nightly/src/odoo_${version}.zip";
     name = "odoo-${version}";
-    hash = "sha256-BQOdeDzBFX8AXLhGJ7VOdD362pY3FQcHfxhJRsXq6iM="; # odoo
+    hash = "sha256-BQOdeDzBFX8AXLhGJ7VOdD362pY3FQcHfxhJRsXq6iM=";
   };
 
   makeWrapperArgs = [
@@ -75,6 +121,7 @@ python.pkgs.buildPythonApplication rec {
     pyusb
     qrcode
     reportlab
+    rlPyCairo # ADICIONADO AQUI
     requests
     rjsmin
     urllib3
@@ -86,7 +133,6 @@ python.pkgs.buildPythonApplication rec {
     zeep
   ];
 
-  # takes 5+ minutes and there are not files to strip
   dontStrip = true;
 
   passthru = {
