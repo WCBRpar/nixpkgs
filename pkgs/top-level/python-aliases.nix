@@ -258,6 +258,7 @@ mapAliases {
   homepluscontrol = throw "'homepluscontrol' has been removed as it was unmaintained upstream"; # Added 2026-03-22
   howdoi = throw "'howdoi' has been removed as it was unmaintained upstream"; # Added 2026-04-19
   HTSeq = throw "'HTSeq' has been renamed to/replaced by 'htseq'"; # Converted to throw 2025-10-29
+  ibmiotf = throw "'ibmiotf' has been removed as it was unmaintained upstream and the corresponding home-assistant integration was removed"; # Added 2026-05-04
   idna-ssl = throw "'idna-ssl' has been removed as it was archived upstream"; # Added 2026-04-23
   IMAPClient = throw "'IMAPClient' has been renamed to/replaced by 'imapclient'"; # Converted to throw 2025-10-29
   inlinestyler = throw "inlinestyler has been removed because it is no longer maintained"; # added 2025-08-09
@@ -278,6 +279,7 @@ mapAliases {
   JPype1 = throw "'JPype1' has been renamed to/replaced by 'jpype1'"; # Converted to throw 2025-10-29
   jsonfield = throw "'jsonfield' has been removed as it was broken and deprecated upstream. Consider using Django's native `JSONField` instead."; # Added 2025-11-08
   jsonpath_rw = throw "'jsonpath_rw' has been renamed to/replaced by 'jsonpath-rw'"; # Converted to throw 2025-10-29
+  jsonschema-spec = jsonschema-path;
   jupyter-server-ydoc = throw "'jupyter-server-ydoc' has been renamed to/replaced by 'jupyter-collaboration'"; # Converted to throw 2025-10-29
   jupyter_client = throw "'jupyter_client' has been renamed to/replaced by 'jupyter-client'"; # Converted to throw 2025-10-29
   jupyter_console = throw "'jupyter_console' has been renamed to/replaced by 'jupyter-console'"; # Converted to throw 2025-10-29

@@ -1117,7 +1117,6 @@
   ./services/network-filesystems/u9fs.nix
   ./services/network-filesystems/webdav-server-rs.nix
   ./services/network-filesystems/webdav.nix
-  ./services/network-filesystems/xtreemfs.nix
   ./services/network-filesystems/yandex-disk.nix
   ./services/networking/3proxy.nix
   ./services/networking/acme-dns.nix

@@ -2083,9 +2083,10 @@ with pkgs;
   };
 
   inherit (callPackage ../applications/networking/remote/citrix-workspace { })
+    citrix_workspace_26_01_0
     citrix_workspace_25_08_10
     ;
-  citrix_workspace = citrix_workspace_25_08_10;
+  citrix_workspace = citrix_workspace_26_01_0;
 
   colord-gtk4 = colord-gtk.override { withGtk4 = true; };
 
@@ -3583,12 +3584,10 @@ with pkgs;
 
   inherit (callPackages ../servers/varnish { })
     varnish60
-    varnish77
     varnish80
     ;
   inherit (callPackages ../servers/varnish/packages.nix { })
     varnish60Packages
-    varnish77Packages
     varnish80Packages
     ;
   varnishPackages = varnish80Packages;
@@ -4169,14 +4168,11 @@ with pkgs;
     }
   );
 
-  ghdl-mcode = callPackage ../by-name/gh/ghdl/package.nix { backend = "mcode"; };
+  ghdl-mcode = ghdl.override { backend = "mcode"; };
 
-  ghdl-gcc = callPackage ../by-name/gh/ghdl/package.nix { backend = "gcc"; };
+  ghdl-gcc = ghdl.override { backend = "gcc"; };
 
-  ghdl-llvm = callPackage ../by-name/gh/ghdl/package.nix {
-    backend = "llvm";
-    inherit (llvmPackages_20) llvm;
-  };
+  ghdl-llvm = ghdl.override { backend = "llvm"; };
 
   gcc-arm-embedded = gcc-arm-embedded-15;
 
@@ -7236,8 +7232,6 @@ with pkgs;
 
   pth = if stdenv.hostPlatform.isMusl then npth else gnupth;
 
-  pyotherside = libsForQt5.callPackage ../development/libraries/pyotherside { };
-
   qbs = libsForQt5.callPackage ../development/tools/build-managers/qbs { };
 
   qdjango = libsForQt5.callPackage ../development/libraries/qdjango { };
@@ -8065,6 +8059,8 @@ with pkgs;
   );
 
   home-assistant-cli = callPackage ../servers/home-assistant/cli.nix { };
+
+  _surrealdbPackage = ../by-name/su/surrealdb/package.nix;
 
   icingaweb2-ipl = callPackage ../servers/icingaweb2/ipl.nix { };
   icingaweb2-thirdparty = callPackage ../servers/icingaweb2/thirdparty.nix { };

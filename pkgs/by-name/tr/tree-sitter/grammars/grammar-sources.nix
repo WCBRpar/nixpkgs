@@ -2000,6 +2000,19 @@
     };
   };
 
+  plank = {
+    version = "0.1.0";
+    url = "github:plankevm/plank-monorepo";
+    hash = "sha256-B2UmV5i2ELlmzyrR8iFIOQcSpHeRQl4I6lxakMskolg=";
+    location = "plank-tree-sitter";
+    meta = {
+      license = lib.licenses.mit;
+      maintainers = with lib.maintainers; [
+        _0xferrous
+      ];
+    };
+  };
+
   po = {
     version = "0-unstable-2024-04-20";
     url = "github:erasin/tree-sitter-po";
@@ -2243,10 +2256,10 @@
   };
 
   rescript = {
-    version = "6.0.0-unstable-2026-04-26";
+    version = "0-unstable-2026-05-02";
     url = "github:rescript-lang/tree-sitter-rescript";
-    rev = "5b90cd4e4138b1231a67977303bda47eb608480a";
-    hash = "sha256-f5/z566/Ez8+jzQSXoWkEK3LJGYjWupQw+BFPDyOxsE=";
+    rev = "5c71bebe716dc89ca84b816f9646456dd85666cc";
+    hash = "sha256-45wPsR0ipBrd6R6SbL65EpIadAG0alQHzIXZhKJ9BkA=";
     meta = {
       license = lib.licenses.mit;
       maintainers = with lib.maintainers; [
@@ -2558,9 +2571,9 @@
   };
 
   swift = rec {
-    version = "0.7.1";
+    version = "0.7.2";
     url = "github:alex-pinkus/tree-sitter-swift/${version}-with-generated-files";
-    hash = "sha256-jVZpnwpcQ3sXE4hXQIHKzQgEE13pqE3fGqdRMjb1AOQ=";
+    hash = "sha256-tG+tM7B6901QP4QyJdf55V38b4XduSU1eb+gaP7BikE=";
     meta = {
       license = lib.licenses.mit;
       maintainers = with lib.maintainers; [
