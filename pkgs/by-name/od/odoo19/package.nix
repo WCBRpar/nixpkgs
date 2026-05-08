@@ -7,56 +7,43 @@
   nixosTests,
   fetchFromGitHub,
   fetchhg,
-  cmake,
 }:
 
 let
   odoo_version = "19.0";
-  odoo_release = "20260415";
+  odoo_release = "latest";
 
-  # Definimos as dependências problemáticas como pacotes Python internos
   python = python312.override {
     self = python;
     packageOverrides = pythonFinal: pythonPrev: {
 
-      # freetype-py corrigido
-      freetype-py = pythonPrev.freetype-py.overrideAttrs (old: {
-        pname = "freetype-py";
-        version = "2.3.0";
-        pyproject = true;
-        src = fetchFromGitHub {
-          owner = "rougier";
-          repo = "freetype-py";
-          rev = "v2.3.0";
-          hash = "sha256-dZyULhsogicYniXRDaPFAq+tkGiG14SZsjM/raKtNxU=";
-        };
-        # Impedimos o hook do cmake de configurar o projeto como C++
-        dontUseCmakeConfigure = true;
-        nativeBuildInputs = (old.nativeBuildInputs or []) ++ [
-          cmake
-          pythonPrev.setuptools
-          pythonPrev.setuptools-scm
-        ];
-        propagatedBuildInputs = (old.propagatedBuildInputs or []) ++ [
-          pythonPrev.certifi
-        ];
-      });
-
-      # rlPyCairo adicionado
+      # rlPyCairo: Adicionado para suporte a gráficos/PDF
       rlPyCairo = pythonPrev.buildPythonPackage ({
         pname = "rlPyCairo";
-        version = "0.3.0";
+        version = "0.4.0";
         pyproject = true;
         src = fetchhg {
           url = "https://hg.reportlab.com/hg-public/rlPyCairo";
-          rev = "3c6cc9281052";
-          hash = "sha256-KlGG1Qw/TYkq96cE2cwqftZKozprbbufh4xpWoXLOL8=";
+          rev = "a3e9ae26d82d";
+          hash = "sha256-9jAKmYwOkyqbXlK4Q0TO9Fc0jTebaShhyo1/NEroFzE=";
         };
         build-system = [ pythonPrev.setuptools ];
         dependencies = [
           pythonPrev.pycairo
-          pythonFinal.freetype-py
+          pythonPrev.freetype-py
         ];
+      } );
+
+      # Pin do PyPDF2 para compatibilidade com Odoo 19
+      pypdf2 = pythonPrev.pypdf2.overrideAttrs (old: rec {
+        version = "2.12.1";
+        src = fetchFromGitHub {
+          owner = "py-pdf";
+          repo = "PyPDF2";
+          rev = version;
+          hash = "sha256-51fnnu6T/SOcSK+yVAAugPN7mjCEqhy6nnpNP4ZTLk8=";
+        };
+        doCheck = false;
       });
     };
   };
@@ -69,7 +56,7 @@ python.pkgs.buildPythonApplication rec {
   src = fetchzip {
     url = "https://nightly.odoo.com/${odoo_version}/nightly/src/odoo_${version}.zip";
     name = "odoo-${version}";
-    hash = "sha256-BQOdeDzBFX8AXLhGJ7VOdD362pY3FQcHfxhJRsXq6iM=";
+    hash = "sha256-/u+GOsEPjF04q7Ec2wiLpAD2WqhT02Od7gVT707SNPU=";
   };
 
   makeWrapperArgs = [
@@ -121,7 +108,7 @@ python.pkgs.buildPythonApplication rec {
     pyusb
     qrcode
     reportlab
-    rlPyCairo # ADICIONADO AQUI
+    rlPyCairo
     requests
     rjsmin
     urllib3
@@ -138,7 +125,7 @@ python.pkgs.buildPythonApplication rec {
   passthru = {
     updateScript = ./update.sh;
     tests = {
-      inherit (nixosTests) odoo19;
+      inherit (nixosTests ) odoo19;
     };
   };
 
@@ -152,3 +139,4 @@ python.pkgs.buildPythonApplication rec {
     ];
   };
 }
+
