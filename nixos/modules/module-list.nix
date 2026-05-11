@@ -286,6 +286,7 @@
   ./programs/noisetorch.nix
   ./programs/npm.nix
   ./programs/ns-usbloader.nix
+  ./programs/nxdumpclient.nix
   ./programs/oblogout.nix
   ./programs/obs-studio.nix
   ./programs/oddjobd.nix
@@ -1768,6 +1769,7 @@
   ./services/web-apps/rimgo.nix
   ./services/web-apps/rss-bridge.nix
   ./services/web-apps/rsshub.nix
+  ./services/web-apps/rustical.nix
   ./services/web-apps/rutorrent.nix
   ./services/web-apps/screego.nix
   ./services/web-apps/selfoss.nix

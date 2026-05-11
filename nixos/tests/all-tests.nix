@@ -726,6 +726,7 @@ in
     imports = [ ./hbase.nix ];
     _module.args.getPackage = pkgs: pkgs.hbase_2_5;
   };
+  headplane = runTest ./headplane.nix;
   headscale = runTest ./headscale.nix;
   healthchecks = runTest ./web-apps/healthchecks.nix;
   hedgedoc = runTest ./hedgedoc.nix;
@@ -1177,15 +1178,27 @@ in
   octoprint = runTest ./octoprint.nix;
   oddjobd = handleTestOn [ "x86_64-linux" "aarch64-linux" ] ./oddjobd.nix { };
   odoo17 = runTest {
-    imports = [ ./odoo.nix ];
+    imports = [ ./odoo/single-process.nix ];
+    _module.args.package = pkgs.odoo17;
+  };
+  odoo17-multiprocess = runTest {
+    imports = [ ./odoo/multi-process.nix ];
     _module.args.package = pkgs.odoo17;
   };
   odoo18 = runTest {
-    imports = [ ./odoo.nix ];
+    imports = [ ./odoo/single-process.nix ];
+    _module.args.package = pkgs.odoo18;
+  };
+  odoo18-multiprocess = runTest {
+    imports = [ ./odoo/multi-process.nix ];
     _module.args.package = pkgs.odoo18;
   };
   odoo19 = runTest {
-    imports = [ ./odoo.nix ];
+    imports = [ ./odoo/single-process.nix ];
+    _module.args.package = pkgs.odoo19;
+  };
+  odoo19-multiprocess = runTest {
+    imports = [ ./odoo/multi-process.nix ];
     _module.args.package = pkgs.odoo19;
   };
   oh-my-zsh = runTest ./oh-my-zsh.nix;
@@ -1373,7 +1386,7 @@ in
   pulseaudio-tcp = runTest ./pulseaudio-tcp.nix;
   pykms = runTest ./pykms.nix;
   qbittorrent = runTest ./qbittorrent.nix;
-  qboot = handleTestOn [ "x86_64-linux" "i686-linux" ] ./qboot.nix { };
+  qboot = runTestOn [ "x86_64-linux" "i686-linux" ] ./qboot.nix;
   qemu-vm-credentials-fwcfg = runTest {
     imports = [ ./qemu-vm-credentials.nix ];
     _module.args.mechanism = "fw_cfg";
@@ -1457,6 +1470,7 @@ in
   rtkit = runTest ./rtkit.nix;
   rtorrent = runTest ./rtorrent.nix;
   rush = runTest ./rush.nix;
+  rustical = runTest ./web-apps/rustical.nix;
   rustls-libssl = runTest ./rustls-libssl.nix;
   rxe = runTest ./rxe.nix;
   sabnzbd = runTest ./sabnzbd.nix;
