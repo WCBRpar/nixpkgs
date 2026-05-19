@@ -5,5 +5,5 @@ fetchOdooAddon {
   owner = "OCA";
   repo = "multi-company";
   subdir = "account_invoice_inter_company";
-  hash = "sha256-Yj4fv7088df1oxrlI+l0Rfk6UXJ953qxvj3qJvqhCbM=";
+  hash = "sha256-b8D5vjv6/hUzWAJrTVjIDsXFkOyBX3GIXRe7tdK0Asg=";
 }

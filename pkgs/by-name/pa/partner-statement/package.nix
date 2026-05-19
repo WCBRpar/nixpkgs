@@ -5,5 +5,5 @@ fetchOdooAddon {
   owner = "OCA";
   repo = "account-financial-reporting";
   subdir = "partner_statement";
-  hash = "sha256-jPs/caQntk0GNkA2W/YP/QJJck1ikPwqQ1FHOyrJUic=";
+  hash = "sha256-TaW9h2tLFPPJI/RfnMPEwg2arJvBkgLM4dPdvkQYg6w=";
 }
