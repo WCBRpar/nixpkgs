@@ -2,12 +2,14 @@
   stdenv,
   lib,
   fetchFromGitHub,
+  buildPackages,
   coreutils,
   darwin,
   glibcLocales,
   gnused,
   gnugrep,
   gawk,
+  fish,
   man-db,
   ninja,
   getent,
@@ -183,7 +185,7 @@ stdenv.mkDerivation (finalAttrs: {
     #
     # See:
     #
-    # * <https://github.com/LnL7/nix-darwin/issues/122>
+    # * <https://github.com/nix-darwin/nix-darwin/issues/122>
     # * <https://github.com/fish-shell/fish-shell/issues/7142>
     ./nix-darwin-path.patch
 
@@ -281,12 +283,19 @@ stdenv.mkDerivation (finalAttrs: {
     pkg-config
     rustc
     rustPlatform.cargoSetupHook
-    (python3.withPackages (ps: [
+    (buildPackages.python3.withPackages (ps: [
       ps.pexpect
       ps.sphinx
     ]))
     # Avoid warnings when building the manpages about HOME not being writable
     writableTmpDirAsHomeHook
+  ]
+  ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
+    # Building the docs ends up wanting to run fish_indent at build
+    # time, which obviously can't use a cross compiled fish_indent
+    # from this derivation. Pull in the build platform's fish to
+    # provide it.
+    fish
   ];
 
   buildInputs = [

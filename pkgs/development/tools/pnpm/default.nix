@@ -25,6 +25,10 @@ let
       version = "10.33.4";
       hash = "sha256-jnDdxmSbGLw9iVzzqQjAKR6kw4A5rYcixH4Bja8enPw=";
     };
+    "11" = {
+      version = "11.4.0";
+      hash = "sha256-50EGpaDrJWn0WDUEQg6tX8HCY+QXoyFsqxy+DM3LTq4=";
+    };
   };
 
   callPnpm = variant: callPackage ./generic.nix { inherit (variant) version hash; };

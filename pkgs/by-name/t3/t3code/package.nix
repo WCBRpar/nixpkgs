@@ -18,6 +18,23 @@
   writableTmpDirAsHomeHook,
   writeDarwinBundle,
   xcbuild,
+  enableAzureDevOps ? false,
+  azure-cli,
+  azure-cli-extensions,
+  enableBitbucket ? false,
+  bitbucket-cli,
+  enableClaude ? false,
+  claude-code,
+  enableCodex ? true,
+  codex,
+  enableGitHub ? true,
+  gh,
+  enableGit ? true,
+  git,
+  enableGitLab ? false,
+  glab,
+  enableJujutsu ? false,
+  jujutsu,
 }:
 
 stdenv.mkDerivation (
@@ -30,6 +47,22 @@ stdenv.mkDerivation (
         "assets/prod/black-macos-1024.png"
       else
         "assets/prod/black-universal-1024.png";
+    runtimePackages =
+      lib.optionals enableAzureDevOps [
+        azure-cli.withExtensions
+        [ azure-cli-extensions.azure-devops ]
+      ]
+      ++ lib.optionals enableBitbucket [ bitbucket-cli ]
+      ++ lib.optionals enableClaude [ claude-code ]
+      ++ lib.optionals enableCodex [ codex ]
+      ++ lib.optionals enableGitHub [ gh ]
+      ++ lib.optionals enableGit [ git ]
+      ++ lib.optionals enableGitLab [ glab ]
+      ++ lib.optionals enableJujutsu [ jujutsu ];
+    runtimePathWrapperArgs = lib.optionalString (runtimePackages != [ ]) ''
+      \
+        --prefix PATH : ${lib.makeBinPath runtimePackages}
+    '';
     nodeModules = stdenvNoCC.mkDerivation {
       pname = "${finalAttrs.pname}-node_modules";
       inherit (finalAttrs) src version strictDeps;
@@ -43,29 +76,20 @@ stdenv.mkDerivation (
       dontConfigure = true;
       dontFixup = true;
 
-      postPatch = ''
-        substituteInPlace package.json \
-          --replace-fail '"prepare": "effect-language-service patch",' '"prepare": "true",'
-      '';
-
       buildPhase = ''
         runHook preBuild
 
+        # Use hoisted linker: Bun's default/isolated layout can race and omit
+        # cyclic peer dependency bin links (e.g. update-browserslist-db →
+        # browserslist). A manual .bin/browserslist symlink under .bun did not
+        # reliably fix builds; see https://github.com/oven-sh/bun/pull/29014.
         bun install \
+          --linker=hoisted \
           --cpu="*" \
           --ignore-scripts \
           --no-progress \
           --frozen-lockfile \
-          --os="linux" \
-          --os="darwin"
-
-        # Work around to prevent a Bun race that can omit this cyclic peer dependency bin link.
-        # See https://github.com/oven-sh/bun/pull/29014.
-        for updateBrowserslistDbBinDir in node_modules/.bun/update-browserslist-db@*/node_modules/.bin; do
-          if [ -d "$updateBrowserslistDbBinDir" ] && [ ! -e "$updateBrowserslistDbBinDir/browserslist" ]; then
-            ln -s ../browserslist/cli.js "$updateBrowserslistDbBinDir/browserslist"
-          fi
-        done
+          --os="*"
 
         runHook postBuild
       '';
@@ -75,18 +99,17 @@ stdenv.mkDerivation (
 
         mkdir --parents $out
         cp --recursive node_modules $out
-        find apps packages -type d -name node_modules -exec cp --recursive --parents {} $out \;
 
         runHook postInstall
       '';
 
-      outputHash = "sha256-zO4LNUxU0q/+kKBtRQKNTzWHnmGT4ONMRkyJem3ei/o=";
+      outputHash = "sha256-0wA39cSxybKPbZ1xXf+mcI4QSXJhLcNQ6x+o2xvLuq8=";
       outputHashMode = "recursive";
     };
   in
   {
     pname = "t3code";
-    version = "0.0.22";
+    version = "0.0.24";
     strictDeps = true;
     __structuredAttrs = true;
 
@@ -94,7 +117,7 @@ stdenv.mkDerivation (
       owner = "pingdotgg";
       repo = "t3code";
       tag = "v${finalAttrs.version}";
-      hash = "sha256-ZSUmu3FT+wpCLwpUv3yrFWC4EzcVvev9cZQ/FyeLjqI=";
+      hash = "sha256-7mqRuWft9h9MAEVzuwC6K1aj2UUAcjheWrwncXhpbro=";
     };
 
     postPatch = ''
@@ -128,9 +151,13 @@ stdenv.mkDerivation (
       chmod --recursive u+rwX node_modules
       patchShebangs node_modules
 
-      # Compile node-pty's native addon from the vendored bun store.
+      # Upstream bumps package.json versions after tagging releases, then applies
+      # the same bump in the release workflow before building artifacts.
+      bun scripts/update-release-package-versions.ts ${finalAttrs.version}
+
+      # Compile node-pty's native addon (hoisted into node_modules).
       export npm_config_nodedir=${nodejs}
-      cd node_modules/.bun/node-pty@*/node_modules/node-pty
+      cd node_modules/node-pty
       node-gyp rebuild
       node scripts/post-install.js
       cd -
@@ -162,8 +189,8 @@ stdenv.mkDerivation (
 
       mkdir --parents "$out"/libexec/t3code/apps/desktop "$out"/libexec/t3code/apps/server
       cp --recursive --no-preserve=mode node_modules "$out"/libexec/t3code
-      cp --recursive --no-preserve=mode apps/server/{node_modules,dist} "$out"/libexec/t3code/apps/server
-      cp --recursive --no-preserve=mode apps/desktop/{node_modules,dist-electron} "$out"/libexec/t3code/apps/desktop
+      cp --recursive --no-preserve=mode apps/server/dist "$out"/libexec/t3code/apps/server
+      cp --recursive --no-preserve=mode apps/desktop/dist-electron "$out"/libexec/t3code/apps/desktop
 
       mkdir --parents "$out"/libexec/t3code/apps/desktop/prod-resources
       install --mode=444 ${desktopIcon} \
@@ -172,11 +199,11 @@ stdenv.mkDerivation (
       find "$out"/libexec/t3code -xtype l -delete
 
       makeWrapper ${lib.getExe nodejs} "$out"/bin/t3code \
-        --add-flags "$out"/libexec/t3code/apps/server/dist/bin.mjs
+        --add-flags "$out"/libexec/t3code/apps/server/dist/bin.mjs ${runtimePathWrapperArgs}
 
       makeWrapper ${lib.getExe electron} "$out"/bin/t3code-desktop \
         --add-flags "$out"/libexec/t3code/apps/desktop/dist-electron/main.cjs \
-        --inherit-argv0
+        --inherit-argv0 ${runtimePathWrapperArgs}
     ''
     + lib.optionalString stdenv.hostPlatform.isDarwin ''
       mkdir --parents "$out/Applications/${appName}.app/Contents/"{MacOS,Resources}

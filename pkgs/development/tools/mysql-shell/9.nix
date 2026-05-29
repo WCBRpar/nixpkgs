@@ -73,6 +73,10 @@ stdenv.mkDerivation (finalAttrs: {
     substituteInPlace ../mysql/cmake/os/Darwin.cmake --replace-fail /usr/bin/libtool libtool
 
     substituteInPlace cmake/libutils.cmake --replace-fail /usr/bin/libtool libtool
+
+    ${lib.optionalString stdenv.hostPlatform.isDarwin ''
+      patch -d .. -p1 < ${./mysql-server-libcxx-21.patch}
+    ''}
   '';
 
   strictDeps = true;
@@ -116,8 +120,8 @@ stdenv.mkDerivation (finalAttrs: {
   ++ lib.optionals stdenv.hostPlatform.isLinux [ libtirpc ]
   ++ lib.optionals stdenv.hostPlatform.isDarwin [ darwin.libutil ];
 
-  env = {
-    ${if stdenv.cc.isGNU then "NIX_CFLAGS_COMPILE" else null} = "-Wno-error=maybe-uninitialized";
+  env = lib.optionalAttrs stdenv.cc.isGNU {
+    NIX_CFLAGS_COMPILE = "-Wno-error=maybe-uninitialized -Wno-error=array-bounds";
   };
 
   preConfigure = ''
