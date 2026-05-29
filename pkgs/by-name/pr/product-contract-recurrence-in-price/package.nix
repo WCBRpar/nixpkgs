@@ -6,5 +6,5 @@ fetchOdooAddon {
   owner = "OCA";
   repo = "contract";
   subdir = "product_contract_recurrence_in_price";
-  hash = "sha256-vwrC8gDfOXGBaFUA3m/8OZrmhPHYKzXeRgrRr1NSacs=";
+  hash = "sha256-lmAU+/avq+A1pNa3STRSbGPriG07KpExzKhZNQXfA9w=";
 }
