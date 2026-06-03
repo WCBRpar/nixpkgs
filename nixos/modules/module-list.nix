@@ -394,7 +394,6 @@
   ./security/ca.nix
   ./security/chromium-suid-sandbox.nix
   ./security/default.nix
-  ./security/dhparams.nix
   ./security/doas.nix
   ./security/duosec.nix
   ./security/google_oslogin.nix
@@ -1019,6 +1018,7 @@
   ./services/monitoring/das_watchdog.nix
   ./services/monitoring/datadog-agent.nix
   ./services/monitoring/do-agent.nix
+  ./services/monitoring/flap-alerted.nix
   ./services/monitoring/fluent-bit.nix
   ./services/monitoring/fusion-inventory.nix
   ./services/monitoring/gatus.nix
@@ -1794,6 +1794,7 @@
   ./services/web-apps/suwayomi-server.nix
   ./services/web-apps/szurubooru.nix
   ./services/web-apps/tabbyapi.nix
+  ./services/web-apps/tranquil-pds.nix
   ./services/web-apps/trilium.nix
   ./services/web-apps/tt-rss.nix
   ./services/web-apps/tuliprox.nix
