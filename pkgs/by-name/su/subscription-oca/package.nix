@@ -2,9 +2,9 @@
 
 fetchOdooAddon {
   pname = "subscription-oca";
-  version = "18.0";
+  version = "19.0";
   owner = "OCA";
   repo = "contract";
   subdir = "subscription_oca";
-  hash = "sha256-lmAU+/avq+A1pNa3STRSbGPriG07KpExzKhZNQXfA9w=";
+  hash = "sha256-ChpggGrDRzpvJEKpiVQuW00BLu713nVlFJshF0e0zys=";
 }

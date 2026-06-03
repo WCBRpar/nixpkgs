@@ -846,19 +846,25 @@ with pkgs;
     # redcom.digital-odoo-addons (18.0)
     contacts-political-party-PT = callPackage ../by-name/co/contacts-political-party-PT/package.nix { };
 
+    # server-tools (19,0)
+    bus-alt-connection = callPackage ../by-name/bu/bus-alt-connection/package.nix { };
+    module-auto-update = callPackage ../by-name/mo/module-auto-update/package.nix { } ;
+    sequence-python = callPackage ../by-name/se/sequence-python/package.nix { };
+
     # server-tools (18.0)
     base-fontawesome = callPackage ../by-name/ba/base-fontawesome/package.nix { };
     base-fontawesome-web-editor = callPackage ../by-name/ba/base-fontawesome-web-editor/package.nix { };
     base-name-search-improved = callPackage ../by-name/ba/base-name-search-improved/package.nix { };
     base-sequence-option = callPackage ../by-name/ba/base-sequence-option/package.nix { };
-    bus-alt-connection = callPackage ../by-name/bu/bus-alt-connection/package.nix { };
     dbfilter-from-header = callPackage ../by-name/db/dbfilter-from-header/package.nix { };
-    sequence-python = callPackage ../by-name/se/sequence-python/package.nix { };
 
     # account-financial-reporting (19.0)
     partner-statement = callPackage ../by-name/pa/partner-statement/package.nix { };
 
-    # contracts (18.0)
+    # contract (19.0)
+    subscription-oca = callPackage ../by-name/su/subscription-oca/package.nix { };
+
+    # contract (18,0)
     agreement-rebate-partner-company-group = callPackage ../by-name/ag/agreement-rebate-partner-company-group/package.nix { };
     contract = callPackage ../by-name/co/contract/package.nix { };
     contract-analytic-tag = callPackage ../by-name/co/contract-analytic-tag/package.nix { };
@@ -888,7 +894,6 @@ with pkgs;
     product-contract = callPackage ../by-name/pr/product-contract/package.nix { };
     product-contract-recurrence-in-price = callPackage ../by-name/pr/product-contract-recurrence-in-price/package.nix { };
     product-contract-variable-quantity = callPackage ../by-name/pr/product-contract-variable-quantity/package.nix{ };
-    subscription-oca = callPackage ../by-name/su/subscription-oca/package.nix { };
 
     # dms (18.0)
     dms = callPackage ../by-name/dm/dms-odoo/package.nix { };
@@ -902,8 +907,10 @@ with pkgs;
     # multi-company (19.0)
     account-invoice-inter-company = callPackage ../by-name/ac/account-invoice-inter-company/package.nix { };
     mail-multicompany = callPackage ../by-name/ma/mail-multicompany/package.nix { };
+    product-tax-multicompany-default = callPackage ../by-name/pr/product-tax-multicompany-default/package.nix { };
     purchase-sale-inter-company = callPackage ../by-name/pu/purchase-sale-inter-company/package.nix { };
     res-company-active = callPackage ../by-name/re/res-company-active/package.nix { };
+    res-company-search-view = callPackage ../by-name/re/res-company-search-view/package.nix { };
 
     # multi-company (18.0) - módulos não atualizados para 19.0
     account-multicompany-easy-creation = callPackage ../by-name/ac/account-multicompany-easy-creation/package.nix { };
@@ -923,32 +930,34 @@ with pkgs;
     pos-category-multicompany = callPackage ../by-name/po/pos-category-multicompany/package.nix { };
     product-multi-company = callPackage ../by-name/pr/product-multi-company/package.nix { };
     product-multi-company-stock = callPackage ../by-name/pr/product-multi-company-stock/package.nix { };
-    product-tax-multicompany-default = callPackage ../by-name/pr/product-tax-multicompany-default/package.nix { };
     purchase-sale-stock-inter-company = callPackage ../by-name/pu/purchase-sale-stock-inter-company/package.nix { };
     res-company-category = callPackage ../by-name/re/res-company-category/package.nix { };
     res-company-code = callPackage ../by-name/re/res-company-code/package.nix { };
-    res-company-search-view = callPackage ../by-name/re/res-company-search-view/package.nix { };
     res-partner-industry-multi-company = callPackage ../by-name/re/res-partner-industry-multi-company/package.nix { };
     utm-medium-multi-company = callPackage ../by-name/ut/utm-medium-multi-company/package.nix { };
     utm-source-multi-company = callPackage ../by-name/ut/utm-source-multi-company/package.nix { };
 
+    # l10n-brazil (19.0)
+    l10n-br-base = callPackage ../by-name/l1/l10n-br-base/package.nix { };
+    l10n-br-coa = callPackage ../by-name/l1/l10n-br-coa/package.nix { };
+    l10n-br-crm = callPackage ../by-name/l1/l10n-br-crm/package.nix { };
+    l10n-br-currency-rate-update = callPackage ../by-name/l1/l10n-br-currency-rate-update/package.nix { };
+    l10n-br-hr = callPackage ../by-name/l1/l10n-br-hr/package.nix { };
+    l10n-br-resource = callPackage ../by-name/l1/l10n-br-resource/package.nix { };
+    l10n-br-zip = callPackage ../by-name/l1/l10n-br-zip/package.nix { };
+
     # l10n-brazil (18.0)
     l10n-br-account-due-list = callPackage ../by-name/l1/l10n-br-account-due-list/package.nix { };
     l10n-br-account-payment-order = callPackage ../by-name/l1/l10n-br-account-payment-order/package.nix { };
-    l10n-br-base = callPackage ../by-name/l1/l10n-br-base/package.nix { };
     l10n-br-base-l10n-br-compat = callPackage ../by-name/l1/l10n-br-base-l10n-br-compat/package.nix { };
     l10n-br-cnpj-search = callPackage ../by-name/l1/l10n-br-cnpj-search/package.nix { };
-    l10n-br-coa = callPackage ../by-name/l1/l10n-br-coa/package.nix { };
-    l10n-br-crm = callPackage ../by-name/l1/l10n-br-crm/package.nix { };
     l10n-br-crm-cnpj-search = callPackage ../by-name/l1/l10n-br-crm-cnpj-search/package.nix { };
     l10n-br-cte-spec = callPackage ../by-name/l1/l10n-br-cte-spec/package.nix { };
-    l10n-br-currency-rate-update = callPackage ../by-name/l1/l10n-br-currency-rate-update/package.nix { };
     l10n-br-fiscal = callPackage ../by-name/l1/l10n-br-fiscal/package.nix { };
     l10n-br-fiscal-certificate = callPackage ../by-name/l1/l10n-br-fiscal-certificate/package.nix { };
     l10n-br-fiscal-dfe = callPackage ../by-name/l1/l10n-br-fiscal-dfe/package.nix { };
     l10n-br-fiscal-edi = callPackage ../by-name/l1/l10n-br-fiscal-edi/package.nix { };
     l10n-br-fiscal-notification = callPackage ../by-name/l1/l10n-br-fiscal-notification/package.nix { };
-    l10n-br-hr = callPackage ../by-name/l1/l10n-br-hr/package.nix { };
     l10n-br-hr-contract = callPackage ../by-name/l1/l10n-br-hr-contract/package.nix { };
     l10n-br-mdfe-spec = callPackage ../by-name/l1/l10n-br-mdfe-spec/package.nix { };
     l10n-br-mis-report = callPackage ../by-name/l1/l10n-br-mis-report/package.nix { };
@@ -956,7 +965,11 @@ with pkgs;
     l10n-br-nfse = callPackage ../by-name/l1/l10n-br-nfse/package.nix { };
     l10n-br-nfse-focus = callPackage ../by-name/l1/l10n-br-nfse-focus/package.nix { };
     l10n-br-sped-base = callPackage ../by-name/l1/l10n-br-sped-base/package.nix { };
-    l10n-br-zip = callPackage ../by-name/l1/l10n-br-zip/package.nix { };
+
+    # website (18.0)
+    website-odoo-debrand = callPackage ../by-name/we/website-odoo-debrand/package.nix { };
+    website-whatsapp = callPackage ../by-name/we/website-whatsapp/package.nix { };
+
   };
 
   ociTools = callPackage ../build-support/oci-tools { };
