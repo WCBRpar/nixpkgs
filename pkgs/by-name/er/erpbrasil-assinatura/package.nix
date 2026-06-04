@@ -5,7 +5,7 @@
   fetchFromGitHub,
   setuptools,
   lxml,
-  pyxb,
+  pyxb-x,
   cryptography,
   pyopenssl,
   signxml,
@@ -27,7 +27,7 @@ buildPythonPackage rec {
 
   dependencies = [
     lxml
-    pyxb
+    pyxb-x
     cryptography
     pyopenssl
     signxml

@@ -7,15 +7,15 @@
 }:
 
 buildPythonPackage rec {
-  pname = "pyxb";
-  version = "1.2.6";
+  pname = "pyxb-x";
+  version = "1.2.6.3";
   pyproject = true;
 
   src = fetchFromGitHub {
-    owner = "pabigot";
-    repo = "pyxb";
-    rev = "PyXB-${version}";
-    hash = "sha256-Pn6REZ+aE2Qlrczb2oyAagyFOa4ijR+hB+02O2SFSoA=";
+    owner = "renalreg";
+    repo = "PyXB-X";
+    rev = "v-${version}";
+    hash = "sha256-NIlFDxDtitpxJP/xkThpFD4MYJvt1zUc9nhd7sZquFo=";
   };
 
   build-system = [ setuptools ];
