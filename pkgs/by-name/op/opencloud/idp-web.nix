@@ -5,6 +5,7 @@
   pnpm_9,
   fetchPnpmDeps,
   pnpmConfigHook,
+  pnpmBuildHook,
   nodejs,
 }:
 stdenvNoCC.mkDerivation (finalAttrs: {
@@ -19,32 +20,27 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     pnpm = pnpm_9;
     sourceRoot = "${finalAttrs.src.name}/${finalAttrs.pnpmRoot}";
     fetcherVersion = 3;
-    hash = "sha256-p1hsRGSp/IwfxqwniqJc4c5pz5khYPW1g9WpfysEFnA=";
+    hash = "sha256-E0bP15T2Ekj992Y1xFXL/4rko34AY+I5Lbn+blJhXYg=";
   };
 
   nativeBuildInputs = [
     nodejs
     pnpmConfigHook
+    pnpmBuildHook
     pnpm_9
   ];
 
-  buildPhase = ''
-    runHook preBuild
-
-    cd $pnpmRoot
-    pnpm build
-    mkdir -p assets/identifier/static
-    cp -v src/images/favicon.svg assets/identifier/static/favicon.svg
-    cp -v src/images/icon-lilac.svg assets/identifier/static/icon-lilac.svg
-
-    runHook postBuild
+  postBuild = ''
+    mkdir -p services/idp/assets/identifier/static
+    cp -v services/idp/src/images/favicon.svg services/idp/assets/identifier/static/favicon.svg
+    cp -v services/idp/src/images/icon-lilac.svg services/idp/assets/identifier/static/icon-lilac.svg
   '';
 
   installPhase = ''
     runHook preInstall
 
     mkdir $out
-    cp -r assets $out
+    cp -r services/idp/assets $out
 
     runHook postInstall
   '';

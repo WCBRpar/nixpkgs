@@ -9,7 +9,7 @@
 
 let
   pname = "notesnook";
-  version = "3.3.14";
+  version = "3.3.20";
 
   inherit (stdenv.hostPlatform) system;
   throwSystem = throw "Unsupported system: ${system}";
@@ -27,10 +27,10 @@ let
     url = "https://github.com/streetwriters/notesnook/releases/download/v${version}/notesnook_${suffix}";
     hash =
       {
-        x86_64-linux = "sha256-fI9EI+XltHztwqVLLzHW49NqXNrxw4xZ1nxjEoz3D2o=";
-        aarch64-linux = "sha256-efg+g2ROR7rlWrcmeqL4y+YgbrOP/9Ylr5RqiLtMCNY=";
-        x86_64-darwin = "sha256-+cbrTM1w2nOROJvJOr4NBYyXw583aa3xOwYZVf10BCs=";
-        aarch64-darwin = "sha256-70EB93WXp8ds3izCvaAetmZgIq1PMNCTXXAgBcH1DSM=";
+        x86_64-linux = "sha256-4TMQAs4ovBc2HFPxu0aNGZpA+N/xUBgcforJqT7jSCg=";
+        aarch64-linux = "sha256-royjfwu8bU6FJY3M18c0fRoRoM1dwWzhkuftdZ/XKeI=";
+        x86_64-darwin = "sha256-iqZbOlSkCXMsDYUsImAVROeKb11Rj6vKVbyTDGayfzY=";
+        aarch64-darwin = "sha256-ozPAwuM3mTq8r9iD+kKAXzeb8Z5xYaMBbHyXx4UEhY8=";
       }
       .${system} or throwSystem;
   };
@@ -53,9 +53,7 @@ let
     '';
     homepage = "https://notesnook.com";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [
-      keysmashes
-    ];
+    maintainers = [ ];
     platforms = [
       "x86_64-linux"
       "aarch64-linux"

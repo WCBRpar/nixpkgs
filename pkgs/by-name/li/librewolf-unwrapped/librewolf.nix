@@ -1,4 +1,9 @@
-{ callPackage }:
+{
+  callPackage,
+  runCommand,
+  lib,
+  stdenv,
+}:
 let
   src = callPackage ./src.nix { };
 in
@@ -14,6 +19,8 @@ rec {
     # Flags based on discussion in https://github.com/NixOS/nixpkgs/issues/482250
     "--disable-debug"
     "--disable-debug-symbols"
+  ]
+  ++ lib.optionals stdenv.hostPlatform.isLinux [
     "--enable-lto=thin,cross"
   ];
 
@@ -51,7 +58,16 @@ rec {
     done
   '';
 
-  extraPrefsFiles = [ "${source}/settings/librewolf.cfg" ];
+  localSettingsPrefs = runCommand "local-settings.js" { } ''
+    # Import of `librewolf.cfg` file is already being done manually.
+    substitute ${source}/settings/defaults/pref/local-settings.js $out \
+      --replace-fail 'pref("general.config.filename", "librewolf.cfg");' ""
+  '';
+
+  extraPrefsFiles = [
+    "${source}/settings/librewolf.cfg"
+    localSettingsPrefs
+  ];
 
   extraPoliciesFiles = [ "${source}/settings/distribution/policies.json" ];
 

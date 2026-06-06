@@ -9,12 +9,12 @@
 
 buildPythonPackage (finalAttrs: {
   pname = "bincopy";
-  version = "20.1.0";
+  version = "20.1.1";
   format = "setuptools";
 
   src = fetchPypi {
     inherit (finalAttrs) pname version;
-    hash = "sha256-2KToy4Ltr7vjZ0FTN9GSbH2MRVYX5DvUsUVlN3K5uWU=";
+    hash = "sha256-6UpJi5pKvnZwPDdyqtRm8VY7T8mAnaeWXxG8dwlAk7k=";
   };
 
   propagatedBuildInputs = [
@@ -30,9 +30,7 @@ buildPythonPackage (finalAttrs: {
     mainProgram = "bincopy";
     homepage = "https://github.com/eerimoq/bincopy";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [
-      frogamic
-      sbruder
+    maintainers = [
     ];
   };
 })

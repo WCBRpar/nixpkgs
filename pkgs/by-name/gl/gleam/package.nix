@@ -12,20 +12,21 @@
   deno,
   versionCheckHook,
   nix-update-script,
+  writableTmpDirAsHomeHook,
 }:
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "gleam";
-  version = "1.15.4";
+  version = "1.17.0";
 
   src = fetchFromGitHub {
     owner = "gleam-lang";
     repo = "gleam";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-BTbBcmGOoII7GP68RNl/U2PCNQdG2vdwq1/3/brMuIc=";
+    hash = "sha256-lW57+JvinIHWhXuKagDcrfNDOUurIC53TjAxqrHN11I=";
   };
 
-  cargoHash = "sha256-+5sGYrqF8CKG5/G1QEQEnMZDFnE8D40TBGygdHBBthA=";
+  cargoHash = "sha256-Wbmi/GyoflpDEnFC+1FicxqFJgOa8O2iUHwB7JcDuyU=";
 
   nativeBuildInputs = [
     pkg-config
@@ -42,6 +43,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
     nodejs
     bun
     deno
+
+    writableTmpDirAsHomeHook
   ];
 
   checkFlags = [
@@ -78,7 +81,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     description = "Statically typed language for the Erlang VM";
     mainProgram = "gleam";
     homepage = "https://gleam.run/";
-    changelog = "https://github.com/gleam-lang/gleam/blob/v${finalAttrs.version}/CHANGELOG.md";
+    changelog = "https://github.com/gleam-lang/gleam/blob/v${finalAttrs.version}/changelog/v${lib.versions.majorMinor finalAttrs.version}.md";
     license = lib.licenses.asl20;
     maintainers = with lib.maintainers; [
       philtaken

@@ -22,16 +22,16 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "mise";
-  version = "2026.4.6";
+  version = "2026.5.15";
 
   src = fetchFromGitHub {
     owner = "jdx";
     repo = "mise";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-tdHjJjLwnf0/0ZxVb9+tgCD8cD8/3TEE3hw6dM3fKtY=";
+    hash = "sha256-0yf6OlPJ8/Oa9tNZRhIW/hX5qMwpz//Q9Df8LqPWR9k=";
   };
 
-  cargoHash = "sha256-8JLwlEqxt8Ixg/b67ZICBBoOjGw8PFIYzNIBRiBJ8OA=";
+  cargoHash = "sha256-o9o4kIjNNnbMaY3i/onrAaT/f0zgz9xE27SURlUtGik=";
 
   nativeBuildInputs = [
     installShellFiles
@@ -64,6 +64,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
   nativeCheckInputs = [
     cacert
     cmake
+    # gix spawns git-upload-pack by name in file:// clone tests.
+    git
     rustPlatform.bindgenHook
   ];
 
@@ -83,6 +85,9 @@ rustPlatform.buildRustPackage (finalAttrs: {
   cargoTestFlags = [ "--all-features" ];
   # some tests access the same folders, don't test in parallel to avoid race conditions
   dontUseCargoParallelTests = true;
+
+  # HTTP tests use mock servers that bind to localhost. Without this, darwin builds fail.
+  __darwinAllowLocalNetworking = true;
 
   postInstall = ''
     installManPage ./man/man1/mise.1

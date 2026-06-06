@@ -23,7 +23,7 @@
 
 buildPythonPackage rec {
   pname = "pypdf";
-  version = "6.10.0";
+  version = "6.12.2";
   pyproject = true;
 
   src = fetchFromGitHub {
@@ -32,7 +32,7 @@ buildPythonPackage rec {
     tag = version;
     # fetch sample files used in tests
     fetchSubmodules = true;
-    hash = "sha256-eAbA6vIRJ/wX5r/X218UG2yEqtGTuDAKFpLB702HvM0=";
+    hash = "sha256-rRvRAasPgE5nCChYJYB9olSE3RWmztYSJoAbmh+a3Q0=";
   };
 
   outputs = [

@@ -9,13 +9,13 @@
 }:
 let
   pname = "open-webui";
-  version = "0.9.1";
+  version = "0.9.6";
 
   src = fetchFromGitHub {
     owner = "open-webui";
     repo = "open-webui";
     tag = "v${version}";
-    hash = "sha256-INUxpLGN+Jn2oYggA9kkp1zGY+LPQNXuRop4DaOi9Ps=";
+    hash = "sha256-0d9GfBQY6YtsUbHeO6NTFPFHV6WE51D4fq+NfsM7J5g=";
   };
 
   frontend = buildNpmPackage rec {
@@ -24,21 +24,15 @@ let
 
     # the backend for run-on-client-browser python execution
     # must match lock file in open-webui
-    # TODO: should we automate this?
-    # TODO: with JQ? "jq -r '.packages["node_modules/pyodide"].version' package-lock.json"
-    pyodideVersion = "0.28.2";
+    pyodideVersion = "0.28.3";
     pyodide = fetchurl {
-      hash = "sha256-MQIRdOj9yVVsF+nUNeINnAfyA6xULZFhyjuNnV0E5+c=";
+      hash = "sha256-fcqubT8VmGoJ8PnmxHE6DA8kv/DJDHToWoFyPxvGCUA=";
       url = "https://github.com/pyodide/pyodide/releases/download/${pyodideVersion}/pyodide-${pyodideVersion}.tar.bz2";
     };
 
-    npmDepsHash = "sha256-tn76LGDLRaR87VM0pHgkutsbg4X4Kco04HwgGSS8Uug=";
+    npmDepsHash = "sha256-NhDsqfP95RAbSarM07OSII8vbPYWScRMxtWt+gRQ/4c=";
 
-    # See https://github.com/open-webui/open-webui/issues/15880
-    npmFlags = [
-      "--force"
-      "--legacy-peer-deps"
-    ];
+    npmFlags = [ "--force" ];
 
     # Disabling `pyodide:fetch` as it downloads packages during `buildPhase`
     # Until this is solved, running python packages from the browser will not work.
@@ -99,7 +93,6 @@ python3Packages.buildPythonApplication (finalAttrs: {
       argon2-cffi
       asgiref
       async-timeout
-      asyncpg
       authlib
       azure-ai-documentintelligence
       azure-identity
@@ -109,6 +102,7 @@ python3Packages.buildPythonApplication (finalAttrs: {
       black
       boto3
       brotli
+      brotlicffi
       chardet
       chromadb
       cryptography
@@ -160,6 +154,7 @@ python3Packages.buildPythonApplication (finalAttrs: {
       peewee-migrate
       pillow
       psutil
+      psycopg
       pyarrow
       pycrdt
       pydub
@@ -185,6 +180,7 @@ python3Packages.buildPythonApplication (finalAttrs: {
       sentence-transformers
       sentencepiece
       soundfile
+      sqlalchemy
       starlette-compress
       starsessions
       tiktoken
@@ -194,7 +190,9 @@ python3Packages.buildPythonApplication (finalAttrs: {
       xlrd
       youtube-transcript-api
     ]
+    ++ psycopg.optional-dependencies.c
     ++ pyjwt.optional-dependencies.crypto
+    ++ sqlalchemy.optional-dependencies.asyncio
     ++ starsessions.optional-dependencies.redis;
 
   optional-dependencies = with python3Packages; {
@@ -215,7 +213,6 @@ python3Packages.buildPythonApplication (finalAttrs: {
       azure-search-documents
       colbert-ai
       elasticsearch
-      firecrawl-py
       gcp-storage-emulator
       moto
       oracledb

@@ -16,13 +16,13 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "gearboy";
-  version = "3.8.2";
+  version = "3.8.6";
 
   src = fetchFromGitHub {
     owner = "drhelius";
     repo = "Gearboy";
     tag = finalAttrs.version;
-    hash = "sha256-JgvTt/nUV2CiSJNC3NnKpoa28xAMhRxEh9txqE9FPzU=";
+    hash = "sha256-HdTypXuIVMl3y83RbjNviAtgl2KwCU+faI6ZcG2P/LY=";
   };
 
   __structuredAttrs = true;

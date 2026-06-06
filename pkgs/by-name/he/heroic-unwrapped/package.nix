@@ -29,13 +29,13 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "heroic-unwrapped";
-  version = "2.21.0";
+  version = "2.22.0";
 
   src = fetchFromGitHub {
     owner = "Heroic-Games-Launcher";
     repo = "HeroicGamesLauncher";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-rgLmm9krjPYjSn/wGAYbnFw7kqvuu9IBipb4ibOClOw=";
+    hash = "sha256-RDJDeL5exEzF2BhEWoiXWsTpV5hytrB6RDoXV0mTWTw=";
   };
 
   pnpmDeps = fetchPnpmDeps {
@@ -47,7 +47,7 @@ stdenv.mkDerivation (finalAttrs: {
       ;
     inherit pnpm;
     fetcherVersion = 3;
-    hash = "sha256-O3QQsk8pvF9U5QvuMebCsy/iYz1oZIMkPeMtWohqW3w=";
+    hash = "sha256-lPHL6pA39hvEtq5WkcAXfcY3a0VPseQL/nI+oEjIZeE=";
   };
 
   nativeBuildInputs = [
@@ -86,7 +86,7 @@ stdenv.mkDerivation (finalAttrs: {
     runHook preInstall
 
     mkdir -p "$out/opt/heroic"
-    cp -r dist/linux-unpacked/resources "$out/opt/heroic"
+    cp -r dist/*-unpacked/resources "$out/opt/heroic"
 
     bin_dir="$out/opt/heroic/resources/app.asar.unpacked/build/bin"
 
@@ -111,7 +111,13 @@ stdenv.mkDerivation (finalAttrs: {
     makeWrapper "${lib.getExe electron}" "$out/bin/heroic" \
       --inherit-argv0 \
       --set ELECTRON_FORCE_IS_PACKAGED 1 \
-      --suffix PATH ":" "${umu-launcher}/bin" \
+      --suffix PATH ":" "${
+        lib.makeBinPath (
+          lib.optionals (stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isx86_64) [
+            umu-launcher
+          ]
+        )
+      }" \
       --add-flags --disable-gpu-compositing \
       --add-flags $out/opt/heroic/resources/app.asar \
       --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations --enable-wayland-ime=true}}"
@@ -141,10 +147,10 @@ stdenv.mkDerivation (finalAttrs: {
       baksa
     ];
     # Heroic may work on nix-darwin, but it needs a dedicated maintainer for the platform.
-    # It may also work on other Linux targets, but all the game stores only
-    # support x86 Linux, so it would require extra hacking to run games via QEMU
-    # user emulation.  Upstream provide Linux builds only for x86_64.
-    platforms = [ "x86_64-linux" ];
+    platforms = [
+      "aarch64-linux"
+      "x86_64-linux"
+    ];
     mainProgram = "heroic";
   };
 })

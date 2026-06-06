@@ -773,7 +773,7 @@ let
           mozc = super.mozc.overrideAttrs (attrs: {
             postPatch = attrs.postPatch or "" + ''
               substituteInPlace src/unix/emacs/mozc.el \
-                --replace '"mozc_emacs_helper"' '"${pkgs.ibus-engines.mozc}/lib/mozc/mozc_emacs_helper"'
+                --replace '"mozc_emacs_helper"' '"${pkgs.mozc}/bin/mozc_emacs_helper"'
             '';
           });
 
@@ -1193,6 +1193,13 @@ let
 
           # https://github.com/syl20bnr/flymake-elixir/issues/4
           flymake-elixir = addPackageRequires super.flymake-elixir [ self.flymake-easy ];
+
+          flymake-hadolint = super.flymake-hadolint.overrideAttrs (attrs: {
+            postPatch = attrs.postPatch or "" + ''
+              substituteInPlace flymake-hadolint.el \
+                --replace-fail 'flymake-hadolint-program "hadolint"' 'flymake-hadolint-program "${lib.getExe pkgs.hadolint}"'
+            '';
+          });
 
           flyparens = ignoreCompilationError super.flyparens; # elisp error
 

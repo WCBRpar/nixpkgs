@@ -43,6 +43,7 @@
   bokeh,
   boto3,
   cloudpickle,
+  cwsandbox,
   flask,
   google-cloud-artifact-registry,
   google-cloud-compute,
@@ -51,6 +52,7 @@
   jsonschema,
   kubernetes,
   kubernetes-asyncio,
+  looptime,
   matplotlib,
   moviepy,
   pandas,
@@ -75,12 +77,12 @@
 }:
 
 let
-  version = "0.26.0";
+  version = "0.27.1";
   src = fetchFromGitHub {
     owner = "wandb";
     repo = "wandb";
     tag = "v${version}";
-    hash = "sha256-pN2vfrexu87202WLes4eIbkU1aVuLpqR676f7AxokT8=";
+    hash = "sha256-gaZUp4yOnajEyJ5pXXOMCPk7uQ5GEGPrrKMgC6NxIAY=";
   };
 
   wandb-xpu = rustPlatform.buildRustPackage {
@@ -90,7 +92,7 @@ let
 
     sourceRoot = "${src.name}/xpu";
 
-    cargoHash = "sha256-h5kttUU1KsP+IaXTfqfgRf+7cooRZQzi5i5NmQ9YEA0=";
+    cargoHash = "sha256-vB0LZjfnf//U1BXCzvaQBjlXLlGx/4g+emSZWcS+oGU=";
 
     checkFlags = [
       # fails in sandbox
@@ -120,13 +122,15 @@ let
 
     sourceRoot = "${src.name}/parquet-rust-wrapper";
 
-    cargoHash = "sha256-fOq1KoWJEDZnchE6ooTmUQZ3DLdlbr2/aYl1qbF2GH4=";
+    cargoHash = "sha256-BkeSRbZoehYGHj15KcInugRBvOLXJlh1NqTHhRnNOK8=";
 
     # The original build script renames the library:
     # https://github.com/wandb/wandb/blob/v0.26.0/parquet-rust-wrapper/build.sh#L37-L68
     postInstall = ''
       mv $out/lib/libarrow_rs_wrapper${sharedLibrary} $out/lib/${libRustParquet}
     '';
+
+    __darwinAllowLocalNetworking = true;
   };
 
   wandb-core = buildGoModule {
@@ -136,8 +140,15 @@ let
     sourceRoot = "${src.name}/core";
 
     postPatch =
-      # hardcode the `wandb-xpu` binary path.
+      # Relax the Go toolchain requirement; nixpkgs ships 1.26.2.
       ''
+        substituteInPlace go.mod \
+          --replace-fail \
+            "go 1.26.4" \
+            "go 1.26.2"
+      ''
+      # hardcode the `wandb-xpu` binary path.
+      + ''
         substituteInPlace internal/monitor/xpuresourcemanager.go \
           --replace-fail \
             'cmdPath, err := getXPUCmdPath()' \
@@ -250,6 +261,7 @@ buildPythonPackage (finalAttrs: {
     bokeh
     boto3
     cloudpickle
+    cwsandbox
     flask
     google-cloud-artifact-registry
     google-cloud-compute
@@ -258,6 +270,7 @@ buildPythonPackage (finalAttrs: {
     jsonschema
     kubernetes
     kubernetes-asyncio
+    looptime
     matplotlib
     moviepy
     pandas
