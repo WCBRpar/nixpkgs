@@ -5,6 +5,12 @@
   rtlcss,
   wkhtmltopdf,
   nixosTests,
+  # Dependências para o l10n-br
+  erpbrasil-assinatura,
+  erpbrasil-base,
+  erpbrasil-transmissao,
+  erpbrasil-edoc,
+
 }:
 
 let
@@ -84,6 +90,11 @@ python.pkgs.buildPythonApplication rec {
     xlsxwriter
     xlwt
     zeep
+    # Dependências ERP Brasil para a localização 110n-br:wa
+    erpbrasil-assinatura
+    erpbrasil-base
+    erpbrasil-transmissao
+    erpbrasil-edoc
   ];
 
   # takes 5+ minutes and there are not files to strip
