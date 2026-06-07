@@ -12,11 +12,16 @@
   erpbrasil-base,
   erpbrasil-transmissao,
   erpbrasil-edoc,
+  # Argumento para receber a lista de addons do Odoo
+  addons ? [ ],
 }:
 
 let
   odoo_version = "19.0";
   odoo_release = "latest";
+
+  # Extrai o propagatedBuildInputs de cada addon fornecido
+  addonsPythonDeps = lib.concatMap (addon: addon.propagatedBuildInputs or [ ]) addons;
 
   python = python312.override {
     self = python;
@@ -135,7 +140,8 @@ python.pkgs.buildPythonApplication rec {
     erpbrasil-base
     erpbrasil-transmissao
     erpbrasil-edoc
-  ];
+  ]
+  ++ addonsPythonDeps; #  Concatena dinamicamente as dependências extraídas dos addons
 
   dontStrip = true;
 
