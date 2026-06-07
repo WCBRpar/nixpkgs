@@ -904,6 +904,9 @@ with pkgs;
     hr-dms-field = callPackage ../by-name/hr/hr-dms-field/package.nix { };
     web-editor-media-dialog-dms = callPackage ../by-name/we/web-editor-media-dialog-dms/package.nix { };
 
+    # hr (19.0)
+    hr-employee-relative = callPackage ../by-name/hr/hr-employee-relative/package.nix { };
+
     # multi-company (19.0)
     account-invoice-inter-company = callPackage ../by-name/ac/account-invoice-inter-company/package.nix { };
     mail-multicompany = callPackage ../by-name/ma/mail-multicompany/package.nix { };
