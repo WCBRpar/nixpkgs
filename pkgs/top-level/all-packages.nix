@@ -3066,6 +3066,8 @@ with pkgs;
 
   pulumiPackages = recurseIntoAttrs pulumi.pkgs;
 
+  pyxb-x = with python312.pkgs; toPythonApplication pyxb-x;
+
   py3dtiles = with python3Packages; toPythonApplication py3dtiles;
 
   patch = gnupatch;
