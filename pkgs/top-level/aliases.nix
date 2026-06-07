@@ -2275,6 +2275,7 @@ mapAliases {
   wayv = throw "'wayv' has been removed as it is broken and unmaintained upstream"; # Added 2026-05-05
   wayvr-dashboard = throw "'wayvr-dashboard' and 'wlx-overlay-s' have been merged into a single application. Please switch to 'wayvr'"; # Added 2026-01-09
   wcurl = throw "'wcurl' has been removed due to being bundled with 'curl'"; # Added 2025-07-04
+  wdfs = throw "'wdfs' has been removed as it is unmaintained, and depends on fuse2. Consider using 'davfs2' instead"; # Added 2026-05-05
   wdomirror = throw "'wdomirror' has been removed as it is unmaintained upstream, Consider using 'wl-mirror' instead"; # Added 2025-09-04
   webfontkitgenerator = webfont-bundler; # Added 2025-07-27
   webkitgtk = throw "'webkitgtk' attribute has been removed from nixpkgs, use attribute with ABI version set explicitly"; # Added 2025-06-11
@@ -2397,6 +2398,7 @@ mapAliases {
   xloadimage = throw "'xloadimage' has been removed as it was unmaintained upstream"; # Added 2026-05-05
   xmlada = throw "'xmlada' has been renamed to/replaced by 'gnatPackages.xmlada'"; # Converted to throw 2025-10-27
   xmlroff = throw "'xmlroff' has been removed as it is unmaintained and broken"; # Added 2025-05-18
+  xneur = throw "'xneur' has been removed as it is unmaintained and depends on pcre, which is deprecated"; # Added 2026-06-06
   xo = throw "Use 'dbtpl' instead of 'xo'"; # Added 2025-09-28
   xonsh-unwrapped = throw "'xonsh-unwrapped' has been renamed to/replaced by 'python3Packages.xonsh'"; # Converted to throw 2025-10-27
   xorg = # Added 2026-01-29
