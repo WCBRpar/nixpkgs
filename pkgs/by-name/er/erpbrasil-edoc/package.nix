@@ -4,6 +4,9 @@
   lib,
   python312,
   fetchFromGitHub,
+  erpbrasil-base,
+  erpbrasil-assinatura,
+  erpbrasil-transmissao,
 }:
 
 python312.pkgs.buildPythonPackage rec {

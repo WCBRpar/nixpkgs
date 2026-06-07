@@ -21,8 +21,10 @@ python312.pkgs.buildPythonPackage rec {
   build-system = [ python312.pkgs.setuptools ];
 
   dependencies = with python312.pkgs; [
+    chardet
     lxml
     pyxb-x
+    pytz
     cryptography
     pyopenssl
     signxml

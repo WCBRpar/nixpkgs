@@ -4,6 +4,7 @@
   lib,
   python312,
   fetchFromGitHub,
+  erpbrasil-assinatura,
 }:
 
 python312.pkgs.buildPythonPackage rec {
@@ -22,6 +23,7 @@ python312.pkgs.buildPythonPackage rec {
 
   dependencies = with python312.pkgs; [
     cerberus
+    hatch-vcs
     lxml
     erpbrasil-assinatura
   ];

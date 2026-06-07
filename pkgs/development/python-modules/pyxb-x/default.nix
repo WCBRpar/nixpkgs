@@ -1,4 +1,4 @@
-# pkgs/by-name/py/pyxb/package.nix
+# pkgs/development/python-modules/pyxb/package.nix
 {
   lib,
   buildPythonPackage,

@@ -4,6 +4,7 @@
   lib,
   python312,
   fetchFromGitHub,
+  erpbrasil-assinatura,
 }:
 
 python312.pkgs.buildPythonPackage rec {
@@ -21,6 +22,7 @@ python312.pkgs.buildPythonPackage rec {
   build-system = [ python312.pkgs.setuptools ];
 
   dependencies = with python312.pkgs; [
+    erpbrasil-assinatura
     requests
     urllib3
     lxml
