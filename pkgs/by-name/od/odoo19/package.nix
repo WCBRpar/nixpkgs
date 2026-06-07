@@ -12,6 +12,7 @@
   erpbrasil-base,
   erpbrasil-transmissao,
   erpbrasil-edoc,
+  phonenumbers,
   # Argumento para receber a lista de addons do Odoo
   addons ? [ ],
 }:
@@ -135,11 +136,12 @@ python.pkgs.buildPythonApplication rec {
     xlsxwriter
     xlwt
     zeep
-    # Dependências ERP Brasil para a localização 110n-br:wa
+    # Dependências ERP Brasil para a localização 110n-br
     erpbrasil-assinatura
     erpbrasil-base
     erpbrasil-transmissao
     erpbrasil-edoc
+    phonenumbers
   ]
   ++ addonsPythonDeps; #  Concatena dinamicamente as dependências extraídas dos addons
 
