@@ -1,15 +1,12 @@
 # pkgs/by-name/er/erpbrasil-base/package.nix
+
 {
   lib,
-  buildPythonPackage,
+  python312,
   fetchFromGitHub,
-  setuptools,
-  cerberus,
-  lxml,
-  erpbrasil-assinatura,
 }:
 
-buildPythonPackage rec {
+python312.pkgs.buildPythonPackage rec {
   pname = "erpbrasil.base";
   version = "2.4.1";
   pyproject = true;
@@ -21,9 +18,9 @@ buildPythonPackage rec {
     hash = "sha256-st6vfLt7J/3AO4YBoz2sMGvll9We3s8aOyW12kLUbIA=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [ python312.pkgs.setuptools ];
 
-  dependencies = [
+  dependencies = with python312.pkgs; [
     cerberus
     lxml
     erpbrasil-assinatura
@@ -44,6 +41,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/erpbrasil/erpbrasil.base";
     changelog = "https://github.com/erpbrasil/erpbrasil.base/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ wjjunyor akretion kmee ];
+    maintainers = with maintainers; [ wjjunyor ];
   };
 }

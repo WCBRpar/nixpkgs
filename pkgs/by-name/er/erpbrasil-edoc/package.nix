@@ -1,17 +1,12 @@
 # pkgs/by-name/er/erpbrasil-edoc/package.nix
+
 {
   lib,
-  buildPythonPackage,
+  python312,
   fetchFromGitHub,
-  setuptools,
-  erpbrasil-base,
-  erpbrasil-assinatura,
-  erpbrasil-transmissao,
-  pyyaml,
-  beautifulsoup4,
 }:
 
-buildPythonPackage rec {
+python312.pkgs.buildPythonPackage rec {
   pname = "erpbrasil.edoc";
   version = "3.1.1";
   pyproject = true;
@@ -20,12 +15,12 @@ buildPythonPackage rec {
     owner = "erpbrasil";
     repo = "erpbrasil.edoc";
     rev = "v${version}";
-    hash = "sha256-KN33fAwJV48Zok5NhryN4AUL94MBqbzSjt8RgkahZfk="; # Atualizar
+    hash = "sha256-KN33fAwJV48Zok5NhryN4AUL94MBqbzSjt8RgkahZfk=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [ python312.pkgs.setuptools ];
 
-  dependencies = [
+  dependencies = with python312.pkgs; [
     erpbrasil-base
     erpbrasil-assinatura
     erpbrasil-transmissao
@@ -44,6 +39,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/erpbrasil/erpbrasil.edoc";
     changelog = "https://github.com/erpbrasil/erpbrasil.edoc/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ wjjunyor akretion kmee ];
+    maintainers = with maintainers; [ wjjunyor ];
   };
 }

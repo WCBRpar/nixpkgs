@@ -1,16 +1,12 @@
 # pkgs/by-name/er/erpbrasil-transmissao/package.nix
+
 {
   lib,
-  buildPythonPackage,
+  python312,
   fetchFromGitHub,
-  setuptools,
-  requests,
-  urllib3,
-  lxml,
-  zeep,
 }:
 
-buildPythonPackage rec {
+python312.pkgs.buildPythonPackage rec {
   pname = "erpbrasil.transmissao";
   version = "1.1.0";
   pyproject = true;
@@ -22,9 +18,9 @@ buildPythonPackage rec {
     hash = "sha256-vdfsMoaDA6AbvYjg8MKKRb/KMZST5F0dw8G4RaKnPuI=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [ python312.pkgs.setuptools ];
 
-  dependencies = [
+  dependencies = with python312.pkgs; [
     requests
     urllib3
     lxml

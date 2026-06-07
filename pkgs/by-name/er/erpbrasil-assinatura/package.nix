@@ -1,17 +1,12 @@
 # pkgs/by-name/er/erpbrasil-assinatura/package.nix
+
 {
   lib,
-  buildPythonPackage,
+  python312,
   fetchFromGitHub,
-  setuptools,
-  lxml,
-  pyxb-x,
-  cryptography,
-  pyopenssl,
-  signxml,
 }:
 
-buildPythonPackage rec {
+python312.pkgs.buildPythonPackage rec {
   pname = "erpbrasil.assinatura";
   version = "1.7.0";
   pyproject = true;
@@ -23,9 +18,9 @@ buildPythonPackage rec {
     hash = "sha256-hHpep9yCpmI0J8rlb/HwHS9BcCt2E50BrcT6DbFhLfE=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [ python312.pkgs.setuptools ];
 
-  dependencies = [
+  dependencies = with python312.pkgs; [
     lxml
     pyxb-x
     cryptography
@@ -47,6 +42,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/erpbrasil/erpbrasil.assinatura";
     changelog = "https://github.com/erpbrasil/erpbrasil.assinatura/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ wjjunyor akretion kmee ];
+    maintainers = with maintainers; [ wjjunyor ];
   };
 }
