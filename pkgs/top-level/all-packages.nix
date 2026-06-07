@@ -950,6 +950,7 @@ with pkgs;
     l10n-br-account-due-list = callPackage ../by-name/l1/l10n-br-account-due-list/package.nix { };
     l10n-br-account-payment-order = callPackage ../by-name/l1/l10n-br-account-payment-order/package.nix { };
     l10n-br-base-l10n-br-compat = callPackage ../by-name/l1/l10n-br-base-l10n-br-compat/package.nix { };
+    l10n-br-coa-generic = callPackage ../by-name/l1/l10n-br-coa-generic/package.nix { };
     l10n-br-cnpj-search = callPackage ../by-name/l1/l10n-br-cnpj-search/package.nix { };
     l10n-br-crm-cnpj-search = callPackage ../by-name/l1/l10n-br-crm-cnpj-search/package.nix { };
     l10n-br-cte-spec = callPackage ../by-name/l1/l10n-br-cte-spec/package.nix { };
@@ -967,7 +968,7 @@ with pkgs;
     l10n-br-sped-base = callPackage ../by-name/l1/l10n-br-sped-base/package.nix { };
 
     # website (18.0)
-    website-odoo-debrand = callPackage ../by-name/we/website-odoo-debrand/package.nix { };
+    website-odoo-debranding = callPackage ../by-name/we/website-odoo-debranding/package.nix { };
     website-whatsapp = callPackage ../by-name/we/website-whatsapp/package.nix { };
 
   };
