@@ -12,7 +12,6 @@
   erpbrasil-base,
   erpbrasil-transmissao,
   erpbrasil-edoc,
-  phonenumbers,
   # Argumento para receber a lista de addons do Odoo
   addons ? [ ],
 }:
@@ -141,7 +140,6 @@ python.pkgs.buildPythonApplication rec {
     erpbrasil-base
     erpbrasil-transmissao
     erpbrasil-edoc
-    phonenumbers
   ]
   ++ addonsPythonDeps; #  Concatena dinamicamente as dependências extraídas dos addons
 
