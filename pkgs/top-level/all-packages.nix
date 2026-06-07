@@ -939,6 +939,7 @@ with pkgs;
 
     # l10n-brazil (19.0)
     l10n-br-base = callPackage ../by-name/l1/l10n-br-base/package.nix { };
+    l10n-br-account-due-list = callPackage ../by-name/l1/l10n-br-account-due-list/package.nix { };
     l10n-br-coa = callPackage ../by-name/l1/l10n-br-coa/package.nix { };
     l10n-br-crm = callPackage ../by-name/l1/l10n-br-crm/package.nix { };
     l10n-br-currency-rate-update = callPackage ../by-name/l1/l10n-br-currency-rate-update/package.nix { };
@@ -947,7 +948,7 @@ with pkgs;
     l10n-br-zip = callPackage ../by-name/l1/l10n-br-zip/package.nix { };
 
     # l10n-brazil (18.0)
-    l10n-br-account-due-list = callPackage ../by-name/l1/l10n-br-account-due-list/package.nix { };
+    l10n-br-account = callPackage ../by-name/l1/l10n-br-account/package.nix { };
     l10n-br-account-payment-order = callPackage ../by-name/l1/l10n-br-account-payment-order/package.nix { };
     l10n-br-base-l10n-br-compat = callPackage ../by-name/l1/l10n-br-base-l10n-br-compat/package.nix { };
     l10n-br-coa-generic = callPackage ../by-name/l1/l10n-br-coa-generic/package.nix { };
