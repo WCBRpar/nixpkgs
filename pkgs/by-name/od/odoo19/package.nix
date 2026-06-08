@@ -35,7 +35,7 @@ let
         src = fetchhg {
           url = "https://hg.reportlab.com/hg-public/rlPyCairo";
           rev = "a3e9ae26d82d";
-          hash = "sha256-9jAKmYwOkyqbXlK4Q0TO9Fc0jTebaShhyo1/NEroFzE=";
+          hash = "sha256-vYwL+/VNdj3dRVo9dhaKPNW07Ft70ETg4OeQCsPIKdc=";
         };
         build-system = [ pythonPrev.setuptools ];
         dependencies = [
