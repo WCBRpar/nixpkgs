@@ -141,6 +141,7 @@ python.pkgs.buildPythonApplication rec {
     erpbrasil-transmissao
     erpbrasil-edoc
     phonenumbers
+    email-validator
   ]
   ++ addonsPythonDeps; #  Concatena dinamicamente as dependências extraídas dos addons
 
