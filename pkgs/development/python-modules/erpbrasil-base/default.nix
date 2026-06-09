@@ -33,6 +33,8 @@ buildPythonPackage rec {
     erpbrasil-assinatura
   ];
 
+  pythonNamespaces = [ "erpbrasil" ];
+
   pythonImportsCheck = [ "erpbrasil.base" ];
 
   # Testes podem exigir dependências adicionais

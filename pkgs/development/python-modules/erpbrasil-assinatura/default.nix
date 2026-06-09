@@ -40,6 +40,10 @@ buildPythonPackage rec {
 
   doCheck = false;
 
+  pythonNamespaces = [ "erpbrasil" ];
+
+  pythonNamespaces = [ "erpbrasil" ];
+
   pythonImportsCheck = [ "erpbrasil.assinatura" ];
 
   meta = with lib; {

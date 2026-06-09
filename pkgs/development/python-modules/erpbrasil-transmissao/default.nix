@@ -35,6 +35,8 @@ buildPythonPackage rec {
     zeep
   ];
 
+  pythonNamespaces = [ "erpbrasil" ];
+
   pythonImportsCheck = [ "erpbrasil.transmissao" ];
 
   meta = with lib; {

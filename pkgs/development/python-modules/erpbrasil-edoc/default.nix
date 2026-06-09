@@ -35,6 +35,8 @@ buildPythonPackage rec {
     beautifulsoup4
   ];
 
+  pythonNamespaces = [ "erpbrasil" ];
+
   pythonImportsCheck = [ "erpbrasil.edoc" ];
 
   meta = with lib; {
