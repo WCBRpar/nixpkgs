@@ -813,6 +813,13 @@
     githubId = 19290901;
     name = "Andrew Brooks";
   };
+  agentelement = {
+    email = "agentelement@agentelement.net";
+    github = "agentelement";
+    githubId = 38045210;
+    name = "AgentElement";
+    keys = [ { fingerprint = "D37E 581D AD71 2378 A622  5BC0 CD13 9E3B 4354 34F1"; } ];
+  };
   agilesteel = {
     email = "agilesteel@gmail.com";
     github = "agilesteel";
@@ -2318,6 +2325,12 @@
     github = "arthurl";
     githubId = 3965744;
     name = "Arthur Lee";
+  };
+  arthurficial = {
+    email = "arti.ficial@fullstackoptimization.com";
+    github = "Arthur-Ficial";
+    githubId = 258112064;
+    name = "Arthur Ficial";
   };
   arthurteisseire = {
     email = "arthurteisseire33@gmail.com";
@@ -7951,6 +7964,11 @@
     githubId = 18375468;
     name = "Elliot Xu";
   };
+  elliotberman = {
+    name = "Elliot Berman";
+    github = "elliotberman";
+    githubId = 210410075;
+  };
   elliottslaughter = {
     name = "Elliott Slaughter";
     email = "elliottslaughter@gmail.com";
@@ -13522,6 +13540,12 @@
     github = "jpts";
     githubId = 5352661;
     name = "James Cleverley-Prance";
+  };
+  jpz13 = {
+    email = "jp@pipekit.io";
+    github = "JPZ13";
+    githubId = 6625432;
+    name = "J.P. Zivalich";
   };
   jqueiroz = {
     email = "nixos@johnjq.com";
@@ -23342,6 +23366,11 @@
     github = "Reputable2772";
     githubId = 153411261;
   };
+  ReStranger = {
+    name = "ReStranger";
+    github = "ReStranger";
+    githubId = 69393944;
+  };
   ret2pop = {
     email = "ret2pop@gmail.com";
     github = "ret2pop";
@@ -27034,6 +27063,12 @@
     githubId = 6064962;
     name = "TakWolf";
   };
+  talal = {
+    email = "noreply@talal.ch";
+    github = "talal";
+    githubId = 3526562;
+    name = "Muhammad Talal Anwar";
+  };
   talhaHavadar = {
     email = "havadartalha@gmail.com";
     github = "talhaHavadar";
@@ -30149,6 +30184,12 @@
     github = "xeji";
     githubId = 36407913;
     name = "Uli Baum";
+  };
+  xelacodes = {
+    name = "Alex";
+    github = "itzTheMeow";
+    githubId = 50887230;
+    email = "nixpkgs@xela.codes";
   };
   xelden = {
     email = "anpiz@protonmail.com";
