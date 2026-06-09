@@ -5,52 +5,13 @@
   rtlcss,
   wkhtmltopdf,
   nixosTests,
-  fetchFromGitHub,
-  fetchhg,
-  # Argumento para receber a lista de addons do Odoo
-  addons ? [ ],
 }:
 
 let
   odoo_version = "19.0";
-  odoo_release = "latest";
-
-  # Extrai o propagatedBuildInputs de cada addon fornecido
-  addonsPythonDeps = lib.concatMap (addon: addon.propagatedBuildInputs or [ ]) addons;
-
+  odoo_release = "20260104";
   python = python312.override {
     self = python;
-    packageOverrides = pythonFinal: pythonPrev: {
-
-      # rlPyCairo: Adicionado para suporte a gráficos/PDF
-      rlPyCairo = pythonPrev.buildPythonPackage ({
-        pname = "rlPyCairo";
-        version = "0.4.0";
-        pyproject = true;
-        src = fetchhg {
-          url = "https://hg.reportlab.com/hg-public/rlPyCairo";
-          rev = "a3e9ae26d82d";
-          hash = "sha256-9jAKmYwOkyqbXlK4Q0TO9Fc0jTebaShhyo1/NEroFzE=";
-        };
-        build-system = [ pythonPrev.setuptools ];
-        dependencies = [
-          pythonPrev.pycairo
-          pythonPrev.freetype-py
-        ];
-      } );
-
-      # Pin do PyPDF2 para compatibilidade com Odoo 19
-      pypdf2 = pythonPrev.pypdf2.overrideAttrs (old: rec {
-        version = "2.12.1";
-        src = fetchFromGitHub {
-          owner = "py-pdf";
-          repo = "PyPDF2";
-          rev = version;
-          hash = "sha256-51fnnu6T/SOcSK+yVAAugPN7mjCEqhy6nnpNP4ZTLk8=";
-        };
-        doCheck = false;
-      });
-    };
   };
 in
 python.pkgs.buildPythonApplication rec {
@@ -59,9 +20,10 @@ python.pkgs.buildPythonApplication rec {
   pyproject = true;
 
   src = fetchzip {
+    # find latest version on https://nightly.odoo.com/${odoo_version}/nightly/src
     url = "https://nightly.odoo.com/${odoo_version}/nightly/src/odoo_${version}.zip";
     name = "odoo-${version}";
-    hash = "sha256-vYwL+/VNdj3dRVo9dhaKPNW07Ft70ETg4OeQCsPIKdc=";
+    hash = "sha256-JsbJ39zPZm4eyRTXkvdCMHwYaA08yUxZXcLglRn3kWs="; # odoo
   };
 
   postPatch = ''
@@ -120,7 +82,6 @@ python.pkgs.buildPythonApplication rec {
     pyusb
     qrcode
     reportlab
-    rlPyCairo
     requests
     rjsmin
     urllib3
@@ -130,19 +91,9 @@ python.pkgs.buildPythonApplication rec {
     xlsxwriter
     xlwt
     zeep
-    # Dependências ERP Brasil para a localização 110n-br
-    erpbrasil-assinatura
-    erpbrasil-base
-    erpbrasil-transmissao
-    erpbrasil-edoc
-    brazilcep
-    # currency-rate-update
-    email-validator
-    phonenumbers
-    workalendar
-  ]
-  ++ addonsPythonDeps; #  Concatena dinamicamente as dependências extraídas dos addons
+  ];
 
+  # takes 5+ minutes and there are not files to strip
   dontStrip = true;
 
   passthru = {
@@ -162,4 +113,3 @@ python.pkgs.buildPythonApplication rec {
     ];
   };
 }
-
