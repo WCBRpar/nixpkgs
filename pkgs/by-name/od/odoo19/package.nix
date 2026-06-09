@@ -7,11 +7,6 @@
   nixosTests,
   fetchFromGitHub,
   fetchhg,
-  # Dependências para o l10n-br
-  erpbrasil-assinatura,
-  erpbrasil-base,
-  erpbrasil-transmissao,
-  erpbrasil-edoc,
   # Argumento para receber a lista de addons do Odoo
   addons ? [ ],
 }:
