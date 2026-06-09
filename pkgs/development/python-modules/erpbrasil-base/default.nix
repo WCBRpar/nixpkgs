@@ -2,12 +2,17 @@
 
 {
   lib,
-  python312,
+  python,
+  buildPythonPackage,
   fetchFromGitHub,
+  setuptools,
   erpbrasil-assinatura,
+  cerberus,
+  hatch-vcs,
+  lxml,
 }:
 
-python312.pkgs.buildPythonPackage rec {
+buildPythonPackage rec {
   pname = "erpbrasil.base";
   version = "2.4.1";
   pyproject = true;
@@ -19,9 +24,9 @@ python312.pkgs.buildPythonPackage rec {
     hash = "sha256-st6vfLt7J/3AO4YBoz2sMGvll9We3s8aOyW12kLUbIA=";
   };
 
-  build-system = [ python312.pkgs.setuptools ];
+  build-system = [ setuptools ];
 
-  dependencies = with python312.pkgs; [
+  dependencies = [
     cerberus
     hatch-vcs
     lxml

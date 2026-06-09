@@ -5162,6 +5162,14 @@ self: super: with self; {
 
   eradicate = callPackage ../development/python-modules/eradicate { };
 
+  erpbrasil-assinatura = callPackage ../development/python-modules/erpbrasil-assinatura { };
+
+  erpbrasil-base = callPackage ../development/python-modules/erpbrasil-base { };
+
+  erpbrasil-edoc = callPackage ../development/python-modules/erpbrasil-edoc { };
+
+  erpbrasil-transmissao = callPackage ../development/python-modules/erpbrasil-transmissao { };
+
   error-helper = callPackage ../development/python-modules/error-helper { };
 
   es-client = callPackage ../development/python-modules/es-client { };

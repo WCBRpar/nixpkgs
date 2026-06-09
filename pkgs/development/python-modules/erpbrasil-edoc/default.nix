@@ -2,14 +2,18 @@
 
 {
   lib,
-  python312,
+  python,
+  buildPythonPackage,
   fetchFromGitHub,
+  setuptools,
   erpbrasil-base,
   erpbrasil-assinatura,
   erpbrasil-transmissao,
+  pyyaml,
+  beautifulsoup4,
 }:
 
-python312.pkgs.buildPythonPackage rec {
+buildPythonPackage rec {
   pname = "erpbrasil.edoc";
   version = "3.1.1";
   pyproject = true;
@@ -21,9 +25,9 @@ python312.pkgs.buildPythonPackage rec {
     hash = "sha256-KN33fAwJV48Zok5NhryN4AUL94MBqbzSjt8RgkahZfk=";
   };
 
-  build-system = [ python312.pkgs.setuptools ];
+  build-system = [ setuptools ];
 
-  dependencies = with python312.pkgs; [
+  dependencies = [
     erpbrasil-base
     erpbrasil-assinatura
     erpbrasil-transmissao

@@ -2,12 +2,18 @@
 
 {
   lib,
-  python312,
+  python,
+  buildPythonPackage,
   fetchFromGitHub,
+  setuptools,
   erpbrasil-assinatura,
+  requests,
+  urllib3,
+  lxml,
+  zeep,
 }:
 
-python312.pkgs.buildPythonPackage rec {
+buildPythonPackage rec {
   pname = "erpbrasil.transmissao";
   version = "1.1.0";
   pyproject = true;
@@ -19,9 +25,9 @@ python312.pkgs.buildPythonPackage rec {
     hash = "sha256-vdfsMoaDA6AbvYjg8MKKRb/KMZST5F0dw8G4RaKnPuI=";
   };
 
-  build-system = [ python312.pkgs.setuptools ];
+  build-system = [ setuptools ];
 
-  dependencies = with python312.pkgs; [
+  dependencies = [
     erpbrasil-assinatura
     requests
     urllib3

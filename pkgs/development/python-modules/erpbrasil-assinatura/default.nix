@@ -1,12 +1,20 @@
 # pkgs/by-name/er/erpbrasil-assinatura/package.nix
-
-{
-  lib,
-  python312,
-  fetchFromGitHub,
+{ lib
+, buildPythonPackage
+, fetchFromGitHub
+, setuptools
+, wheel
+, chardet
+, lxml
+, python
+, pyxb-x
+, pytz
+, cryptography
+, pyopenssl
+, signxml
 }:
 
-python312.pkgs.buildPythonPackage rec {
+buildPythonPackage rec {
   pname = "erpbrasil.assinatura";
   version = "1.7.0";
   pyproject = true;
@@ -18,9 +26,9 @@ python312.pkgs.buildPythonPackage rec {
     hash = "sha256-hHpep9yCpmI0J8rlb/HwHS9BcCt2E50BrcT6DbFhLfE=";
   };
 
-  build-system = [ python312.pkgs.setuptools ];
+  build-system = [ setuptools wheel ];
 
-  dependencies = with python312.pkgs; [
+  dependencies = [
     chardet
     lxml
     pyxb-x
