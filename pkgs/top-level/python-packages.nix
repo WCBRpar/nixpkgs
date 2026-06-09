@@ -21607,7 +21607,7 @@ self: super: with self; {
 
   wordninja = callPackage ../development/python-modules/wordninja { };
 
-  workalendar = callPackage ../development/python-modules/workalendas { };
+  workalendar = callPackage ../development/python-modules/workalendar { };
 
   world-bank-data = callPackage ../development/python-modules/world-bank-data { };
 

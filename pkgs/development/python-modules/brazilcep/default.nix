@@ -1,15 +1,16 @@
 { lib
 , buildPythonPackage
 , fetchPypi
-, setuuptools
+, setuptools
+, wheel
 , requests
+, aiohttp
 }:
 
 buildPythonPackage rec {
   pname = "brazilcep";
   version = "7.0.1";
   pyproject = true;
-  format = "pyproject";
 
   src = fetchPypi {
     inherit pname version;
@@ -18,7 +19,7 @@ buildPythonPackage rec {
 
   build-system = [ setuptools wheel ];
 
-  propagatedBuildInputs = [ requests ];
+  propagatedBuildInputs = [ requests aiohttp ];
 
   doCheck = false;
 
