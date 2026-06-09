@@ -66,7 +66,7 @@ python.pkgs.buildPythonApplication rec {
   src = fetchzip {
     url = "https://nightly.odoo.com/${odoo_version}/nightly/src/odoo_${version}.zip";
     name = "odoo-${version}";
-    hash = "sha256-2WEHAaHHpxT1DU/na1g+qa83RLJETREw4N5odHs0yAQ=";
+    hash = "sha256-vYwL+/VNdj3dRVo9dhaKPNW07Ft70ETg4OeQCsPIKdc=";
   };
 
   postPatch = ''
@@ -140,6 +140,7 @@ python.pkgs.buildPythonApplication rec {
     erpbrasil-base
     erpbrasil-transmissao
     erpbrasil-edoc
+    phonenumbers
   ]
   ++ addonsPythonDeps; #  Concatena dinamicamente as dependências extraídas dos addons
 
