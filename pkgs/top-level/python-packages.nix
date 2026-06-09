@@ -2315,6 +2315,8 @@ self: super: with self; {
 
   brax = callPackage ../development/python-modules/brax { };
 
+  brazilcep = callPackage ../development/python-modules/brazilcep { };
+
   breathe = callPackage ../development/python-modules/breathe { };
 
   breezy = callPackage ../development/python-modules/breezy { };
@@ -21604,6 +21606,8 @@ self: super: with self; {
   wordfreq = callPackage ../development/python-modules/wordfreq { };
 
   wordninja = callPackage ../development/python-modules/wordninja { };
+
+  workalendar = callPackage ../development/python-modules/workalendas { };
 
   world-bank-data = callPackage ../development/python-modules/world-bank-data { };
 
