@@ -90,6 +90,22 @@ python.pkgs.buildPythonApplication rec {
     workalendar
   ] ++ addonsPythonDeps;
 
+  makeWrapperArgs = [
+    "--prefix PATH : ${lib.makeBinPath [ wkhtmltopdf rtlcss ]}"
+    # Adiciona o site-packages do python com todas as dependências no PYTHONPATH
+    "--prefix PYTHONPATH : ${python.pkgs.makePythonPath (with python.pkgs; [
+      erpbrasil-assinatura
+      erpbrasil-base
+      erpbrasil-transmissao
+      erpbrasil-edoc
+      brazilcep
+      email-validator
+      phonenumbers
+      workalendar
+    ] ++ addonsPythonDeps)}"
+  ];
+
+
   dontStrip = true;
 
   passthru = {
