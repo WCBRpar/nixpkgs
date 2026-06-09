@@ -136,7 +136,7 @@ python.pkgs.buildPythonApplication rec {
     erpbrasil-transmissao
     erpbrasil-edoc
     brazilcep
-    currency-rate-update
+    # currency-rate-update
     email-validator
     phonenumbers
     workalendar
