@@ -858,11 +858,14 @@ with pkgs;
     base-sequence-option = callPackage ../by-name/ba/base-sequence-option/package.nix { };
     dbfilter-from-header = callPackage ../by-name/db/dbfilter-from-header/package.nix { };
 
-    # account-inancial-tools (18.0)
+    # account-financial-tools (18.0)
     account-sequence-option = callPackage ../by-name/ac/account-sequence-option/package.nix { };
 
     # account-financial-reporting (19.0)
     partner-statement = callPackage ../by-name/pa/partner-statement/package.nix { };
+
+    # account-payment (19.0)
+    account-due-list = callPackage ../by-name/ac/account-due-list/package.nix { };
 
     # contract (19.0)
     subscription-oca = callPackage ../by-name/su/subscription-oca/package.nix { };
