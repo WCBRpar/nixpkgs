@@ -96,10 +96,11 @@ python.pkgs.buildPythonApplication rec {
     erpbrasil-edoc
 
     # Outras dependências da localização
-    brazilcep
-    email-validator
-    phonenumbers
-    workalendar
+    brazilcep           # l10n_br
+    email-validator     # l10n_br
+    phonenumbers        # l10n_br
+    workalendar         # l10n_br
+    python-magic        # DMS
   ] ++ addonsPythonDeps;
 
 
