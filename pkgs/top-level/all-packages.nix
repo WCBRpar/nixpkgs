@@ -975,7 +975,7 @@ with pkgs;
     l10n-br-sped-base = callPackage ../by-name/l1/l10n-br-sped-base/package.nix { };
 
     # product-atributes (19.0)
-    uom-alias = callPackage ../by-name/uo/uom-atributes/package.nix { };
+    uom-alias = callPackage ../by-name/uo/uom-alias/package.nix { };
 
     # website (18.0)
     website-odoo-debranding = callPackage ../by-name/we/website-odoo-debranding/package.nix { };
