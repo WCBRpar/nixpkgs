@@ -75,6 +75,7 @@ python.pkgs.buildPythonApplication rec {
       email-validator
       phonenumbers
       workalendar
+      python-magic
     ] ++ addonsPythonDeps)}"
   ];
 
