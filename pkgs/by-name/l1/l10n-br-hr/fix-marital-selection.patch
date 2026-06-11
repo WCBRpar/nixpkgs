@@ -1,31 +1,18 @@
+diff --git a/l10n_br_hr/models/hr_employee.py b/l10n_br_hr/models/hr_employee.py
+index b67196e1d2..924f4a9675 100644
 --- a/l10n_br_hr/models/hr_employee.py
 +++ b/l10n_br_hr/models/hr_employee.py
-@@ -193,10 +193,21 @@
-         cpf = cnpj_cpf.formata(str(self.cpf))
-         if cpf:
-             self.cpf = cpf
+@@ -196,7 +196,12 @@ class HrEmployee(models.Model):
  
--    @api.model
--    def _get_marital_status_selection(self):
+     @api.model
+     def _get_marital_status_selection(self):
 -        return super()._get_marital_status_selection() + [
--            ("common_law_marriage", self.env._("Common law marriage")),
--            ("separated", self.env._("Separated")),
--        ]
-+@api.model
-+def _get_marital_status_selection(self):
-+    try:
-+        res = super()._get_marital_status_selection()
-+    except AttributeError:
-+        # Fallback: get the selection from the field definition
-+        field = self.env['hr.employee']._fields.get('marital')
-+        if field and hasattr(field, 'selection'):
-+            res = field.selection
-+            if callable(res):
-+                res = res(self.env)
-+        else:
-+            res = []
-+    return res + [
-+        ("common_law_marriage", self.env._("Common law marriage")),
-+        ("separated", self.env._("Separated")),
-+    ]
-
++        try:
++            res = super()._get_marital_status_selection()
++        except AttributeError:
++            # Fallback seguro usando a API oficial do Odoo
++            res = self.fields_get(['marital'])['marital']['selection']
++        return res + [
+             ("common_law_marriage", self.env._("Common law marriage")),
+             ("separated", self.env._("Separated")),
+         ]
