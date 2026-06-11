@@ -102,6 +102,7 @@ python.pkgs.buildPythonApplication rec {
     phonenumbers        # l10n_br
     workalendar         # l10n_br
     python-magic        # DMS
+    python-dateutil     # hr_employee_relative
   ] ++ addonsPythonDeps;
 
 
