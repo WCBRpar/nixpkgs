@@ -72,6 +72,9 @@ python.pkgs.buildPythonApplication rec {
       erpbrasil-transmissao
       erpbrasil-edoc
       brazilcep
+      brazilfiscalreport
+      nfelib
+      num2words
       email-validator
       phonenumbers
       workalendar
@@ -97,7 +100,10 @@ python.pkgs.buildPythonApplication rec {
     erpbrasil-edoc
 
     # Outras dependências da localização
+    num2words           # l10n_br
     brazilcep           # l10n_br
+    brazilfiscalreport  # l10n_br
+    nfelib              # l10n_br
     email-validator     # l10n_br
     phonenumbers        # l10n_br
     workalendar         # l10n_br

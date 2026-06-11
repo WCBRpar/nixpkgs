@@ -2319,6 +2319,8 @@ self: super: with self; {
 
   brazilcep = callPackage ../development/python-modules/brazilcep { };
 
+  brazilfiscalreport = callPackage ../development/python-modules/brazilfiscalreport { };
+
   breathe = callPackage ../development/python-modules/breathe { };
 
   breezy = callPackage ../development/python-modules/breezy { };
@@ -11260,6 +11262,8 @@ self: super: with self; {
   nexusrpc = callPackage ../development/python-modules/nexusrpc { };
 
   nfcpy = callPackage ../development/python-modules/nfcpy { };
+
+  nfelib = callPackage ../development/python-modules/nfelib { };
 
   nftables = callPackage ../os-specific/linux/nftables/python.nix { inherit (pkgs) nftables; };
 
