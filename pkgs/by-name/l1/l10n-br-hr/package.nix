@@ -14,7 +14,7 @@ let
 
 in
 
-base.overrideAttrs (old: {
-  patches = [ ./fix-marital-selection.patch ];
-})
+  base.overrideAttrs (old: {
+    patches = [ ./fix-marital-selection.patch ];
+  })
 
