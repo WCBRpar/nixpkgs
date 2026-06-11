@@ -76,6 +76,7 @@ python.pkgs.buildPythonApplication rec {
       phonenumbers
       workalendar
       python-magic
+      python-dateutil
     ] ++ addonsPythonDeps)}"
   ];
 
