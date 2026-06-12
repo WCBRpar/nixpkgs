@@ -902,7 +902,7 @@ with pkgs;
     product-contract-variable-quantity = callPackage ../by-name/pr/product-contract-variable-quantity/package.nix{ };
 
     # dms (18.0)
-    dms = callPackage ../by-name/dm/dms-odoo/package.nix { };
+    dms-odoo = callPackage ../by-name/dm/dms-odoo/package.nix { };
     dms-auto-classification = callPackage ../by-name/dm/dms-auto-classification/package.nix { };
     dms-field = callPackage ../by-name/dm/dms-field/package.nix { };
     dms-field-auto-classification = callPackage ../by-name/dm/dms-field-auto-classification/package.nix { };
@@ -979,6 +979,32 @@ with pkgs;
 
     # product-atributes (19.0)
     uom-alias = callPackage ../by-name/uo/uom-alias/package.nix { };
+
+    # OCA/server-auth (18.0)
+    auth-admin-passkey = callPackage ../by-name/au/auth-admin-passkey/package.nix { };
+    auth-api-key = callPackage ../by-name/au/auth-api-key/package.nix { };
+    auth-api-key-group = callPackage ../by-name/au/auth-api-key-group/package.nix { };
+    auth-api-key-server-env = callPackage ../by-name/au/auth-api-key-server-env/package.nix { };
+    auth-jwt = callPackage ../by-name/au/auth-jwt/package.nix { };
+    auth-jwt-demo = callPackage ../by-name/au/auth-jwt-demo/package.nix { };
+    auth-oauth-filter-by-domain = callPackage ../by-name/au/auth-oauth-filter-by-domain/package.nix { };
+    auth-oauth-login-field = callPackage ../by-name/au/auth-oauth-login-field/package.nix { };
+    auth-oauth-multi-token = callPackage ../by-name/au/auth-oauth-multi-token/package.nix { };
+    auth-oidc = callPackage ../by-name/au/auth-oidc/package.nix { };
+    auth-oidc-environment = callPackage ../by-name/au/auth-oidc-environment/package.nix { };
+    auth-saml = callPackage ../by-name/au/auth-saml/package.nix { };
+    auth-session-timeout = callPackage ../by-name/au/auth-session-timeout/package.nix { };
+    auth-signup-verify-email = callPackage ../by-name/au/auth-signup-verify-email/package.nix { };
+    auth-user-case-insensitive = callPackage ../by-name/au/auth-user-case-insensitive/package.nix { };
+    base-user-empty-password = callPackage ../by-name/ba/base-user-empty-password/package.nix { };
+    base-user-show-email = callPackage ../by-name/ba/base-user-show-email/package.nix { };
+    cross-connect-client = callPackage ../by-name/cr/cross-connect-client/package.nix { };
+    cross-connect-server = callPackage ../by-name/cr/cross-connect-server/package.nix { };
+    impersonate-login = callPackage ../by-name/im/impersonate-login/package.nix { };
+    password-security = callPackage ../by-name/pa/password-security/package.nix { };
+    user-log-view = callPackage ../by-name/us/user-log-view/package.nix { };
+    users-ldap-mail = callPackage ../by-name/us/users-ldap-mail/package.nix { };
+    vault-share = callPackage ../by-name/va/vault-share/package.nix { };
 
     # website (18.0)
     website-odoo-debranding = callPackage ../by-name/we/website-odoo-debranding/package.nix { };
