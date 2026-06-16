@@ -16,7 +16,7 @@ buildPythonPackage rec {
     owner = "renalreg";
     repo = "PyXB-X";
     rev = "v${version}";
-    hash = "sha256-Pn6REZ+aE2Qlrczb2oyAagyFOa4ijR+hB+02O2SFSoA=";
+    hash = "sha256-NIlFDxDtitpxJP/xkThpFD4MYJvt1zUc9nhd7sZquFo=";
   };
 
   build-system = [ setuptools ];

@@ -48,7 +48,7 @@ let
   };
 in
 python.pkgs.buildPythonApplication rec {
-  pname = "odoo";
+  pgame = "odoo";
   version = "${odoo_version}.${odoo_release}";
   pyproject = true;
 
