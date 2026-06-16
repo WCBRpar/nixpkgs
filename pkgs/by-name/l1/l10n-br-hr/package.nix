@@ -9,7 +9,7 @@ let
     owner = "OCA";
     repo = "l10n-brazil";
     subdir = "l10n_br_hr";
-    hash = "sha256-qQlrNyomX7Bz4dx+9ZYv64QU8tQjPreIidjdNI3fWfc=";
+    hash = "sha256-xi34hofJEGjwO6maaBZefES9qZvUvW2JsY8WaFyTvCk=";
   };
 
 in

@@ -6,5 +6,5 @@ fetchOdooAddon {
   owner = "OCA";
   repo = "server-auth";
   subdir = "auth_signup_verify_email";
-  hash = "sha256-N3ZDvSggr66Az5AiFHIAmNuZr9cTaAMBHLGUxOppnrs=";
+  hash = "sha256-c0vllPXnc+jFGy5bqv3C51YJWfXEGdCvo6evrjanBn0=";
 }
