@@ -40,7 +40,7 @@ let
           owner = "py-pdf";
           repo = "PyPDF2";
           rev = version;
-          hash = "sha256-51fnnu6T/SOcSK+yVAAugPN7mjCEqhy6nnpNP4ZTLk8=";
+          hash = "sha256-NIlFDxDtitpxJP/xkThpFD4MYJvt1zUc9nhd7sZquFo=";
         };
         doCheck = false;
       } );
