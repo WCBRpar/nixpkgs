@@ -34,16 +34,16 @@ let
         dependencies = [ pythonPrev.pycairo pythonPrev.freetype-py ];
       };
 
-      pypdf2 = pythonPrev.pypdf2.overrideAttrs (old: rec {
-        version = "2.12.1";
-        src = fetchFromGitHub {
-          owner = "py-pdf";
-          repo = "PyPDF2";
-          rev = version;
-          hash = "sha256-NIlFDxDtitpxJP/xkThpFD4MYJvt1zUc9nhd7sZquFo=";
-        };
-        doCheck = false;
-      } );
+      # pypdf2 = pythonPrev.pypdf2.overrideAttrs (old: rec {
+      #   version = "2.12.1";
+      #   src = fetchFromGitHub {
+      #     owner = "py-pdf";
+      #     repo = "PyPDF2";
+      #     rev = version;
+      #     hash = "sha256-NIlFDxDtitpxJP/xkThpFD4MYJvt1zUc9nhd7sZquFo=";
+      #   };
+      #   doCheck = false;
+      # } );
     };
   };
 in
@@ -80,6 +80,7 @@ python.pkgs.buildPythonApplication rec {
       workalendar
       python-magic
       python-dateutil
+      pypdf2
     ] ++ addonsPythonDeps)}"
   ];
 
@@ -109,6 +110,7 @@ python.pkgs.buildPythonApplication rec {
     workalendar         # l10n_br
     python-magic        # DMS
     python-dateutil     # hr_employee_relative
+    pypdf2
   ] ++ addonsPythonDeps;
 
 
