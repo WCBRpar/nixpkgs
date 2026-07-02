@@ -979,6 +979,20 @@ with pkgs;
     users-ldap-mail = callPackage ../by-name/us/users-ldap-mail/package.nix { };
     vault-share = callPackage ../by-name/va/vault-share/package.nix { };
 
+    # OCA/social (18.0)
+    fetchmail-thread-default = callPackage ../by-name/fe/fetchmail-thread-default/package.nix { };
+    mail-activity-cancel-tracking = callPackage ../by-name/ma/mail-activity-cancel-tracking/package.nix { };
+    mail-activity-unlink-log = callPackage ../by-name/ma/mail-activity-unlink-log/package.nix { };
+    mail-gateway = callPackage ../by-name/ma/mail-gateway/package.nix { };
+    mail-gateway-telegram = callPackage ../by-name/ma/mail-gateway-telegram/package.nix { };
+    mail-gateway-telegram-standalone = callPackage ../by-name/ma/mail-gateway-telegram-standalone/package.nix { };
+    mail-gateway-whatsapp = callPackage ../by-name/ma/mail-gateway-whatsapp/package.nix { };
+    mail-notification-with-history = callPackage ../by-name/ma/mail-notification-with-history/package.nix { };
+    mail-thread-create-nolog = callPackage ../by-name/ma/mail-thread-create-nolog/package.nix { };
+    res-company-mastodon-link = callPackage ../by-name/re/res-company-mastodon-link/package.nix { };
+    res-partner-linkedin-link = callPackage ../by-name/re/res-partner-linkedin-link/package.nix { };
+    res-partner-mastodon-link = callPackage ../by-name/re/res-partner-mastodon-link/package.nix { };
+
     # OCA/web (19.0)
     web-widget-bokeh-chart = callPackage ../by-name/we/web-widget-bokeh-chart/package.nix { };
     web-calendar-slot-duration = callPackage ../by-name/we/web-calendar-slot-duration/package.nix { };
