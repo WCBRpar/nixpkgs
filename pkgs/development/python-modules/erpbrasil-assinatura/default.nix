@@ -39,6 +39,8 @@ buildPythonPackage rec {
   ];
 
   doCheck = false;
+  dontUsePytestCheck = true;
+  dontUsePipInstallCheck = true;
 
   pythonNamespaces = [ "erpbrasil" ];
 

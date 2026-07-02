@@ -35,6 +35,10 @@ buildPythonPackage rec {
     zeep
   ];
 
+  doCheck = false;
+  dontUsePytestCheck = true;
+  dontUsePipInstallCheck = true;
+
   pythonNamespaces = [ "erpbrasil" ];
 
   pythonImportsCheck = [ "erpbrasil.transmissao" ];

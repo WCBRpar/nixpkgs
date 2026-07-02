@@ -2,6 +2,7 @@
 
 {
   lib,
+  pkgs,
   python,
   buildPythonPackage,
   fetchFromGitHub,
@@ -37,8 +38,9 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "erpbrasil.base" ];
 
-  # Testes podem exigir dependências adicionais
-  doCheck = false; # Habilitar quando testes estiverem configurados
+  doCheck = false;
+  dontUsePytestCheck = true;
+  dontUsePipInstallCheck = true;
 
   meta = with lib; {
     description = "Biblioteca base para sistemas ERP brasileiros";

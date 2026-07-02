@@ -772,7 +772,7 @@ with pkgs;
 
     # server-tools (19,0)
     bus-alt-connection = callPackage ../by-name/bu/bus-alt-connection/package.nix { };
-    module-auto-update = callPackage ../by-name/mo/module-auto-update/package.nix { } ;
+    module-auto-update = callPackage ../by-name/mo/module-auto-update/package.nix { };
     sequence-python = callPackage ../by-name/se/sequence-python/package.nix { };
 
     # server-tools (18.0)
@@ -794,10 +794,13 @@ with pkgs;
     # contract (19.0)
     subscription-oca = callPackage ../by-name/su/subscription-oca/package.nix { };
 
-    # contract (18,0)
+    # OCA/contract (19.0)
+    contract-analytic-tag = callPackage ../by-name/co/contract-analytic-tag/package.nix { };
+    contract-variable-quantity = callPackage ../by-name/co/contract-variable-quantity/package.nix { };
+
+    # OCA/contract (18.0)
     agreement-rebate-partner-company-group = callPackage ../by-name/ag/agreement-rebate-partner-company-group/package.nix { };
     contract = callPackage ../by-name/co/contract/package.nix { };
-    contract-analytic-tag = callPackage ../by-name/co/contract-analytic-tag/package.nix { };
     contract-forecast = callPackage ../by-name/co/contract-forecast/package.nix { };
     contract-forecast-variable-quantity = callPackage ../by-name/co/contract-forecast-variable-quantity/package.nix { };
     contract-invoice-auto-validate = callPackage ../by-name/co/contract-invoice-auto-validate/package.nix { };
@@ -820,7 +823,6 @@ with pkgs;
     contract-update-last-date-invoiced = callPackage ../by-name/co/contract-update-last-date-invoiced/package.nix{ };
     contract-variable-qty-prorated = callPackage ../by-name/co/contract-variable-qty-prorated/package.nix { };
     contract-variable-qty-timesheet = callPackage ../by-name/co/contract-variable-qty-timesheet/package.nix { };
-    contract-variable-quantity = callPackage ../by-name/co/contract-variable-quantity/package.nix { };
     product-contract = callPackage ../by-name/pr/product-contract/package.nix { };
     product-contract-recurrence-in-price = callPackage ../by-name/pr/product-contract-recurrence-in-price/package.nix { };
     product-contract-variable-quantity = callPackage ../by-name/pr/product-contract-variable-quantity/package.nix{ };
@@ -930,10 +932,79 @@ with pkgs;
     users-ldap-mail = callPackage ../by-name/us/users-ldap-mail/package.nix { };
     vault-share = callPackage ../by-name/va/vault-share/package.nix { };
 
-    # website (18.0)
+    # OCA/web (19.0)
+    web-widget-bokeh-chart = callPackage ../by-name/we/web-widget-bokeh-chart/package.nix { };
+    web-calendar-slot-duration = callPackage ../by-name/we/web-calendar-slot-duration/package.nix { };
+    web-chatter-position = callPackage ../by-name/we/web-chatter-position/package.nix { };
+    web-dark-mode = callPackage ../by-name/we/web-dark-mode/package.nix { };
+    web-dialog-size = callPackage ../by-name/we/web-dialog-size/package.nix { };
+    web-disable-export-group = callPackage ../by-name/we/web-disable-export-group/package.nix { };
+    web-editor-class-selector = callPackage ../by-name/we/web-editor-class-selector/package.nix { };
+    web-editor-disable-chatgpt = callPackage ../by-name/we/web-editor-disable-chatgpt/package.nix { };
+    web-environment-ribbon = callPackage ../by-name/we/web-environment-ribbon/package.nix { };
+    web-favicon = callPackage ../by-name/we/web-favicon/package.nix { };
+    web-group-expand = callPackage ../by-name/we/web-group-expand/package.nix { };
+    web-ir-actions-act-multi = callPackage ../by-name/we/web-ir-actions-act-multi/package.nix { };
+    web-ir-actions-act-window-message = callPackage ../by-name/we/web-ir-actions-act-window-message/package.nix {};
+    web-m2x-options = callPackage ../by-name/we/web-m2x-options/package.nix { };
+    web-m2x-options-manager = callPackage ../by-name/we/web-m2x-options-manager/package.nix { };
+    web-pwa-customize = callPackage ../by-name/we/web-pwa-customize/package.nix { };
+    web-refresher = callPackage ../by-name/we/web-refresher/package.nix { };
+    web-remember-tree-column-width = callPackage ../by-name/we/web-remember-tree-column-width/package.nix { };
+    web-responsive = callPackage ../by-name/we/web-responsive/package.nix { };
+    web-search-with-and = callPackage ../by-name/we/web-search-with-and/package.nix { };
+    web-timeline = callPackage ../by-name/we/web-timeline/package.nix { };
+    web-tree-many2one-clickable = callPackage ../by-name/we/web-tree-many2one-clickable/package.nix { };
+
+    # OCA/web (18.0)
+    web-company-color = callPackage ../by-name/we/web-company-color/package.nix { };
+    web-copy-confirm = callPackage ../by-name/we/web-copy-confirm/package.nix { };
+    web-datetime-picker-default-time = callPackage ../by-name/we/web-datetime-picker-default-time/package.nix { };
+    web-excel-export-dynamic-expand = callPackage ../by-name/we/web-excel-export-dynamic-expand/package.nix { };
+    web-filter-header-button = callPackage ../by-name/we/web-filter-header-button/package.nix { };
+    web-form-banner = callPackage ../by-name/we/web-form-banner/package.nix { };
+    web-help = callPackage ../by-name/we/web-help/package.nix { };
+    web-no-bubble = callPackage ../by-name/we/web-no-bubble/package.nix { };
+    web-notify = callPackage ../by-name/we/web-notify/package.nix { };
+    web-notify-channel-message = callPackage ../by-name/we/web-notify-channel-message/package.nix { };
+    web-notify-upgrade = callPackage ../by-name/we/web-notify-upgrade/package.nix { };
+    web-pivot-computed-measure = callPackage ../by-name/we/web-pivot-computed-measure/package.nix { };
+    web-portal-properties = callPackage ../by-name/we/web-portal-properties/package.nix { };
+    web-quick-start-screen = callPackage ../by-name/we/web-quick-start-screen/package.nix { };
+    web-save-discard-button = callPackage ../by-name/we/web-save-discard-button/package.nix { };
+    web-send-message-popup = callPackage ../by-name/we/web-send-message-popup/package.nix { };
+    web-session-auto-close = callPackage ../by-name/we/web-session-auto-close/package.nix { };
+    web-sort-menu = callPackage ../by-name/we/web-sort-menu/package.nix { };
+    web-systray-button-init-action = callPackage ../by-name/we/web-systray-button-init-action/package.nix { };
+    web-theme-classic = callPackage ../by-name/we/web-theme-classic/package.nix { };
+    web-time-range-menu-custom = callPackage ../by-name/we/web-time-range-menu-custom/package.nix { };
+    web-toggle-chatter = callPackage ../by-name/we/web-toggle-chatter/package.nix { };
+    web-touchscreen = callPackage ../by-name/we/web-touchscreen/package.nix { };
+    web-tree-column-keyboard-resize = callPackage ../by-name/we/web-tree-column-keyboard-resize/package.nix { };
+    web-tree-dynamic-colored-field = callPackage ../by-name/we/web-tree-dynamic-colored-field/package.nix { };
+
+    # OCA/website (19.0)
+    website-cookiefirst = callPackage ../by-name/we/website-cookiefirst/package.nix { };
+    website-forum-subscription = callPackage ../by-name/we/website-forum-subscription/package.nix { };
+    website-google-tag-manager = callPackage ../by-name/we/website-google-tag-manager/package.nix { };
+
+    # OCA/website (18.0)
     website-odoo-debranding = callPackage ../by-name/we/website-odoo-debranding/package.nix { };
     website-whatsapp = callPackage ../by-name/we/website-whatsapp/package.nix { };
-
+    website-altcha = callPackage ../by-name/we/website-altcha/package.nix { };
+    website-cf-turnstile-login = callPackage ../by-name/we/website-cf-turnstile-login/package.nix { };
+    website-cookiebot = callPackage ../by-name/we/website-cookiebot/package.nix { };
+    website-crm-quick-answer = callPackage ../by-name/we/website-crm-quick-answer/package.nix { };
+    website-form-require-legal = callPackage ../by-name/we/website-form-require-legal/package.nix { };
+    website-legal-page = callPackage ../by-name/we/website-legal-page/package.nix { };
+    website-menu-by-user-status = callPackage ../by-name/we/website-menu-by-user-status/package.nix { };
+    website-partner-form = callPackage ../by-name/we/website-partner-form/package.nix { };
+    website-product-document-download-counter = callPackage ../by-name/we/website-product-document-download-counter/package.nix { };
+    website-require-login = callPackage ../by-name/we/website-require-login/package.nix { };
+    website-search-header = callPackage ../by-name/we/website-search-header/package.nix { };
+    website-select2 = callPackage ../by-name/we/website-select2/package.nix { };
+    website-snippet-country-dropdown = callPackage ../by-name/we/website-snippet-country-dropdown/package.nix { };
+    website-user-login-redirect-custom = callPackage ../by-name/we/website-user-login-redirect-custom/package.nix{ };
   };
 
   ociTools = callPackage ../build-support/oci-tools { };

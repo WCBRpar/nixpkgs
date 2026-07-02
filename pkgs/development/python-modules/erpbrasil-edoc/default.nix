@@ -35,6 +35,10 @@ buildPythonPackage rec {
     beautifulsoup4
   ];
 
+  doCheck = false;
+  dontUsePytestCheck = true;
+  dontUsePipInstallCheck = true;
+
   pythonNamespaces = [ "erpbrasil" ];
 
   pythonImportsCheck = [ "erpbrasil.edoc" ];

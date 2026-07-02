@@ -2,9 +2,9 @@
 
 fetchOdooAddon {
   pname = "contract-analytic-tag";
-  version = "18.0";
+  version = "19.0";
   owner = "OCA";
   repo = "contract";
   subdir = "contract_analytic_tag";
-  hash = "sha256-tbZHxaftMV/QajBjKE71Txool6WN0wdFgDAbTyj5jYk=";
+  hash = "sha256-06ixGS1nNVrCwskKRnY5dm8qKMx2b1q65PLHH0/vkOI=";
 }
