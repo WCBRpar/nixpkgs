@@ -26,11 +26,7 @@ let
 
   fmt =
     let
-      treefmtNixSrc = fetchTarball {
-        inherit (pinned.treefmt-nix) url;
-        sha256 = pinned.treefmt-nix.hash;
-      };
-      treefmtEval = (import treefmtNixSrc).evalModule pkgs ./treefmt.nix;
+      treefmt = pkgs.treefmt.withConfig ./treefmt.nix;
       fs = pkgs.lib.fileset;
       nixFilesSrc = fs.toSource {
         root = ../.;
@@ -38,10 +34,20 @@ let
       };
     in
     {
-      shell = treefmtEval.config.build.devShell;
-      pkg = treefmtEval.config.build.wrapper;
-      check = treefmtEval.config.build.check nixFilesSrc;
+      pkg = treefmt;
+      check = treefmt.check nixFilesSrc;
     };
+
+  # nixos-render-docs and nixos-render-docs-redirects
+  # Should be used from tree to build the matching in-tree documentation
+  docPkgs = pkgs.extend (
+    final: prev: {
+      nixos-render-docs = final.callPackage ../pkgs/by-name/ni/nixos-render-docs/package.nix { };
+      nixos-render-docs-redirects =
+        final.callPackage ../pkgs/by-name/ni/nixos-render-docs-redirects/package.nix
+          { };
+    }
+  );
 
 in
 rec {
@@ -58,7 +64,7 @@ rec {
   # CI jobs
   lib-tests = import ../lib/tests/release.nix { inherit pkgs; };
   manual-nixos = (import ../nixos/release.nix { }).manual.${system} or null;
-  manual-nixpkgs = (import ../doc { inherit pkgs; });
+  manual-nixpkgs = (import ../doc { pkgs = docPkgs; });
   nixpkgs-vet = pkgs.callPackage ./nixpkgs-vet.nix {
     nix = pkgs.nixVersions.latest;
   };
