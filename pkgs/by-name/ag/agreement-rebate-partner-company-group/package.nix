@@ -6,5 +6,5 @@ fetchOdooAddon {
   owner = "OCA";
   repo = "contract";
   subdir = "agreement_rebate_partner_company_group";
-  hash = "sha256-tbZHxaftMV/QajBjKE71Txool6WN0wdFgDAbTyj5jYk=";
+  hash = "sha256-+2h/ewCvVok9kP/Tc+sLeu/tUF0DxxYv9wTvHVczJVw=";
 }
