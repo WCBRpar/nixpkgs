@@ -797,6 +797,8 @@ with pkgs;
     # OCA/contract (19.0)
     contract-analytic-tag = callPackage ../by-name/co/contract-analytic-tag/package.nix { };
     contract-variable-quantity = callPackage ../by-name/co/contract-variable-quantity/package.nix { };
+    contract-sale = callPackage ../by-name/co/contract-sale/package.nix { };
+    contract-update-last-date-invoiced = callPackage ../by-name/co/contract-update-last-date-invoiced/package.nix{ };
 
     # OCA/contract (18.0)
     agreement-rebate-partner-company-group = callPackage ../by-name/ag/agreement-rebate-partner-company-group/package.nix { };
@@ -812,7 +814,6 @@ with pkgs;
     contract-price-revision = callPackage ../by-name/co/contract-price-revision/package.nix { };
     contract-queue-job = callPackage ../by-name/co/contract-queue-job/package.nix { };
     contract-refund-on-stop = callPackage ../by-name/co/contract-refund-on-stop/package.nix { };
-    contract-sale = callPackage ../by-name/co/contract-sale/package.nix { };
     contract-sale-generation = callPackage ../by-name/co/contract-sale-generation/package.nix { };
     contract-sale-invoicing = callPackage ../by-name/co/contract-sale-invoicing/package.nix { };
     contract-sale-mandate = callPackage ../by-name/co/contract-sale-mandate/package.nix { };
@@ -820,7 +821,6 @@ with pkgs;
     contract-sale-transmit-method = callPackage ../by-name/co/contract-sale-transmit-method/package.nix { };
     contract-termination = callPackage ../by-name/co/contract-termination/package.nix { };
     contract-transmit-method = callPackage ../by-name/co/contract-transmit-method/package.nix { };
-    contract-update-last-date-invoiced = callPackage ../by-name/co/contract-update-last-date-invoiced/package.nix{ };
     contract-variable-qty-prorated = callPackage ../by-name/co/contract-variable-qty-prorated/package.nix { };
     contract-variable-qty-timesheet = callPackage ../by-name/co/contract-variable-qty-timesheet/package.nix { };
     product-contract = callPackage ../by-name/pr/product-contract/package.nix { };
