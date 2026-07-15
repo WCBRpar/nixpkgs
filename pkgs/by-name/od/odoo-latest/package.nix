@@ -34,16 +34,16 @@ let
         dependencies = [ pythonPrev.pycairo pythonPrev.freetype-py ];
       };
 
-      # pypdf2 = pythonPrev.pypdf2.overrideAttrs (old: rec {
-      #   version = "2.12.1";
-      #   src = fetchFromGitHub {
-      #     owner = "py-pdf";
-      #     repo = "PyPDF2";
-      #     rev = version;
-      #     hash = "sha256-NIlFDxDtitpxJP/xkThpFD4MYJvt1zUc9nhd7sZquFo=";
-      #   };
-      #   doCheck = false;
-      # } );
+      pypdf2 = pythonPrev.pypdf2.overrideAttrs (old: rec {
+        version = "2.12.1";
+        src = fetchFromGitHub {
+          owner = "py-pdf";
+          repo = "PyPDF2";
+          rev = version;
+          hash = "sha256-NIlFDxDtitpxJP/xkThpFD4MYJvt1zUc9nhd7sZquFo=";
+        };
+        doCheck = false;
+      } );
     };
   };
 in
@@ -55,7 +55,7 @@ python.pkgs.buildPythonApplication rec {
   src = fetchzip {
     url = "https://nightly.odoo.com/${odoo_version}/nightly/src/odoo_${version}.zip";
     name = "odoo-${version}";
-    hash = "sha256-hq0D5qurwcHXGinpDf6Drx2v2XY/iZwwNn3hAnePYF4=";
+    hash = "sha256-Q6wDL2oi9sIQC2m+AVF7YIwv+FJPpt2T23UpOvg1m3g=";
   };
 
   postPatch = ''
