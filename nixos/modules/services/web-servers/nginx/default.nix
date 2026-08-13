@@ -412,7 +412,7 @@ let
             "
             listen ${addr}${optionalString (port != null) ":${toString port}"} quic "
             + optionalString vhost.default "default_server "
-            + optionalString vhost.reuseport "reuseport "
+            + optionalString (vhost.reuseport && !(lib.hasPrefix "unix:" addr)) "reuseport "
             + optionalString (extraParameters != [ ]) (
               concatStringsSep " " (
                 let
@@ -438,7 +438,7 @@ let
           + optionalString (ssl && vhost.http2 && oldHTTP2) "http2 "
           + optionalString ssl "ssl "
           + optionalString vhost.default "default_server "
-          + optionalString vhost.reuseport "reuseport "
+          + optionalString (vhost.reuseport && !(lib.hasPrefix "unix:" addr)) "reuseport "
           + optionalString proxyProtocol "proxy_protocol "
           + optionalString (extraParameters != [ ]) (concatStringsSep " " extraParameters)
           + ";";
@@ -805,7 +805,7 @@ in
           Nginx package to use. This defaults to the stable version. Note
           that the nginx team recommends to use the mainline version which
           available in nixpkgs as `nginxMainline`.
-          Supported Nginx forks include `angie`, `openresty` and `tengine`.
+          Supported Nginx forks include `angie` and `openresty`.
         '';
       };
 
@@ -1617,7 +1617,7 @@ in
           MemoryDenyWriteExecute =
             !(
               (builtins.any (mod: (mod.allowMemoryWriteExecute or false)) cfg.package.modules)
-              || (cfg.package == pkgs.openresty)
+              || (lib.getName cfg.package == "openresty")
             );
           RestrictRealtime = true;
           RestrictSUIDSGID = true;
@@ -1691,9 +1691,7 @@ in
       )
     );
 
-    environment.etc."nginx/nginx.conf" = mkIf cfg.enableReload {
-      source = configFile;
-    };
+    environment.etc."nginx/nginx.conf".source = configFile;
 
     security.acme.certs =
       let
@@ -1754,6 +1752,8 @@ in
       rotate = 26;
       compress = true;
       delaycompress = true;
+      # Run postrotate script only once after rotation of all log files:
+      sharedscripts = true;
       postrotate = "[ ! -f /var/run/nginx/nginx.pid ] || kill -USR1 `cat /var/run/nginx/nginx.pid`";
     };
   };

@@ -7,6 +7,7 @@
   writeShellScript,
   curl,
   common-updater-scripts,
+  gnused,
   cctools,
   darwin,
   rcodesign,
@@ -14,7 +15,7 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "codegraph";
-  version = "0.9.9";
+  version = "1.5.0";
 
   src =
     finalAttrs.passthru.sources.${stdenv.hostPlatform.system}
@@ -24,7 +25,6 @@ stdenv.mkDerivation (finalAttrs: {
     {
       "aarch64-darwin" = "codegraph-darwin-arm64";
       "aarch64-linux" = "codegraph-linux-arm64";
-      "x86_64-darwin" = "codegraph-darwin-x64";
       "x86_64-linux" = "codegraph-linux-x64";
     }
     .${stdenv.hostPlatform.system} or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
@@ -75,19 +75,15 @@ stdenv.mkDerivation (finalAttrs: {
     sources = {
       "aarch64-darwin" = fetchurl {
         url = "https://github.com/colbymchenry/codegraph/releases/download/v${finalAttrs.version}/codegraph-darwin-arm64.tar.gz";
-        hash = "sha256-Jm7gOMUpRulu4iKEP8bz5E01E0HtmPEfUne9/OmIDKU=";
+        hash = "sha256-z17kNabkTQl7L5jyt7i5QiuxCUhEQE7+2CUZxdoa8s8=";
       };
       "aarch64-linux" = fetchurl {
         url = "https://github.com/colbymchenry/codegraph/releases/download/v${finalAttrs.version}/codegraph-linux-arm64.tar.gz";
-        hash = "sha256-c8bldypGnYwcs8+OuToIULDeLoAQWwoCrA/QWdEn3pk=";
-      };
-      "x86_64-darwin" = fetchurl {
-        url = "https://github.com/colbymchenry/codegraph/releases/download/v${finalAttrs.version}/codegraph-darwin-x64.tar.gz";
-        hash = "sha256-tYPq7T5Ou0/tPGsI47H3j3v2Z8WAQVU9aWIpsh4+nxE=";
+        hash = "sha256-nxd1Cu30XVH2jKrjntIdbipykLIyblxT+VoWWRjr0dg=";
       };
       "x86_64-linux" = fetchurl {
         url = "https://github.com/colbymchenry/codegraph/releases/download/v${finalAttrs.version}/codegraph-linux-x64.tar.gz";
-        hash = "sha256-xA7oC84tNUyHS+/l7OmWKBy0bPCDAENy02/YpyOLWfs=";
+        hash = "sha256-K6Zeh6EhC3BrseZ9Xki1/EoZNeQ9uz+18xxVl4QNLlg=";
       };
     };
     updateScript = writeShellScript "update-codegraph" ''
@@ -96,6 +92,7 @@ stdenv.mkDerivation (finalAttrs: {
         lib.makeBinPath [
           curl
           common-updater-scripts
+          gnused
         ]
       }"
       NEW_VERSION=$(curl --silent -fsSLI -o /dev/null -w '%{url_effective}' "https://github.com/colbymchenry/codegraph/releases/latest" | sed -n 's#.*/releases/tag/v##p')

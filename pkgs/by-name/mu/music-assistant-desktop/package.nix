@@ -8,6 +8,8 @@
 
   # nativeBuildInputs
   cargo-tauri,
+  jq,
+  moreutils,
   nodejs,
   pkg-config,
   yarnBuildHook,
@@ -21,7 +23,7 @@
   atk,
   dbus,
   glib-networking,
-  libappindicator-gtk3,
+  libappindicator,
   llvmPackages,
   pulseaudio,
   gtk3,
@@ -30,23 +32,33 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "music-assistant-desktop";
-  version = "0.4.4";
+  version = "0.6.2";
 
   src = fetchFromGitHub {
     owner = "music-assistant";
     repo = "desktop-app";
     tag = finalAttrs.version;
-    hash = "sha256-t63DUejUyNnOD7gIPow/xsCo2TcmDaK3C5R+TkoBZo8=";
+    hash = "sha256-d9dC6YiF4xIM2hVA2lX5B8qt5dnDFSG/MAZhQdZf8q4=";
   };
 
   patches = [
     ./remove-updater.diff
   ];
 
+  postPatch = ''
+    # set version
+    substituteInPlace package.json src-tauri/tauri.conf.json \
+      --replace-fail "0.0.0" "${finalAttrs.version}"
+
+    # disable upstream updater
+    jq '.plugins.updater.endpoints = [ ] | .bundle.createUpdaterArtifacts = false' src-tauri/tauri.conf.json \
+      | sponge src-tauri/tauri.conf.json
+  '';
+
   cargoRoot = "src-tauri";
   buildAndTestSubdir = finalAttrs.cargoRoot;
 
-  cargoHash = "sha256-Z7iyPEEPvUhVLma4n20faoz47CK+PHAIB6epNDF5sUo=";
+  cargoHash = "sha256-AFn2m8eO+U86s6g2LlzBuAsJBesrm3Gncihf+zbPDeE=";
 
   yarnOfflineCache = fetchYarnDeps {
     yarnLock = finalAttrs.src + "/yarn.lock";
@@ -55,6 +67,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   nativeBuildInputs = [
     cargo-tauri.hook
+    jq
+    moreutils
     nodejs
     pkg-config
     yarnBuildHook
@@ -71,7 +85,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     atk
     dbus
     glib-networking
-    libappindicator-gtk3
+    libappindicator
     pulseaudio
     gtk3
     webkitgtk_4_1
@@ -79,7 +93,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   preFixup = lib.optionalString stdenv.hostPlatform.isLinux ''
     gappsWrapperArgs+=(
-      --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [ libappindicator-gtk3 ]}"
+      --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [ libappindicator ]}"
     )
   '';
 

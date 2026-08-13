@@ -91,6 +91,9 @@ let
     in
     if pos == null then "" else " at ${pos.file}:${toString pos.line}:${toString pos.column}";
 
+  hasColonInfix = hasInfix ":";
+  hasNewlineInfix = hasInfix "\n";
+
   # Internal functor to help for migrating functor.wrapped to functor.payload.elemType
   # Note that individual attributes can be overridden if needed.
   elemTypeFunctor =
@@ -533,13 +536,14 @@ rec {
   singleLineStr =
     let
       inherit (strMatching "[^\n\r]*\n?") check merge;
+      removeNewlineSuffix = lib.removeSuffix "\n";
     in
     mkOptionType {
       name = "singleLineStr";
       description = "(optionally newline-terminated) single-line string";
       descriptionClass = "noun";
       inherit check;
-      merge = loc: defs: lib.removeSuffix "\n" (merge loc defs);
+      merge = loc: defs: removeNewlineSuffix (merge loc defs);
     };
 
   strMatching =
@@ -580,7 +584,7 @@ rec {
 
   passwdEntry =
     entryType:
-    addCheck entryType (str: !(hasInfix ":" str || hasInfix "\n" str))
+    addCheck entryType (str: !(hasColonInfix str || hasNewlineInfix str))
     // {
       name = "passwdEntry ${entryType.name}";
       description = "${
@@ -604,7 +608,7 @@ rec {
     description = "fileset";
     descriptionClass = "noun";
     check = isFileset;
-    merge = loc: defs: unions (map (x: x.value) defs);
+    merge = loc: defs: unions (getValues defs);
     emptyValue.value = empty;
   };
 
@@ -1140,6 +1144,27 @@ rec {
         else
           throw "The option `${showOption loc}` is defined as ${lib.strings.escapeNixIdentifier choice}, but ${lib.strings.escapeNixIdentifier choice} is not among the valid choices (${choicesStr}). Value ${choice} was defined in ${showFiles (getFiles defs)}.";
       nestedTypes = tags;
+      getSubModules =
+        let
+          tagsWithSubModules = filterAttrs (_: mods: mods != null) (
+            mapAttrs (_: opt: opt.type.getSubModules) tags
+          );
+        in
+        if tagsWithSubModules == { } then null else [ tagsWithSubModules ];
+      substSubModules =
+        allWrappedModules:
+        let
+          tagsWithNewTypes = zipAttrsWith (tag: tags.${tag}.type.substSubModules) (
+            concatMap (
+              { _file, imports }: map (mapAttrs (_: imports: { inherit _file imports; })) imports
+            ) allWrappedModules
+          );
+        in
+        attrTag (
+          mapAttrs (
+            tag: opt: opt // (optionalAttrs (tagsWithNewTypes ? ${tag}) { type = tagsWithNewTypes.${tag}; })
+          ) tags
+        );
       functor = defaultFunctor "attrTag" // {
         type = { tags, ... }: lib.types.attrTag tags;
         payload = { inherit tags; };

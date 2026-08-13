@@ -50,7 +50,7 @@ let
 in
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "stalwart" + (lib.optionalString stalwartEnterprise "-enterprise");
-  version = "0.16.11";
+  version = "0.16.16";
 
   __structuredAttrs = true;
 
@@ -58,10 +58,10 @@ rustPlatform.buildRustPackage (finalAttrs: {
     owner = "stalwartlabs";
     repo = "stalwart";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-0A8IjetGV4h4qdpm44eZb0sNQ4abulb2+VUAeYWItT0=";
+    hash = "sha256-svf9J8oAMo427X6eiGdPiDMZ2/DdN7+FodGfhQL9hME=";
   };
 
-  cargoHash = "sha256-OpoQzNNm5JUrnk1tRZL9JUpDQnGH73Lj6SW52gSthl0=";
+  cargoHash = "sha256-QSEr2XPOh/iLARdjgCeClY2eN6UDF6E9Hoov4xprkag=";
 
   env = {
     # https://docs.rs/openssl/latest/openssl/#manual
@@ -76,6 +76,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
     lib.optionalAttrs
       (stdenv.hostPlatform.isLinux && (stdenv.hostPlatform.isAarch64 || stdenv.hostPlatform.isArmv7))
       {
+        # Required to fix Stalwart on ARM systems with 16 KB page size.
+        # Using rust-jemalloc-sys causes segmentation faults on x86_64.
         JEMALLOC_SYS_WITH_LG_PAGE = 16;
       };
 
@@ -298,7 +300,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
         redistributable = false;
       }
     ];
-
+    maxSilent = 14400; # 4 hours
     mainProgram = "stalwart";
     maintainers = with lib.maintainers; [
       happysalada

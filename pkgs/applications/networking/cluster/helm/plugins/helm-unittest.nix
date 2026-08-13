@@ -1,14 +1,18 @@
 {
   buildGoModule,
   fetchFromGitHub,
+  kubernetes-helm,
   lib,
   nix-update-script,
+  runCommand,
+  wrapHelm,
+  writableTmpDirAsHomeHook,
 }:
 
 let
-  version = "1.1.1";
+  version = "1.1.2";
 in
-buildGoModule {
+buildGoModule (finalAttrs: {
   pname = "helm-unittest";
   inherit version;
 
@@ -16,10 +20,10 @@ buildGoModule {
     owner = "helm-unittest";
     repo = "helm-unittest";
     tag = "v${version}";
-    hash = "sha256-oiTW8F0yo+kN943MI2mR5uEEYbMVxJx4RdEislJ3XSo=";
+    hash = "sha256-4555mm73Q5YMJ6k7fy86JyCXeSjJ/0fJkFS2o5HQsMA=";
   };
 
-  vendorHash = "sha256-4ckjM520MGYb64LbjYURe7AIScm4aGbj81rGKSSYaAo=";
+  vendorHash = "sha256-JjFhF/vaf39DYtcESV5N/wvjCFb2KrwU8rQXgZUwjrs=";
 
   postPatch = ''
     # Remove the install and upgrade hooks.
@@ -46,6 +50,26 @@ buildGoModule {
   '';
 
   passthru = {
+    tests.smoke =
+      let
+        helm = wrapHelm kubernetes-helm {
+          plugins = [ finalAttrs.finalPackage ];
+        };
+      in
+      runCommand "helm-unittest-plugin-smoke"
+        {
+          nativeBuildInputs = [
+            helm
+            writableTmpDirAsHomeHook
+          ];
+        }
+        ''
+          cp -r ${./tests/helm-unittest/smoke} chart
+          chmod -R u+w chart
+          helm unittest chart
+          touch $out
+        '';
+
     updateScript = nix-update-script { };
   };
 
@@ -58,4 +82,4 @@ buildGoModule {
       yurrriq
     ];
   };
-}
+})

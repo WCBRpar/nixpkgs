@@ -51,7 +51,7 @@ let
 
 in
 rec {
-  inherit pkgs fmt;
+  inherit pkgs docPkgs fmt;
   codeownersValidator = pkgs.callPackage ./codeowners-validator { };
 
   # FIXME(lf-): it might be useful to test other Nix implementations
@@ -70,7 +70,7 @@ rec {
   };
   parse = pkgs.lib.recurseIntoAttrs {
     nix_latest = pkgs.callPackage ./parse.nix { nix = pkgs.nixVersions.latest; };
-    nix_2_28 = pkgs.callPackage ./parse.nix { nix = pkgs.nixVersions.nix_2_28; };
+    stable = pkgs.callPackage ./parse.nix { nix = pkgs.nixVersions.stable; };
     lix = pkgs.callPackage ./parse.nix { nix = pkgs.lix; };
     lix_latest = pkgs.callPackage ./parse.nix { nix = pkgs.lixPackageSets.latest.lix; };
   };
