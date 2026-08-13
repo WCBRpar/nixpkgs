@@ -5,5 +5,5 @@ fetchOdooAddon {
   owner = "OCA";
   repo = "website";
   subdir = "website_whatsapp";
-  hash = "sha256-32MYMqdMmDo0vrL6/kD2SMvhph90lj5r3ginB3JScNc=";
+  hash = "sha256-BRtXJGmNlcQnpaZlBS8BDfa/Kq5bnOGFDyc+68EOzzs=";
 }
