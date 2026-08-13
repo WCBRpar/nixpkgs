@@ -2,9 +2,9 @@
 
 fetchOdooAddon {
   pname = "mail-forward";
-  version = "18.0";
+  version = "19.0";
   owner = "OCA";
   repo = "mail";
   subdir = "mail_forward";
-  hash = "sha256-A61IWN7EZ7sTeqznMCRj1ZkAqU7TUqAZ0ky0Qw65BDs=";
+  hash = "sha256-APfZGdWEkFQbBx6WA3BRdrYveJIeTK/Kcl0UQJk6lN4=";
 }

@@ -6,5 +6,5 @@ fetchOdooAddon {
   owner = "OCA";
   repo = "social";
   subdir = "mail_activity_cancel_tracking";
-  hash = "sha256-6ptO7BNBxFg+CVHGfKeB3at/odcF1idhsyMWW28+tBk=";
+  hash = "sha256-Tbe2vzKHzrT57rYm8+5fiZQ61AvrQK9WS/X0yi/fM6w=";
 }

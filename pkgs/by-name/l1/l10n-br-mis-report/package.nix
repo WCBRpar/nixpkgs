@@ -1,9 +1,9 @@
 { fetchOdooAddon }:
 fetchOdooAddon {
   pname = "l10n-br-mis-report";
-  version = "18.0";
+  version = "19.0";
   owner = "OCA";
   repo = "l10n-brazil";
   subdir = "l10n_br_mis_report";
-  hash = "sha256-lFNvTCu8NaGn13nk+8Sg1S9ldoi3yRhYeKL4YGRtPWk=";
+  hash = "sha256-piDlSugvUrTZnAdyMehs5hwGI5z5FfvSXpJ+E2p+pRA=";
 }

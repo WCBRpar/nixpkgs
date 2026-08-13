@@ -775,6 +775,7 @@ with pkgs;
 
     # server-tools (19,0)
     bus-alt-connection = callPackage ../by-name/bu/bus-alt-connection/package.nix { };
+    dbfilter-from-header = callPackage ../by-name/db/dbfilter-from-header/package.nix { };
     module-auto-update = callPackage ../by-name/mo/module-auto-update/package.nix { };
     sequence-python = callPackage ../by-name/se/sequence-python/package.nix { };
 
@@ -783,7 +784,6 @@ with pkgs;
     base-fontawesome-web-editor = callPackage ../by-name/ba/base-fontawesome-web-editor/package.nix { };
     base-name-search-improved = callPackage ../by-name/ba/base-name-search-improved/package.nix { };
     base-sequence-option = callPackage ../by-name/ba/base-sequence-option/package.nix { };
-    dbfilter-from-header = callPackage ../by-name/db/dbfilter-from-header/package.nix { };
 
     # account-financial-tools (18.0)
     account-sequence-option = callPackage ../by-name/ac/account-sequence-option/package.nix { };
@@ -799,6 +799,7 @@ with pkgs;
 
     # OCA/contract (19.0)
     contract-analytic-tag = callPackage ../by-name/co/contract-analytic-tag/package.nix { };
+    contract-payment-mode = callPackage ../by-name/co/contract-payment-mode/package.nix { };
     contract-variable-quantity = callPackage ../by-name/co/contract-variable-quantity/package.nix { };
     contract-sale = callPackage ../by-name/co/contract-sale/package.nix { };
     contract-update-last-date-invoiced = callPackage ../by-name/co/contract-update-last-date-invoiced/package.nix{ };
@@ -813,7 +814,6 @@ with pkgs;
     contract-invoice-start-end-dates = callPackage ../by-name/co/contract-invoice-start-end-dates/package.nix { };
     contract-line-successor = callPackage ../by-name/co/contract-line-successor/package.nix { };
     contract-mandate = callPackage ../by-name/co/contract-mandate/package.nix { };
-    contract-payment-mode = callPackage ../by-name/co/contract-payment-mode/package.nix { };
     contract-price-revision = callPackage ../by-name/co/contract-price-revision/package.nix { };
     contract-queue-job = callPackage ../by-name/co/contract-queue-job/package.nix { };
     contract-refund-on-stop = callPackage ../by-name/co/contract-refund-on-stop/package.nix { };
@@ -849,6 +849,7 @@ with pkgs;
     mail-activity-team = callPackage ../by-name/ma/mail-activity-team/package.nix { };
     mail-attach-existing-attachment = callPackage ../by-name/ma/mail-attach-existing-attachment/package.nix { };
     mail-attach-existing-attachment-account = callPackage ../by-name/ma/mail-attach-existing-attachment-account/package.nix { };
+    mail-forward = callPackage ../by-name/ma/mail-forward/package.nix { };
     mail-message-search = callPackage ../by-name/ma/mail-message-search/package.nix { };
     mail-optional-autofollow = callPackage ../by-name/ma/mail-optional-autofollow/package.nix { };
     mail-outbound-static = callPackage ../by-name/ma/mail-outbound-static/package.nix { };
@@ -858,6 +859,8 @@ with pkgs;
     mail-restrict-send-button = callPackage ../by-name/ma/mail-restrict-send-button/package.nix { };
     mail-send-confirmation = callPackage ../by-name/ma/mail-send-confirmation/package.nix { };
     mail-tracking = callPackage ../by-name/ma/mail-tracking/package.nix { };
+    mail-tracking-mailgun = callPackage ../by-name/ma/mail-tracking-mailgun/package.nix { };
+    mail-tracking-mass-mailing = callPackage ../by-name/ma/mail-tracking-mass-mailing/package.nix { };
 
     # OCA/mail (18.0)
     base-search-mail-content = callPackage ../by-name/ba/base-search-mail-content/package.nix { };
@@ -871,7 +874,6 @@ with pkgs;
     mail-drop-target = callPackage ../by-name/ma/mail-drop-target/package.nix { };
     mail-extra-header = callPackage ../by-name/ma/mail-extra-header/package.nix { };
     mail-force-email-notification = callPackage ../by-name/ma/mail-force-email-notification/package.nix { };
-    mail-forward = callPackage ../by-name/ma/mail-forward/package.nix { };
     mail-inline-css = callPackage ../by-name/ma/mail-inline-css/package.nix { };
     mail-layout-force = callPackage ../by-name/ma/mail-layout-force/package.nix { };
     mail-layout-preview = callPackage ../by-name/ma/mail-layout-preview/package.nix { };
@@ -885,12 +887,12 @@ with pkgs;
     mail-suggested-recipient-unchecked = callPackage ../by-name/ma/mail-suggested-recipient-unchecked/package.nix{ };
     mail-template-domain = callPackage ../by-name/ma/mail-template-domain/package.nix { };
     mail-template-substitute = callPackage ../by-name/ma/mail-template-substitute/package.nix { };
-    mail-tracking-mailgun = callPackage ../by-name/ma/mail-tracking-mailgun/package.nix { };
-    mail-tracking-mass-mailing = callPackage ../by-name/ma/mail-tracking-mass-mailing/package.nix { };
     outgoing-email-by-model = callPackage ../by-name/ou/outgoing-email-by-model/package.nix { };
 
     # multi-company (19.0)
     account-invoice-inter-company = callPackage ../by-name/ac/account-invoice-inter-company/package.nix { };
+    base-multi-company = callPackage ../by-name/ba/base-multi-company/package.nix { };
+    calendar-event-type-multi-company = callPackage ../by-name/ca/calendar-event-type-multi-company/package.nix { };
     mail-multicompany = callPackage ../by-name/ma/mail-multicompany/package.nix { };
     product-tax-multicompany-default = callPackage ../by-name/pr/product-tax-multicompany-default/package.nix { };
     purchase-sale-inter-company = callPackage ../by-name/pu/purchase-sale-inter-company/package.nix { };
@@ -899,9 +901,7 @@ with pkgs;
 
     # multi-company (18.0) - módulos não atualizados para 19.0
     account-multicompany-easy-creation = callPackage ../by-name/ac/account-multicompany-easy-creation/package.nix { };
-    base-multi-company = callPackage ../by-name/ba/base-multi-company/package.nix { };
     calendar-event-multi-company = callPackage ../by-name/ca/calendar-event-multi-company/package.nix { };
-    calendar-event-type-multi-company = callPackage ../by-name/ca/calendar-event-type-multi-company/package.nix { };
     crm-lost-reason-multi-company = callPackage ../by-name/cr/crm-lost-reason-multi-company/package.nix { };
     crm-stage-multi-company = callPackage ../by-name/cr/crm-stage-multi-company/package.nix { };
     crm-tag-multi-company = callPackage ../by-name/cr/crm-tag-multi-company/package.nix { };
@@ -926,9 +926,11 @@ with pkgs;
     l10n-br-base = callPackage ../by-name/l1/l10n-br-base/package.nix { };
     l10n-br-account-due-list = callPackage ../by-name/l1/l10n-br-account-due-list/package.nix { };
     l10n-br-coa = callPackage ../by-name/l1/l10n-br-coa/package.nix { };
+    l10n-br-coa-generic = callPackage ../by-name/l1/l10n-br-coa-generic/package.nix { };
     l10n-br-crm = callPackage ../by-name/l1/l10n-br-crm/package.nix { };
     l10n-br-currency-rate-update = callPackage ../by-name/l1/l10n-br-currency-rate-update/package.nix { };
     l10n-br-hr = callPackage ../by-name/l1/l10n-br-hr/package.nix { };
+    l10n-br-mis-report = callPackage ../by-name/l1/l10n-br-mis-report/package.nix { };
     l10n-br-resource = callPackage ../by-name/l1/l10n-br-resource/package.nix { };
     l10n-br-zip = callPackage ../by-name/l1/l10n-br-zip/package.nix { };
 
@@ -936,7 +938,6 @@ with pkgs;
     l10n-br-account = callPackage ../by-name/l1/l10n-br-account/package.nix { };
     l10n-br-account-payment-order = callPackage ../by-name/l1/l10n-br-account-payment-order/package.nix { };
     l10n-br-base-l10n-br-compat = callPackage ../by-name/l1/l10n-br-base-l10n-br-compat/package.nix { };
-    l10n-br-coa-generic = callPackage ../by-name/l1/l10n-br-coa-generic/package.nix { };
     l10n-br-cnpj-search = callPackage ../by-name/l1/l10n-br-cnpj-search/package.nix { };
     l10n-br-crm-cnpj-search = callPackage ../by-name/l1/l10n-br-crm-cnpj-search/package.nix { };
     l10n-br-cte-spec = callPackage ../by-name/l1/l10n-br-cte-spec/package.nix { };
@@ -947,7 +948,6 @@ with pkgs;
     l10n-br-fiscal-notification = callPackage ../by-name/l1/l10n-br-fiscal-notification/package.nix { };
     l10n-br-hr-contract = callPackage ../by-name/l1/l10n-br-hr-contract/package.nix { };
     l10n-br-mdfe-spec = callPackage ../by-name/l1/l10n-br-mdfe-spec/package.nix { };
-    l10n-br-mis-report = callPackage ../by-name/l1/l10n-br-mis-report/package.nix { };
     l10n-br-nfe-spec = callPackage ../by-name/l1/l10n-br-nfe-spec/package.nix { };
     l10n-br-nfse = callPackage ../by-name/l1/l10n-br-nfse/package.nix { };
     l10n-br-nfse-focus = callPackage ../by-name/l1/l10n-br-nfse-focus/package.nix { };
@@ -982,6 +982,14 @@ with pkgs;
     users-ldap-mail = callPackage ../by-name/us/users-ldap-mail/package.nix { };
     vault-share = callPackage ../by-name/va/vault-share/package.nix { };
 
+    # OCA/server-brand (19.0)
+    disable-odoo-online = callPackage ../by-name/di/disable-odoo-online/package.nix { };
+    mail-debranding = callPackage ../by-name/ma/mail-debranding/package.nix { };
+    portal-debranding = callPackage ../by-name/po/portal-debranding/package.nix { };
+    remove-odoo-enterprise = callPackage ../by-name/re/remove-odoo-enterprise/package.nix { };
+    sale-portal-debranding = callPackage ../by-name/sa/sale-portal-debranding/package.nix { };
+    website-debranding = callPackage ../by-name/we/website-debranding/package.nix { };
+
     # OCA/social (18.0)
     fetchmail-thread-default = callPackage ../by-name/fe/fetchmail-thread-default/package.nix { };
     mail-activity-cancel-tracking = callPackage ../by-name/ma/mail-activity-cancel-tracking/package.nix { };
@@ -1013,6 +1021,7 @@ with pkgs;
     web-ir-actions-act-window-message = callPackage ../by-name/we/web-ir-actions-act-window-message/package.nix {};
     web-m2x-options = callPackage ../by-name/we/web-m2x-options/package.nix { };
     web-m2x-options-manager = callPackage ../by-name/we/web-m2x-options-manager/package.nix { };
+    web-notify = callPackage ../by-name/we/web-notify/package.nix { };
     web-no-bubble = callPackage ../by-name/we/web-no-bubble/package.nix { };
     web-pwa-customize = callPackage ../by-name/we/web-pwa-customize/package.nix { };
     web-refresher = callPackage ../by-name/we/web-refresher/package.nix { };
@@ -1029,7 +1038,6 @@ with pkgs;
     web-excel-export-dynamic-expand = callPackage ../by-name/we/web-excel-export-dynamic-expand/package.nix { };
     web-filter-header-button = callPackage ../by-name/we/web-filter-header-button/package.nix { };
     web-help = callPackage ../by-name/we/web-help/package.nix { };
-    web-notify = callPackage ../by-name/we/web-notify/package.nix { };
     web-notify-channel-message = callPackage ../by-name/we/web-notify-channel-message/package.nix { };
     web-notify-upgrade = callPackage ../by-name/we/web-notify-upgrade/package.nix { };
     web-pivot-computed-measure = callPackage ../by-name/we/web-pivot-computed-measure/package.nix { };

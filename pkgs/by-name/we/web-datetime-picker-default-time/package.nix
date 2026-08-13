@@ -6,5 +6,5 @@ fetchOdooAddon {
   owner = "OCA";
   repo = "web";
   subdir = "web_datetime_picker_default_time";
-  hash = "sha256-vGDxjItm9vUiZnJbbC7TWHosynAZzM13R/w2wuVWbMs=";
+  hash = "sha256-ATnyAzSpy/pjWq84gDbghYzkzt/P1DdH/DbpPmbzQa4=";
 }

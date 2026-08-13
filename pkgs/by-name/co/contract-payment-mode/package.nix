@@ -2,9 +2,9 @@
 
 fetchOdooAddon {
   pname = "contract-payment-mode";
-  version = "18.0";
+  version = "19.0";
   owner = "OCA";
   repo = "contract";
   subdir = "contract_payment_mode";
-  hash = "sha256-+2h/ewCvVok9kP/Tc+sLeu/tUF0DxxYv9wTvHVczJVw=";
+  hash = "sha256-/AR6hJ9Oxz6FaIEMcVh8AiqSS3dr5I6OwHZWisks6Ts=";
 }

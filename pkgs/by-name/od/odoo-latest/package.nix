@@ -40,7 +40,7 @@ let
           owner = "py-pdf";
           repo = "PyPDF2";
           rev = version;
-          hash = "sha256-NIlFDxDtitpxJP/xkThpFD4MYJvt1zUc9nhd7sZquFo=";
+          hash = "sha256-51fnnu6T/SOcSK+yVAAugPN7mjCEqhy6nnpNP4ZTLk8=";
         };
         doCheck = false;
       } );
@@ -55,7 +55,7 @@ python.pkgs.buildPythonApplication rec {
   src = fetchzip {
     url = "https://nightly.odoo.com/${odoo_version}/nightly/src/odoo_${version}.zip";
     name = "odoo-${version}";
-    hash = "sha256-Q6wDL2oi9sIQC2m+AVF7YIwv+FJPpt2T23UpOvg1m3g=";
+    hash = "sha256-PfzkQSDaVrwq0gBmzVOcZIgC6cEVdZJv27PqO7irZpg=";
   };
 
   postPatch = ''

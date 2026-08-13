@@ -1,9 +1,9 @@
 { fetchOdooAddon }:
 fetchOdooAddon {
   pname = "calendar-event-type-multi-company";
-  version = "18.0";
+  version = "19.0";
   owner = "OCA";
   repo = "multi-company";
   subdir = "calendar_event_type_multi_company";
-  hash = "sha256-wQaa12QDvc4Zpj8a9sosTf4Rq4L5sHcENFPX7oN2Ji8=";
+  hash = "sha256-6RQONBNM2w07/xuicWCqj/iywhBopQt4bVmoDLuDHAI=";
 }

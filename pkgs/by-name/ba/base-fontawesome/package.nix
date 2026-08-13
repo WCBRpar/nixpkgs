@@ -5,5 +5,5 @@ fetchOdooAddon {
   owner = "OCA";
   repo = "server-tools";
   subdir = "base_fontawesome";
-  hash = "sha256-qMM+sWC3L+qp65Ry5iMx5Mt0RcyChvUCR5RrSzHamOg=";
+  hash = "sha256-N5IzdfE7mN4hK49ObseslLjki8cKTaHVD+2/muOrVnk=";
 }
