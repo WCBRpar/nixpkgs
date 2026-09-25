@@ -2,9 +2,9 @@
 
 fetchOdooAddon {
   pname = "web-quick-start-screen";
-  version = "18.0";
+  version = "19.0";
   owner = "OCA";
   repo = "web";
   subdir = "web_quick_start_screen";
-  hash = "sha256-ATnyAzSpy/pjWq84gDbghYzkzt/P1DdH/DbpPmbzQa4=";
+  hash = "sha256-ltf+34mVCLJuGURLcBZ6u2+1+lB8mxqU6GNfMToWdJk=";
 }

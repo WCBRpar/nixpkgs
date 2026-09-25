@@ -2,9 +2,9 @@
 
 fetchOdooAddon {
   pname = "user-log-view";
-  version = "18.0";
+  version = "19.0";
   owner = "OCA";
   repo = "server-auth";
   subdir = "user_log_view";
-  hash = "sha256-6kFV9ASmjops6YTaaGpbOQ4CMXceGA8TwXdgUtIvR5w=";
+  hash = "sha256-gL98oHYfYi6n0RjwSL9PQTYBkz1CP5Vdw566MrozpOU=";
 }

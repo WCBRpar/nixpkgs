@@ -1,9 +1,9 @@
 { fetchOdooAddon }:
 fetchOdooAddon {
   pname = "dms";
-  version = "18.0";
+  version = "19.0";
   owner = "OCA";
   repo = "dms";
   subdir = "dms";
-  hash = "sha256-hRmABKcZ1jXfAZ5WCU377ZwpF4NMy0H0FXuCqV2Qqfg=";
+  hash = "sha256-bbo+//7xzzYmkSIlUbmj85UOQy1ha+jfp1qCSc4t3DQ=";
 }
