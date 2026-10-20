@@ -933,6 +933,10 @@ with pkgs;
     l10n-br-mis-report = callPackage ../by-name/l1/l10n-br-mis-report/package.nix { };
     l10n-br-resource = callPackage ../by-name/l1/l10n-br-resource/package.nix { };
     l10n-br-zip = callPackage ../by-name/l1/l10n-br-zip/package.nix { };
+    l10n-br-coa-simple = callPackage ../by-name/l1/l10n-br-coa-simple/package.nix { };
+    l10n-br-purchase = callPackage ../by-name/l1/l10n-br-purchase/package.nix { };
+    l10n-br-sale = callPackage ../by-name/l1/l10n-br-sale/package.nix { };
+    l10n-br-setup-tests = callPackage ../by-name/l1/l10n-br-setup-tests/package.nix { }
 
     # l10n-brazil (18.0)
     l10n-br-account = callPackage ../by-name/l1/l10n-br-account/package.nix { };
