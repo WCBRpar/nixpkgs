@@ -25,9 +25,10 @@ let
         pname = "rlPyCairo";
         version = "0.4.0";
         pyproject = true;
-        src = fetchhg {
-          url = "https://hg.reportlab.com/hg-public/rlPyCairo";
-          rev = "a3e9ae26d82d";
+        src = fetchFromGitHub {
+          owner = "MrBitBucket";
+          repo = "rlPyCairo-mirror";
+          rev = "2aeda5a9f53361767e3af9f4d0af05633dc81116";
           hash = "sha256-9jAKmYwOkyqbXlK4Q0TO9Fc0jTebaShhyo1/NEroFzE=";
         };
         build-system = [ pythonPrev.setuptools ];
