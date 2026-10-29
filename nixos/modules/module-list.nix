@@ -981,7 +981,8 @@
   ./services/misc/paisa.nix
   ./services/misc/paperless.nix
   ./services/misc/persistent-evdev.nix
-  ./services/misc/pghero.nix
+  # Erro construindo - // Commit 7f7593f - Merge remote-tracking branch 'upstream/master'
+  # ./services/misc/pghero.nix
   ./services/misc/picoclaw.nix
   ./services/misc/pinchflat.nix
   ./services/misc/pinnwand.nix
