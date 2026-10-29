@@ -5,5 +5,5 @@ fetchOdooAddon {
   owner = "OCA";
   repo = "account-financial-tools";
   subdir = "account_sequence_option";
-  hash = "sha256-jYmgVlV1frFibHNRk8JFCyrcBM3/zkRFW6KScG1O4iw=";
+  hash = "sha256-aOUlG3Bv64miQqpRnsac/70sRT0XptAFwI0J3krXFsY=";
 }

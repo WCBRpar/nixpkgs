@@ -6,5 +6,5 @@ fetchOdooAddon {
   owner = "OCA";
   repo = "contract";
   subdir = "contract_line_successor";
-  hash = "sha256-JS1spVF8hL2rqjfTGWXQwm6hxgZ7Y8EQl/AX9zYmHgs=";
+  hash = "sha256-pTAYdXoe3aiHICe6SoWQ7cuent4rEvWOCNJe6nwjwAw=";
 }
