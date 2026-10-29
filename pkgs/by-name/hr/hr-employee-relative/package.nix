@@ -5,5 +5,5 @@ fetchOdooAddon {
   owner = "OCA";
   repo = "hr";
   subdir = "hr_employee_relative";
-  hash = "sha256-AOLg59V/P/N3VX6FvQ6tqoOUbIImCiqINczM5zNN184=";
+  hash = "sha256-I7aPJlP5yZtTk0HXxj6bbNOjalf40xZnI8yDjz2nCVo=";
 }
