@@ -4,7 +4,7 @@
   stdenvAdapters,
   fetchFromGitHub,
   pkg-config,
-  makeWrapper,
+  makeBinaryWrapper,
   cmake,
   aquamarine,
   binutils,
@@ -14,6 +14,7 @@
   glslang,
   hyprcursor,
   hyprgraphics,
+  hyprland-protocols,
   hyprland-qtutils,
   hyprlang,
   hyprutils,
@@ -36,8 +37,9 @@
   python3,
   re2,
   readline,
-  systemd,
+  systemdLibs,
   tomlplusplus,
+  udis86,
   uwsm,
   wayland,
   wayland-protocols,
@@ -50,9 +52,11 @@
   xwayland,
   debug ? false,
   enableXWayland ? true,
-  withSystemd ? lib.meta.availableOn gcc16Stdenv.hostPlatform systemd,
+  withSystemd ? lib.meta.availableOn gcc16Stdenv.hostPlatform systemdLibs,
+  withUWSM ? withSystemd,
   wrapRuntimeDeps ? true,
 }:
+assert withUWSM -> withSystemd;
 let
   inherit (builtins)
     foldl'
@@ -90,9 +94,8 @@ customStdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "hyprwm";
     repo = "hyprland";
-    fetchSubmodules = true;
     tag = "v${finalAttrs.version}";
-    hash = "sha256-jOcfiv+Zs2iz5oTIQcJXZ0+5MfqW0oLgGxD0cKdmXpE=";
+    hash = "sha256-IptZjFf/bE9lv8SQLef4Wmn3KOs3BwchYr6aFcCJ9NI=";
   };
 
   postPatch = ''
@@ -110,6 +113,8 @@ customStdenv.mkDerivation (finalAttrs: {
       --replace-fail  "@PREFIX@/" ""
     substituteInPlace example/hyprland.desktop.in \
       --replace-fail  "@PREFIX@/" ""
+  ''
+  + lib.optionalString withUWSM ''
     substituteInPlace systemd/hyprland-uwsm.desktop \
       --replace-fail "Exec=uwsm " "Exec=${lib.getExe uwsm} " \
       --replace-fail "TryExec=uwsm" "TryExec=${lib.getExe uwsm}"
@@ -136,11 +141,10 @@ customStdenv.mkDerivation (finalAttrs: {
   nativeBuildInputs = [
     hyprwayland-scanner
     hyprwire
-    makeWrapper
+    makeBinaryWrapper
     cmake
     pkg-config
     wayland-scanner
-    # for udis86
     python3
   ];
 
@@ -158,6 +162,7 @@ customStdenv.mkDerivation (finalAttrs: {
       glslang
       hyprcursor.dev
       hyprgraphics
+      hyprland-protocols
       hyprlang
       hyprutils
       lcms2
@@ -176,6 +181,7 @@ customStdenv.mkDerivation (finalAttrs: {
       re2
       readline
       tomlplusplus
+      udis86
       wayland
       wayland-protocols
     ]
@@ -188,7 +194,7 @@ customStdenv.mkDerivation (finalAttrs: {
       libxdmcp
       xwayland
     ])
-    (optionals withSystemd [ systemd ])
+    (optionals withSystemd [ systemdLibs ])
   ];
 
   cmakeBuildType = if debug then "Debug" else "RelWithDebInfo";
@@ -202,7 +208,7 @@ customStdenv.mkDerivation (finalAttrs: {
     "NO_XWAYLAND" = !enableXWayland;
     "NO_SYSTEMD" = !withSystemd;
     "CMAKE_DISABLE_PRECOMPILE_HEADERS" = true;
-    "NO_UWSM" = !withSystemd;
+    "NO_UWSM" = !withUWSM;
     "TRACY_ENABLE" = false;
   };
 
@@ -221,7 +227,7 @@ customStdenv.mkDerivation (finalAttrs: {
   '';
 
   passthru = {
-    providedSessions = [ "hyprland" ] ++ optionals withSystemd [ "hyprland-uwsm" ];
+    providedSessions = [ "hyprland" ] ++ optionals withUWSM [ "hyprland-uwsm" ];
     updateScript = ./update.sh;
   };
 

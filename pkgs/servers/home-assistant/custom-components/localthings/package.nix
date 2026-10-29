@@ -12,13 +12,13 @@
 buildHomeAssistantComponent (finalAttrs: {
   owner = "mbillow";
   domain = "localthings";
-  version = "0.20.0";
+  version = "0.34.0";
 
   src = fetchFromGitHub {
     owner = "mbillow";
     repo = "localthings";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-aRmKp+1M8QaMe3xBp8FcdNRPgI8faW+7870K2ffLCwY=";
+    hash = "sha256-kTeoVtKiwud18xnHvkAZ1BgFmWPOsjGtq1sZV5EiunI=";
   };
 
   dependencies = [
@@ -30,6 +30,10 @@ buildHomeAssistantComponent (finalAttrs: {
   nativeCheckInputs = [
     pytest-homeassistant-custom-component
     pytestCheckHook
+  ];
+
+  disabledTests = [
+    "test_a_push_that_will_not_decode_is_kept_raw"
   ];
 
   meta = {

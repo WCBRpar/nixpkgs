@@ -17,14 +17,17 @@ let
 in
 buildPythonPackage (finalAttrs: {
   pname = "comfy-kitchen";
-  version = "0.2.30";
+  version = "0.2.37";
   pyproject = true;
 
+  # nixpkgs-update: no auto update
+  # updated via comfyui
   src = fetchFromGitHub {
     owner = "Comfy-Org";
     repo = "comfy-kitchen";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-n4U7AQQgDtEM5QBTia9V2WSP+CEnpG/Z+tp7I+YyCYA=";
+    fetchSubmodules = true;
+    hash = "sha256-BqqYlqqQmEM1uAV93WZi9Z6LIXULf8OHaBAvhbSX2oo=";
   };
 
   buildInputs = lib.optionals cudaSupport (

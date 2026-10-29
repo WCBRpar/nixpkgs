@@ -12,7 +12,7 @@
 
 buildNpmPackage (finalAttrs: {
   pname = "matterjs-server";
-  version = "1.3.3";
+  version = "1.5.5";
   __structuredAttrs = true;
   strictDeps = true;
 
@@ -20,10 +20,10 @@ buildNpmPackage (finalAttrs: {
     owner = "matter-js";
     repo = "matterjs-server";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-s30pdP/ci/ft3V01sDrs57niZO3yPJ16qexprKICJZM=";
+    hash = "sha256-A5TjsRVtIXzaFOYzy1kR0Rbdh41HqXmayM17Dg1c8eA=";
   };
 
-  npmDepsHash = "sha256-eKLRkyT3oKn5lJzRe5Mr/rYdSTnxipbpZ3EisBkD6l4=";
+  npmDepsHash = "sha256-zlVdqIiz0uo+n0iIBsH82nrRmH9nd51fwwUp5vn9bDA=";
 
   nativeBuildInputs = [
     makeBinaryWrapper
@@ -32,9 +32,19 @@ buildNpmPackage (finalAttrs: {
 
   buildInputs = [ udev ];
 
-  env.CXXFLAGS = "-std=c++20";
+  env = {
+    CXXFLAGS = "-std=c++20";
+    PUPPETEER_SKIP_DOWNLOAD = "1";
+  };
 
   preBuild = "npm run version -- --apply";
+
+  # remove temporary build files
+  postBuild = ''
+    shopt -s globstar
+    rm node_modules/**/build/{config.gypi,Makefile,*.target.mk}
+    shopt -u globstar
+  '';
 
   dontNpmInstall = true;
 

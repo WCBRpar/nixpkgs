@@ -1,29 +1,29 @@
 {
   lib,
-  stdenv,
-  buildGoModule,
+  buildGo127Module,
   fetchFromGitHub,
   nix-update-script,
   versionCheckHook,
 }:
-buildGoModule (finalAttrs: {
+buildGo127Module (finalAttrs: {
   pname = "pg_exporter";
-  version = "1.4.0";
+  version = "1.5.0";
   __structuredAttrs = true;
 
   src = fetchFromGitHub {
     owner = "pgsty";
     repo = "pg_exporter";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-HDXs4yUeFmdITQATIxg6uRXHlgmA6yy1hA9Zasvk/zs=";
+    hash = "sha256-/FhxDOfHEwwVpdMhNPdFqIwXnebMat10PGOCB+rVZno=";
   };
 
-  vendorHash = "sha256-XYgRwYKar/sqMCSnJ865FsM55mCVanbXrZ6aTf6Ksvc=";
+  vendorHash = "sha256-LbIsUfxU04Qawsxoh4K1GgYHAL0BVzSPXtqSaNFfgdY=";
 
   env.CGO_ENABLED = 0;
 
   ldflags = [ "-s" ];
 
+  doInstallCheck = true;
   nativeInstallCheckInputs = [ versionCheckHook ];
 
   passthru.updateScript = nix-update-script { };

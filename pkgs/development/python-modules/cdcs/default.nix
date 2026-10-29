@@ -8,23 +8,28 @@
   pytestCheckHook,
   requests,
   responses,
-  setuptools,
   tqdm,
+  uv-build,
 }:
 
 buildPythonPackage (finalAttrs: {
   pname = "cdcs";
-  version = "0.2.6";
+  version = "0.2.7";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "usnistgov";
     repo = "pycdcs";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-P6fFL9yqnVbeUNBejnTcFowcf9xZP6XwheHwNUZKKlM=";
+    hash = "sha256-UpPoTdcDDCmombeScFgjsFX+//Yfnn+ClDwYsZh0dxI=";
   };
 
-  build-system = [ setuptools ];
+  postPatch = ''
+    substituteInPlace pyproject.toml \
+      --replace-fail "uv_build>=0.11.26,<0.12" "uv_build"
+  '';
+
+  build-system = [ uv-build ];
 
   dependencies = [
     ipython

@@ -4,6 +4,7 @@
   fetchFromGitHub,
   setuptools,
   pytestCheckHook,
+  nix-update-script,
 }:
 
 buildPythonPackage (finalAttrs: {
@@ -23,6 +24,9 @@ buildPythonPackage (finalAttrs: {
     setuptools
   ];
 
+  # test/test_connection.py binds a socket on 127.0.0.1
+  __darwinAllowLocalNetworking = true;
+
   nativeCheckInputs = [
     pytestCheckHook
   ];
@@ -30,6 +34,8 @@ buildPythonPackage (finalAttrs: {
   pythonImportsCheck = [
     "udsoncan"
   ];
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "Python implementation of UDS (ISO-14229) standard";

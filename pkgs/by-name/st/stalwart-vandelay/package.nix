@@ -8,14 +8,14 @@
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "vandelay";
-  version = "1.0.7";
+  version = "1.0.13";
   src = fetchFromGitHub {
     owner = "stalwartlabs";
     repo = "vandelay";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-hjGUoF/EPeKBjdUic5svKVlNiHSfvkH4SgMzRLVQQDc=";
+    hash = "sha256-1NgdhoU+9nXHb+nfcxcJXHQMh2H9fefuPStKFHi/gww=";
   };
-  cargoHash = "sha256-BEN0l+7LKA873VLg4bdPKGgg6acgq9985yHhcZuK1qM=";
+  cargoHash = "sha256-Py3lkHszaKJ/8DBdXQUhVK3YQPKknNi+irjej2oLc+I=";
   __structuredAttrs = true;
   __darwinAllowLocalNetworking = true;
   # called `Result::unwrap()` on an `Err` value: Tls("rustls platform verifier: unexpected error: No CA certificates were loaded from the system")
@@ -34,7 +34,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     changelog = "https://github.com/stalwartlabs/vandelay/blob/${finalAttrs.src.tag}/CHANGELOG.md";
     license = lib.licenses.OR [
       lib.licenses.mit
-      lib.licenses.apsl20
+      lib.licenses.asl20
     ];
     mainProgram = "vandelay";
     maintainers = with lib.maintainers; [

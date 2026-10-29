@@ -4,14 +4,15 @@
   bun,
   darwin,
   fetchFromGitHub,
+  installShellFiles,
   makeBinaryWrapper,
   models-dev,
   nodejs,
   nix-update-script,
   ripgrep,
   sysctl,
-  installShellFiles,
   versionCheckHook,
+  wayland,
   writableTmpDirAsHomeHook,
 }:
 let
@@ -20,6 +21,9 @@ let
     stdenv.mkDerivation {
       pname = "${finalAttrs.pname}-node_modules";
       inherit (finalAttrs) version src;
+
+      __structuredAttrs = true;
+      strictDeps = true;
 
       impureEnvVars = lib.fetchers.proxyImpureEnvVars ++ [
         "GIT_PROXY_COMMAND"
@@ -39,12 +43,11 @@ let
         export BUN_INSTALL_CACHE_DIR=$(mktemp -d)
         bun install \
           --cpu="*" \
+          --filter './' \
+          --filter './packages/cli' \
+          --filter './packages/desktop' \
+          --filter './packages/app' \
           --frozen-lockfile \
-          --filter ./ \
-          --filter ./packages/app \
-          --filter ./packages/desktop \
-          --filter ./packages/opencode \
-          --filter ./packages/shared \
           --ignore-scripts \
           --no-progress \
           --os="*"
@@ -74,14 +77,13 @@ let
       # NOTE: Required else we get errors that our fixed-output derivation references store paths
       dontFixup = true;
 
-      outputHash = "sha256-GBLs3nXtfSeXb4jXxSNM8ElMa/e/EB4sZn3c2inHnco=";
-      outputHashAlgo = "sha256";
+      outputHash = "sha256-qV+/BheK62/tUDbbrOWZKpMyRHjiPL/O7e/ziOi7AAQ=";
       outputHashMode = "recursive";
     };
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "opencode";
-  version = "1.18.16";
+  version = "2.1.4";
 
   __structuredAttrs = true;
   strictDeps = true;
@@ -90,7 +92,7 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "anomalyco";
     repo = "opencode";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-AP2W443Zk/X8j6BWfMgAEbR4BQiJgnPpr1OG6JWIprE=";
+    hash = "sha256-ggL24qwcafvNzn1g0/UYk1PcHy8OJeLARZSicET10Zo=";
   };
 
   postPatch =
@@ -101,49 +103,50 @@ stdenv.mkDerivation (finalAttrs: {
         'throw new Error(`This script requires bun@''${expectedBunVersionRange}' \
         'console.warn(`Warning: This script requires bun@''${expectedBunVersionRange}'
     ''
-    # Skip smoke test
+    # Avoid requiring prettier just to format the schema JSON
     + ''
-      substituteInPlace packages/opencode/script/build.ts \
-        --replace-fail \
-        'if (item.os === process.platform && item.arch === process.arch && !item.abi)' \
-        'if (false)'
+      substituteInPlace packages/cli/script/schema.ts \
+        --replace-fail 'import { format } from "prettier"' 'const format = (s: string) => JSON.stringify(JSON.parse(s), null, 2)'
     '';
+
+  node_modules = node_modules finalAttrs;
 
   nativeBuildInputs = [
     bun
-    nodejs
     installShellFiles
     makeBinaryWrapper
+    nodejs
     writableTmpDirAsHomeHook
   ]
   ++ lib.optionals stdenv.hostPlatform.isDarwin [
-    darwin.sigtool
+    darwin.autoSignDarwinBinariesHook
   ];
+
+  env = {
+    MODELS_DEV_API_JSON = "${models-dev}/dist/_api.json";
+    OPENCODE_DISABLE_MODELS_FETCH = true;
+    OPENCODE_VERSION = finalAttrs.version;
+    OPENCODE_CHANNEL = "latest";
+    NODE_OPTIONS = "--max-old-space-size=4096";
+  };
 
   configurePhase = ''
     runHook preConfigure
 
-    cp -R ${finalAttrs.passthru.node_modules}/. .
+    cp -R "$node_modules"/. .
     patchShebangs node_modules
     patchShebangs packages/*/node_modules
 
     runHook postConfigure
   '';
 
-  env.MODELS_DEV_API_JSON = "${models-dev}/dist/_api.json";
-  env.OPENCODE_DISABLE_MODELS_FETCH = true;
-  env.OPENCODE_VERSION = finalAttrs.version;
-  env.OPENCODE_CHANNEL = "stable";
-
   buildPhase = ''
     runHook preBuild
 
-    cd ./packages/opencode
+    cd ./packages/cli
     bun --bun ./script/build.ts --single --skip-install
-    bun --bun ./script/schema.ts config.json tui.json
-    substituteInPlace config.json \
-      --replace-fail "https://models.dev/model-schema.json" \
-                     "file://$out/share/model-schema.json"
+    bun --bun ./script/schema.ts cli.json
+    bun --bun ../schema/script/config-schema.ts config.json
 
     runHook postBuild
   '';
@@ -151,37 +154,39 @@ stdenv.mkDerivation (finalAttrs: {
   installPhase = ''
     runHook preInstall
 
-    install -Dm755 dist/opencode-*/bin/opencode $out/bin/opencode
-    wrapProgram $out/bin/opencode \
-     --prefix PATH : ${
-       lib.makeBinPath (
-         [
-           ripgrep
-         ]
-         ++ lib.optionals stdenv.hostPlatform.isDarwin [
-           sysctl
-         ]
-       )
-     } \
-    --set OPENCODE_DISABLE_AUTOUPDATE true
+    install -Dm755 dist/cli-*/bin/opencode $out/bin/opencode
 
-    install -Dm644 ${models-dev.jsonschema} $out/share/model-schema.json
+    wrapArgs=(
+      --set OPENCODE_DISABLE_AUTOUPDATE true
+      --suffix PATH : ${lib.makeBinPath [ ripgrep ]}
+    )
+    ${lib.optionalString stdenv.hostPlatform.isDarwin ''
+      wrapArgs+=(--prefix PATH : ${lib.makeBinPath [ sysctl ]})
+    ''}
+    ${lib.optionalString stdenv.hostPlatform.isLinux ''
+      wrapArgs+=(--prefix LD_LIBRARY_PATH : ${
+        lib.makeLibraryPath [
+          stdenv.cc.cc
+          wayland
+        ]
+      })
+    ''}
+
+    wrapProgram $out/bin/opencode "''${wrapArgs[@]}"
+
+    install -Dm644 cli.json $out/share/cli.json
     install -Dm644 config.json $out/share/config.json
-    install -Dm644 tui.json $out/share/tui.json
     install -Dm644 ../web/public/theme.json $out/share/theme.json
 
     runHook postInstall
   '';
 
-  postInstall =
-    lib.optionalString stdenv.hostPlatform.isDarwin ''
-      codesign --force --sign - $out/bin/.opencode-wrapped
-    ''
-    + lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
-      installShellCompletion --cmd opencode \
-        --bash <($out/bin/opencode completion) \
-        --zsh <(SHELL=/bin/zsh $out/bin/opencode completion)
-    '';
+  postInstall = lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
+    installShellCompletion --cmd opencode \
+      --bash <($out/bin/opencode --completions bash) \
+      --zsh <($out/bin/opencode --completions zsh) \
+      --fish <($out/bin/opencode --completions fish)
+  '';
 
   dontStrip = true;
 
@@ -198,11 +203,10 @@ stdenv.mkDerivation (finalAttrs: {
 
   passthru = {
     jsonschema = {
+      cli = "${finalAttrs.finalPackage}/share/cli.json";
       config = "${finalAttrs.finalPackage}/share/config.json";
       theme = "${finalAttrs.finalPackage}/share/theme.json";
-      tui = "${finalAttrs.finalPackage}/share/tui.json";
     };
-    node_modules = node_modules finalAttrs;
     updateScript = nix-update-script {
       extraArgs = [
         "--subpackage"
@@ -220,6 +224,7 @@ stdenv.mkDerivation (finalAttrs: {
       delafthi
       DuskyElf
       graham33
+      xiaoxiangmoe
     ];
     sourceProvenance = with lib.sourceTypes; [ fromSource ];
     platforms = [

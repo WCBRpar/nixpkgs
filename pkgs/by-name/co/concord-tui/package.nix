@@ -1,6 +1,7 @@
 {
   rustPlatform,
   fetchFromGitHub,
+  cacert,
   cmake,
   pkg-config,
   makeWrapper,
@@ -15,16 +16,16 @@
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "concord-tui";
-  version = "2.5.6";
+  version = "2.6.3";
 
   src = fetchFromGitHub {
     owner = "chojs23";
     repo = "concord";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-m74ar1ue0Cl7G5QYeuzyzcgt4myQQUIULwLLol23lBA=";
+    hash = "sha256-B0bIwhU/hOIqap3nRwWXQUB4UvXqQs+PDwfaiSBOaA8=";
   };
 
-  cargoHash = "sha256-uLx+djlScpkvSuAlh9O3rqCDZg11eCVrwh46HppfUpE=";
+  cargoHash = "sha256-ovHqPjnkPUbulFmnnePJemBhwJZbqjNCMtUqRTWPv1U=";
 
   buildInputs = lib.optionals stdenv.hostPlatform.isLinux [
     alsa-lib
@@ -42,6 +43,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
   ]
   ++ lib.optionals stdenv.hostPlatform.isx86_64 [ nasm ];
 
+  nativeCheckInputs = lib.optionals stdenv.hostPlatform.isLinux [ cacert ];
+
   postFixup = lib.optionalString stdenv.hostPlatform.isLinux ''
     wrapProgram "$out/bin/concord" \
       --set-default PIPEWIRE_CONFIG_DIR "${pipewire}/share/pipewire"
@@ -58,7 +61,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     homepage = "https://github.com/chojs23/concord";
     license = lib.licenses.gpl3Only;
     maintainers = with lib.maintainers; [
-      Simon-Weij
+      inomish
       neo
       Br1ght0ne
     ];

@@ -7,13 +7,13 @@
 }:
 buildGoModule (finalAttrs: {
   pname = "prometheus-chrony-exporter";
-  version = "0.13.3";
+  version = "0.15.0";
 
   src = fetchFromGitHub {
     owner = "superq";
     repo = "chrony_exporter";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-nfOiGWi+buOmJGaCZpbcbQzXeCnm8q+QW53DavgoBDI=";
+    hash = "sha256-yHmizXHSoC3DfIfN6Rd5Adk5RkzERB7E+jSm0yebzZ4=";
     leaveDotGit = true;
     postFetch = ''
       cd "$out"
@@ -36,7 +36,7 @@ buildGoModule (finalAttrs: {
     "-X github.com/prometheus/common/version.BuildUser=nix@nixpkgs"
   ];
 
-  vendorHash = "sha256-nOu4t4Dchw+TXqfIY0B50zalo2ZhPWkoOeQ5MgbljMU=";
+  vendorHash = "sha256-Vgsl1CefHlyivJGH2Mo4r3vqVkmmRM1swKZ+nv7RST8=";
 
   passthru.updateScript = nix-update-script { };
 

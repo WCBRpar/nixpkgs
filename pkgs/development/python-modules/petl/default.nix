@@ -13,7 +13,7 @@
 
 buildPythonPackage (finalAttrs: {
   pname = "petl";
-  version = "1.7.22";
+  version = "1.7.29";
   pyproject = true;
   __structuredAttrs = true;
 
@@ -21,7 +21,7 @@ buildPythonPackage (finalAttrs: {
     owner = "petl-developers";
     repo = "petl";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-oFBJk0wrqRKyTXx9JCn4Ipafeey4ybUqaC5DPimmET0=";
+    hash = "sha256-1pfnjdosPN06eYJEY5ez8Ckngy0tNF5/5oLmSESBuNY=";
   };
 
   build-system = [

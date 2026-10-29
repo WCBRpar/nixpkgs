@@ -35,6 +35,11 @@ stdenv.mkDerivation (finalAttrs: {
     substituteInPlace external/CMakeLists.txt --replace-fail \
       'set(mimalloc_min_version "2.2")' \
       'set(mimalloc_min_version "${lib.versions.majorMinor mimalloc.version}")'
+  ''
+  # fmt 12 moved fmt::format out of fmt/core.h into fmt/format.h
+  + ''
+    substituteInPlace $(grep -rl '#include <fmt/core.h>' --include='*.cpp' --include='*.h' .) \
+      --replace-fail '#include <fmt/core.h>' '#include <fmt/format.h>'
   '';
 
   cmakeFlags = [
@@ -76,7 +81,8 @@ stdenv.mkDerivation (finalAttrs: {
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [
       sharzy
-      carlossless
+      karstx
+      gonsolo
     ];
     mainProgram = "slang";
     platforms = lib.platforms.all;

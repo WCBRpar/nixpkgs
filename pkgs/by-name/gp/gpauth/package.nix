@@ -2,11 +2,14 @@
   rustPlatform,
   lib,
   fetchFromGitHub,
+  glib-networking,
   openssl,
   pkg-config,
   perl,
   webkitgtk_4_1,
+  wrapGAppsHook3,
   stdenv,
+  nixosTests,
   nix-update-script,
 }:
 
@@ -29,15 +32,28 @@ rustPlatform.buildRustPackage (finalAttrs: {
   nativeBuildInputs = [
     perl
     pkg-config
+  ]
+  ++ lib.optionals stdenv.hostPlatform.isLinux [
+    wrapGAppsHook3
   ];
   buildInputs = [
     openssl
   ]
   ++ lib.optionals stdenv.hostPlatform.isLinux [
+    glib-networking
     webkitgtk_4_1
   ];
 
-  passthru.updateScript = nix-update-script { };
+  checkFlags = lib.optionals stdenv.hostPlatform.isDarwin [
+    # Fail in sandbox because netdev tries to read SystemConfiguration
+    "--skip=cli::tests::host_id_arg_sets_profile_host_id_seed"
+    "--skip=cli::tests::client_version_arg_sets_profile_client_version"
+  ];
+
+  passthru = {
+    updateScript = nix-update-script { };
+    tests.runtime-tls = nixosTests.gpauth-tls;
+  };
 
   meta = {
     changelog = "https://github.com/${finalAttrs.src.owner}/${finalAttrs.src.repo}/blob/${finalAttrs.src.rev}/changelog.md";
@@ -52,7 +68,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
     homepage = "https://github.com/${finalAttrs.src.owner}/${finalAttrs.src.repo}";
     license = lib.licenses.gpl3Only;
     maintainers = with lib.maintainers; [
-      binary-eater
       booxter
       m1dugh
     ];

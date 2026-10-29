@@ -2,6 +2,8 @@
   lib,
   fetchCrate,
   rustPlatform,
+  pkg-config,
+  aws-lc,
   cacert,
   versionCheckHook,
   nix-update-script,
@@ -9,15 +11,28 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "jsonschema-cli";
-  version = "0.49.5";
+  version = "0.60.1";
+  __structuredAttrs = true;
 
   src = fetchCrate {
     pname = "jsonschema-cli";
     inherit (finalAttrs) version;
-    hash = "sha256-ahxoy2xBlHaeoCOedVJkj570y15kihSUKhpq2txRRb8=";
+    hash = "sha256-vEoShzy7njIE96JPPtn3P2gMqUOwcwbAYGbgK/clEKM=";
   };
 
-  cargoHash = "sha256-OTf2E+O/PuDiULRLtf19jGjpB5sjTzk6i4sk8XYLI5A=";
+  cargoHash = "sha256-gm91KHXJFAjlBTgFfbxMymBvu+SQpVa7azS3jaGHmaE=";
+
+  nativeBuildInputs = [
+    pkg-config
+  ];
+
+  buildInputs = [
+    aws-lc
+  ];
+
+  env = {
+    AWS_LC_SYS_USE_SYSTEM = true;
+  };
 
   preCheck = ''
     export SSL_CERT_FILE=${cacert}/etc/ssl/certs/ca-bundle.crt
@@ -39,5 +54,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
       kachick
     ];
     mainProgram = "jsonschema-cli";
+    platforms = with lib.platforms; unix ++ windows;
   };
 })

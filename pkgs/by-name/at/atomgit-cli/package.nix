@@ -1,10 +1,12 @@
 {
+  _experimental-update-script-combinators,
   lib,
   stdenv,
   buildGoModule,
   fetchgit,
   gitMinimal,
   gitUpdater,
+  nix-update-script,
   makeWrapper,
   versionCheckHook,
   writableTmpDirAsHomeHook,
@@ -15,20 +17,20 @@ buildGoModule (finalAttrs: {
   __structuredAttrs = true;
 
   pname = "atomgit-cli";
-  version = "0.7.1";
+  version = "0.7.4";
 
   src = fetchgit {
     url = "https://atomgit.com/hust-open-atom-club/atomgit-cli.git";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-SyOGkxDgkfQUeaHp6F+FhTLqWYCWvG7RVqVw1wfE1Uw=";
+    hash = "sha256-8Q/LvACc3qsPwhCCYrq0LU+ji39KhjZ90qkhGM/v6AQ=";
   };
 
-  vendorHash = "sha256-gkVSHoo7BWMy/vSKq2+sgm/TAhC4WYl04OXfG6INrG4=";
+  vendorHash = "sha256-2YBsLa+pX6+ZAf+kLh2I0FJdbggdC8TBUAOOcoJuhaQ=";
 
-  subPackages = [ "cmd/ag" ];
+  subPackages = [ "cmd/ag-cli" ];
 
   preCheck = ''
-    # Test all packages, not only cmd/ag.
+    # Test all packages, not only cmd/ag-cli.
     unset subPackages
   '';
 
@@ -42,10 +44,13 @@ buildGoModule (finalAttrs: {
 
   nativeBuildInputs = [ makeWrapper ];
 
-  passthru.updateScript = gitUpdater { rev-prefix = "v"; };
+  passthru.updateScript = _experimental-update-script-combinators.sequence [
+    (gitUpdater { rev-prefix = "v"; }).command
+    (nix-update-script { extraArgs = [ "--version=skip" ]; })
+  ];
 
   postFixup = ''
-    wrapProgram $out/bin/ag \
+    wrapProgram $out/bin/ag-cli \
       --prefix PATH : ${
         lib.makeBinPath ([ gitMinimal ] ++ lib.optionals stdenv.hostPlatform.isLinux [ xdg-utils ])
       }
@@ -65,7 +70,7 @@ buildGoModule (finalAttrs: {
     homepage = "https://atomgit.com/hust-open-atom-club/atomgit-cli";
     changelog = "https://atomgit.com/hust-open-atom-club/atomgit-cli/tags/v${finalAttrs.version}";
     license = lib.licenses.mulan-psl2;
-    mainProgram = "ag";
+    mainProgram = "ag-cli";
     maintainers = [ lib.maintainers.silicalet ];
   };
 })

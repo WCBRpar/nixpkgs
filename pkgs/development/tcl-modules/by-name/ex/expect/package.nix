@@ -6,6 +6,7 @@
   tcl,
   makeWrapper,
   autoreconfHook,
+  bashNonInteractive,
   replaceVars,
   dejagnu,
 }:
@@ -38,9 +39,9 @@ tcl.mkTclDerivation (finalAttrs: {
     makeWrapper
   ];
 
-  __structuredAttrs = true;
-
-  strictDeps = true;
+  buildInputs = [
+    bashNonInteractive
+  ];
 
   postInstall = ''
     tclWrapperArgs+=(--prefix PATH : ${lib.makeBinPath [ tcl ]})
@@ -66,6 +67,6 @@ tcl.mkTclDerivation (finalAttrs: {
     license = lib.licenses.publicDomain;
     platforms = lib.platforms.unix;
     mainProgram = "expect";
-    maintainers = with lib.maintainers; [ SuperSandro2000 ];
+    maintainers = with lib.maintainers; [ fgaz ];
   };
 })

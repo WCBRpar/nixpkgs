@@ -18,19 +18,25 @@ stdenvNoCC.mkDerivation (
   in
   {
     pname = "romm";
-    version = "5.1.0";
+    version = "5.4.1";
 
     src = fetchFromGitHub {
       owner = "rommapp";
       repo = "romm";
       tag = finalAttrs.version;
-      hash = "sha256-oFJ0R4m3bH2qQ18uTDm749la4oBMBj17Y5lF/eE/6tU=";
+      hash = "sha256-9go8Y4rmcrM2wTx8JwiIiR+WKltl1IlaKIVnZ6zzbYM=";
     };
 
     __structuredAttrs = true;
     strictDeps = true;
 
     nativeBuildInputs = [ makeWrapper ];
+
+    # Upstream stamps this placeholder during its container release build.
+    postPatch = ''
+      substituteInPlace backend/__version__.py \
+        --replace-fail '<version>' '${finalAttrs.version}'
+    '';
 
     dontConfigure = true;
     dontBuild = true;
@@ -149,7 +155,7 @@ stdenvNoCC.mkDerivation (
         inherit (finalAttrs) version;
         src = "${finalAttrs.src}/frontend";
 
-        npmDepsHash = "sha256-rNi0x8vbPkLEiDlf94SPTg4aKguSzVHR5zBouLJulKo=";
+        npmDepsHash = "sha256-VvFiIZZo2yeWkP3Sa9zvvaoikCnLb9iLti76JBXg9aU=";
         npmFlags = [ "--ignore-scripts" ];
         makeCacheWritable = true;
 

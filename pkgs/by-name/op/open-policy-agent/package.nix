@@ -14,16 +14,18 @@ assert
 
 buildGoModule (finalAttrs: {
   pname = "open-policy-agent";
-  version = "1.16.2";
+  version = "1.21.2";
+
+  __structuredAttrs = true;
 
   src = fetchFromGitHub {
     owner = "open-policy-agent";
     repo = "opa";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-f9t/BB0ldSUTaApjM75W9nw7jRC8Hp1t/KFRM/ky67s=";
+    hash = "sha256-4c6AZCTyOIj8NnzkjJg0PsSrrLPwaEwpOAWAyJbmKUI=";
   };
 
-  vendorHash = "sha256-m+Mb2Llny7O9cfn8Js7MEaeYM9zC/CwWBAuliWE7G1E=";
+  vendorHash = "sha256-XH55Xf5ENmdOcvOzAOTIhU249rBB/D/44dJeZUKrprM=";
 
   nativeBuildInputs = [ installShellFiles ];
 
@@ -68,6 +70,19 @@ buildGoModule (finalAttrs: {
         "TestClientTLSWithCustomCACert"
         "TestECR"
         "TestManagerWithOPATelemetryUpdateLoop"
+
+        # tests observed to have `no space left on device` failures on darwin on hydra
+        # storage_internal_error:
+        #   cannot create memtable error:
+        #     newMemTable error:
+        #       While opening memtable: /private/tmp/nix-build-open-policy-agent-X.Y.Z.drv-0/opa_test0000000000/data/00001.mem error:
+        #         while opening file: /private/tmp/nix-build-open-policy-agent-X.Y.Z.drv-0/opa_test0000000000/data/00001.mem error:
+        #           truncate /private/tmp/nix-build-open-policy-agent-X.Y.Z.drv-0/opa_test0000000000/data/00001.mem: no space left on device
+        "TestBundleScope"
+        "TestDataV1"
+        "TestDataV1Metrics"
+        "TestDataMetricsEval"
+        "TestQueryV1"
       ]
       ++ lib.optionals (!enableWasmEval) [
         "TestRegoTargetWasmAndTargetPluginDisablesIndexingTopdownStages"

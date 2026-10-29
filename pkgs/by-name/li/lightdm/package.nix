@@ -39,7 +39,7 @@ assert !(withQt5 && withQt6);
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "lightdm";
-  version = "1.33.0";
+  version = "1.33.1";
 
   outputs = [
     "out"
@@ -50,7 +50,7 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "ubuntu";
     repo = "lightdm";
     tag = finalAttrs.version;
-    hash = "sha256-/OgG3jtqxCl3tAXHs+LaAkEAAun+bsUm5pZBffv1AWg=";
+    hash = "sha256-/p5/V2KNRkm1cP9/Ld3crfAxAdHYc2mFyNl1rV6QXr0=";
   };
 
   nativeBuildInputs = [
@@ -121,7 +121,7 @@ stdenv.mkDerivation (finalAttrs: {
     "localstatedir=\${TMPDIR}"
   ];
 
-  prePatch = ''
+  postPatch = ''
     substituteInPlace autogen.sh \
       --replace-fail "which" "${buildPackages.busybox}/bin/which"
 
@@ -142,14 +142,15 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/ubuntu/lightdm";
     description = "Cross-desktop display manager";
     platforms = lib.platforms.linux;
-    license = with lib.licenses; [
-      gpl3Plus
-      # and (
-      lgpl2Only
-      # or
-      lgpl3Only
-      # )
-    ];
+    license =
+      with lib.licenses;
+      AND [
+        gpl3Plus
+        (OR [
+          lgpl2Only
+          lgpl3Only
+        ])
+      ];
     teams = [ lib.teams.pantheon ];
   };
 })

@@ -10,23 +10,26 @@
   libao,
   libpulseaudio,
   libzip,
-  lua,
+  lua5_2_compat,
   miniupnpc,
   SDL2,
   systemdLibs,
   vulkan-loader,
   moltenvk,
 }:
+let
+  lua = lua5_2_compat;
+in
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "flycast";
-  version = "2.6";
+  version = "2.7";
 
   src = fetchFromGitHub {
     owner = "flyinghead";
     repo = "flycast";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-Lq6Oj+U4mpwNlL/t3ZB9gjE5NAVQyhdvBwLUGu1C+j0=";
+    hash = "sha256-8qGAoMQ7hF1HFx7m+CuhxX+IG7L4fk1XQkKUYZODGmA=";
     fetchSubmodules = true;
   };
 
@@ -55,7 +58,12 @@ stdenv.mkDerivation (finalAttrs: {
   ]
   ++ lib.optionals stdenv.hostPlatform.isDarwin [ moltenvk ];
 
-  postPatch = lib.optionalString stdenv.hostPlatform.isDarwin ''
+  postPatch = ''
+    substituteInPlace core/version.h.in --replace-fail \
+      '@GIT_VERSION@' \
+      '${finalAttrs.version}'
+  ''
+  + lib.optionalString stdenv.hostPlatform.isDarwin ''
     substituteInPlace CMakeLists.txt \
       --replace-fail \
         '"$ENV{VULKAN_SDK}/lib/libMoltenVK.dylib"' \
@@ -88,6 +96,6 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "flycast";
     license = lib.licenses.gpl2Only;
     platforms = lib.platforms.unix;
-    maintainers = [ ];
+    maintainers = with lib.maintainers; [ tallesCoelho ];
   };
 })

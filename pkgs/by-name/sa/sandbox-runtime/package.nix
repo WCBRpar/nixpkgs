@@ -17,27 +17,19 @@
 
 buildNpmPackage (finalAttrs: {
   pname = "sandbox-runtime";
-  version = "0.0.71";
+  version = "0.0.81";
 
   __structuredAttrs = true;
+  strictDeps = true;
 
   src = fetchFromGitHub {
     owner = "anthropic-experimental";
     repo = "sandbox-runtime";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-0qM0+IWrL7/5VLGVCzV9cclGFFv3IF2sRwEOslzNJiE=";
+    hash = "sha256-mnxo49ng4fY0YantniE9xQm2qU37xZLBepNsmKH0wJA=";
   };
 
-  postPatch =
-    # Fix the `--version` flag.
-    ''
-      substituteInPlace src/cli.ts \
-        --replace-fail "1.0.0" "${finalAttrs.version}"
-    '';
-
-  strictDeps = true;
-
-  npmDepsHash = "sha256-h9Y30CZktOoUGD0BZ86uzADt3+WWITT3Y09HOQoc0NA=";
+  npmDepsHash = "sha256-kS6eY5171yLv2Rxcy/65Mf3hGE8w/53cFAiISSfWbks=";
 
   postFixup =
     let

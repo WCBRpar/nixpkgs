@@ -8,15 +8,15 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "oxvg";
-  version = "0.0.6";
+  version = "0.0.9";
   __structuredAttrs = true;
 
   src = fetchCrate {
     inherit (finalAttrs) pname version;
-    hash = "sha256-0qi9rNHQHn01aq7rle84GVr2wlAPqb0Xobs0FjSBMh0=";
+    hash = "sha256-R4Ua+M5/G0Xn+o383WPcbnUOQO2bbL0GEdjIdyk1gLQ=";
   };
 
-  cargoHash = "sha256-WEh9/+vl0CtSuD622JSavAYmifYEeWAxCUxLtec9IWM=";
+  cargoHash = "sha256-RQOWxtXpGfZ25owVQL/IwQx3ndzucXR5IWLIvB8qPfs=";
 
   nativeInstallCheckInputs = [ versionCheckHook ];
   doInstallCheck = true;

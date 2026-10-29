@@ -1,28 +1,27 @@
 {
   lib,
-  buildGoModule,
+  buildGo127Module,
   fetchFromGitHub,
   versionCheckHook,
   nix-update-script,
   nixosTests,
 }:
 
-buildGoModule (finalAttrs: {
+buildGo127Module (finalAttrs: {
   pname = "go-csp-collector";
-  version = "0.0.22";
+  version = "0.0.24";
 
   src = fetchFromGitHub {
     owner = "jacobbednarz";
     repo = "go-csp-collector";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-30+rLt0VonbwP3I09OrAxiCqrUuIvGivE3+6sQ/hnRo=";
+    hash = "sha256-j5oYcH0u0/Et5235GVQVxor2HqUX3mfE0ALe2jn/OW0=";
   };
 
-  vendorHash = "sha256-gto2lD3atZTy5QMECarLBWQR7Z1bBlFAoJtJYrzg7bY=";
+  vendorHash = "sha256-IxUhINd7nRMppbGRaZuJi6SiOdeTOmkEIcBddY5s4Oc=";
 
   ldflags = [
     "-s"
-    "-w"
     "-X main.Rev=${finalAttrs.version}"
   ];
 
