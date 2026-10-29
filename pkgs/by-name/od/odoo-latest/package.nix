@@ -14,7 +14,6 @@ let
   odoo_version = "19.0";
   odoo_release = "latest";
 
-  # Sua lógica dinâmica de addons
   addonsPythonDeps = lib.concatMap (addon: addon.propagatedBuildInputs or [ ]) addons;
 
   python = python312.override {
@@ -65,9 +64,16 @@ python.pkgs.buildPythonApplication rec {
   '';
 
   makeWrapperArgs = [
-    "--prefix PATH : ${lib.makeBinPath [ wkhtmltopdf rtlcss ]}"
+    "--prefix"
+    "PATH"
+    ":"
+    (lib.makeBinPath [ wkhtmltopdf rtlcss ])
+
         # Adiciona o site-packages do python com todas as dependências no PYTHONPATH
-    "--prefix PYTHONPATH : ${python.pkgs.makePythonPath (with python.pkgs; [
+    "--prefix"
+    "PYTHONPATH"
+    ":"
+    (python.pkgs.makePythonPath (with python.pkgs; [
       erpbrasil-assinatura
       erpbrasil-base
       erpbrasil-transmissao
@@ -82,7 +88,7 @@ python.pkgs.buildPythonApplication rec {
       python-magic
       python-dateutil
       pypdf2
-    ] ++ addonsPythonDeps)}"
+    ] ++ addonsPythonDeps))
   ];
 
   build-system = with python.pkgs; [ setuptools distutils ];
