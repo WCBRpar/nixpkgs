@@ -936,7 +936,7 @@ with pkgs;
     l10n-br-coa-simple = callPackage ../by-name/l1/l10n-br-coa-simple/package.nix { };
     l10n-br-purchase = callPackage ../by-name/l1/l10n-br-purchase/package.nix { };
     l10n-br-sale = callPackage ../by-name/l1/l10n-br-sale/package.nix { };
-    l10n-br-setup-tests = callPackage ../by-name/l1/l10n-br-setup-tests/package.nix { }
+    l10n-br-setup-tests = callPackage ../by-name/l1/l10n-br-setup-tests/package.nix { };
 
     # l10n-brazil (18.0)
     l10n-br-account = callPackage ../by-name/l1/l10n-br-account/package.nix { };
