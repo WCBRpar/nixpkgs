@@ -6,5 +6,5 @@ fetchOdooAddon {
   owner = "OCA";
   repo = "social";
   subdir = "mail_gateway_whatsapp";
-  hash = "sha256-xMgr5romK6TBFxc+kw4Nzy/jaNWIKZAP2U+PoLKRJoo=";
+  hash = "sha256-NRoGnQxP7etzsNPD2/yHT2QQjsw9afukNsMbNAn7DS4=";
 }
