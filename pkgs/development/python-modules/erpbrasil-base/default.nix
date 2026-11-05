@@ -22,7 +22,7 @@ buildPythonPackage rec {
     owner = "erpbrasil";
     repo = "erpbrasil.base";
     rev = "v${version}";
-    hash = "sha256-st6vfLt7J/3AO4YBoz2sMGvll9We3s8aOyW12kLUbIA=";
+    hash = "sha256-yaCmLGHNzkhVFFNvDjXMzI9AAexUs4NmlP2Cd5f3jto=";
   };
 
   build-system = [ setuptools ];
