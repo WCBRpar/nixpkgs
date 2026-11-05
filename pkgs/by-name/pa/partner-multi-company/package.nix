@@ -1,9 +1,9 @@
 { fetchOdooAddon }:
 fetchOdooAddon {
   pname = "partner-multi-company";
-  version = "18.0";
+  version = "19.0";
   owner = "OCA";
   repo = "multi-company";
   subdir = "partner_multi_company";
-  hash = "sha256-f7OVA/6wGSv61v47oZZRyE6AeV8QWmfdZJhib01nfJ4=";
+  hash = "sha256-+ECyAwdB3y+KgrXXg6KrDhPB5Ferun033l/ZF1k77ZM=";
 }
