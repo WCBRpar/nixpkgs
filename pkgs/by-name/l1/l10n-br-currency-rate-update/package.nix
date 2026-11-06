@@ -5,5 +5,5 @@ fetchOdooAddon {
   owner = "OCA";
   repo = "l10n-brazil";
   subdir = "l10n_br_currency_rate_update";
-  hash = "sha256-cr6Ph5RWIiN17L1BFYzgoWJNg9WaaMxYI9dTZvNtlPs=";
+  hash = "sha256-le/UXE1BA5hCQ0XZDqViO8SBOgIH35tpvEgmGLzXnCA=";
 }
