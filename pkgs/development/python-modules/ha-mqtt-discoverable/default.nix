@@ -11,14 +11,14 @@
 
 buildPythonPackage (finalAttrs: {
   pname = "ha-mqtt-discoverable";
-  version = "0.25.2";
+  version = "0.26.2";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "unixorn";
     repo = "ha-mqtt-discoverable";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-7MZDzaGJExEBjNjqjIyYWrnoGbt/dVbWlNkU33jvvU0=";
+    hash = "sha256-ftlLESG+XbYCjwPbvIzHhKqmrwwo6sTJwI9EFDo0ddM=";
   };
 
   pythonRelaxDeps = [
@@ -26,6 +26,11 @@ buildPythonPackage (finalAttrs: {
     "pyaml"
     "pydantic"
   ];
+
+  postPatch = ''
+    substituteInPlace pyproject.toml \
+      --replace-fail "poetry-core>=2.5.0" "poetry-core"
+  '';
 
   build-system = [ poetry-core ];
 

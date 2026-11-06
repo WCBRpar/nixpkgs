@@ -419,7 +419,10 @@ in
   chhoto-url = runTest ./chhoto-url.nix;
   chipass = runTest ./chipass.nix;
   chromadb = runTest ./chromadb.nix;
-  chromium = (handleTestOn [ "aarch64-linux" "x86_64-linux" ] ./chromium.nix { }).stable or { };
+  chromium = runTestOn [ "aarch64-linux" "x86_64-linux" ] {
+    imports = [ ./chromium.nix ];
+    _module.args.chromiumPackage = pkgs.chromium;
+  };
   chrony = runTestOn [ "aarch64-linux" "x86_64-linux" ] ./chrony.nix;
   chrony-ptp = runTestOn [ "aarch64-linux" "x86_64-linux" ] ./chrony-ptp.nix;
   cinnamon = runTest ./cinnamon.nix;
@@ -634,6 +637,7 @@ in
   facter = runTest ./facter;
   fail2ban = runTest ./fail2ban.nix;
   fakeroute = runTest ./fakeroute.nix;
+  falco = runTest ./falco.nix;
   fancontrol = runTest ./fancontrol.nix;
   fanout = runTest ./fanout.nix;
   fastnetmon-advanced = runTest ./fastnetmon-advanced.nix;
@@ -722,12 +726,8 @@ in
   fsck = runTest ./fsck.nix;
   fscrypt = runTest ./fscrypt.nix;
   ft2-clone = runTest ./ft2-clone.nix;
-  galene = discoverTests (import ./galene.nix { inherit runTest; });
+  galene = import ./galene.nix { inherit runTest; };
   gancio = runTest ./gancio.nix;
-  garage_1 = import ./garage {
-    inherit runTest;
-    package = pkgsLinux.garage_1;
-  };
   garage_2 = import ./garage {
     inherit runTest;
     package = pkgsLinux.garage_2;
@@ -774,6 +774,7 @@ in
   gocd-server = runTest ./gocd-server.nix;
   gocron = runTest ./gocron.nix;
   gocryptfs = runTest ./gocryptfs.nix;
+  goeland = runTest ./goeland.nix;
   gokapi = runTest ./gokapi.nix;
   gollum = runTest ./gollum.nix;
   gonic = runTest ./gonic.nix;
@@ -795,6 +796,7 @@ in
   graylog = runTest ./graylog.nix;
   greenlight = runTest ./greenlight.nix;
   greetd-no-shadow = runTest ./greetd-no-shadow.nix;
+  grimmory = runTest ./grimmory.nix;
   grist = runTest ./grist.nix;
   grocy = runTest ./grocy.nix;
   grow-partition = runTest ./grow-partition.nix;
@@ -1657,8 +1659,7 @@ in
   schleuder = runTest ./schleuder.nix;
   scion-freestanding-deployment = runTest ./scion/freestanding-deployment;
   scrutiny = runTest ./scrutiny.nix;
-  scx = runTest ./scx/default.nix;
-  scx-loader = runTest ./scx/loader.nix;
+  scx-loader = runTest ./scx-loader.nix;
   sddm = import ./sddm.nix { inherit runTest; };
   sdl3 = runTest ./sdl3.nix;
   searx = runTest ./searx.nix;
@@ -1898,6 +1899,7 @@ in
   tmate-ssh-server = runTest ./tmate-ssh-server.nix;
   tomcat = runTest ./tomcat.nix;
   tor = runTest ./tor.nix;
+  toxvpn = runTest ./toxvpn.nix;
   tpm-ek = handleTest ./tpm-ek { };
   tpm2 = import ./tpm2 { inherit runTest; };
   traccar = runTest ./traccar.nix;
@@ -1936,6 +1938,10 @@ in
   umami = runTest ./web-apps/umami.nix;
   umurmur = runTest ./umurmur.nix;
   unbound = runTest ./unbound.nix;
+  ungoogled-chromium = runTestOn [ "aarch64-linux" "x86_64-linux" ] {
+    imports = [ ./chromium.nix ];
+    _module.args.chromiumPackage = pkgs.ungoogled-chromium;
+  };
   unifi = runTest ./unifi.nix;
   unit-perl = runTest ./web-servers/unit-perl.nix;
   unpackerr = runTest ./unpackerr.nix;
@@ -2054,6 +2060,7 @@ in
     inherit lib runTest;
   };
   yggdrasil = runTest ./yggdrasil.nix;
+  yopass = import ./web-apps/yopass.nix { inherit pkgs runTest; };
   your_spotify = runTest ./your_spotify.nix;
   zammad = runTest ./zammad.nix;
   zapret2 = runTest ./zapret2.nix;

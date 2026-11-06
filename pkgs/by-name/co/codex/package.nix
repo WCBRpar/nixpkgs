@@ -68,21 +68,21 @@ let
 in
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "codex";
-  version = "0.165.0";
+  version = "0.167.0";
 
   src = fetchFromGitHub {
     owner = "openai";
     repo = "codex";
     rev = finalAttrs.buildCommit;
-    hash = "sha256-b9PpwNQeZsJIN4wbGA3FLfWAKd2EDMN5E/zj/Y62/vk=";
+    hash = "sha256-9BVM0mUQ+F9QpqvnG+7x4ZXYaNTclcGLtF5DzEU5Zzg=";
   };
 
   # Matching client/helper stamps; build_id() requires a full commit SHA.
-  buildCommit = "360319d8dee62d87e2d59fc0c21805d79519cfed";
+  buildCommit = "086ccc833bc9cf01024ad2dd6af7dbd421b6bf9a";
 
   sourceRoot = "${finalAttrs.src.name}/codex-rs";
 
-  cargoHash = "sha256-KKC/uHE2RWq0U7FmXA+TKTlFf/d8vYe6/G8gl78bW+g=";
+  cargoHash = "sha256-Dqo9nMfbkTcyT+S79U2JdXpnxwrN0fQjjMlG055jvJE=";
   # Disable bundled Opus so OPUS_LIB_DIR selects nixpkgs' libopus.
   cargoDeps =
     (rustPlatform.fetchCargoVendor {

@@ -11,18 +11,21 @@
 
 buildGo127Module (finalAttrs: {
   pname = "entire";
-  version = "0.12.0";
+  version = "0.12.2";
 
   src = fetchFromGitHub {
     owner = "entireio";
     repo = "cli";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-iwRPqF4lc/9EPjhV8FoSleMoyc+k0fsSPJBdBDPX+NY=";
+    hash = "sha256-QIVsDXxQChrgRF6mMNL6gual8tRXBPwDIdx/vY03Wxw=";
   };
 
   vendorHash = "sha256-RU0ZSkwGk8bL4mkhnMDveNIW7JGwYwudT+ywmncuT2k=";
 
-  subPackages = [ "cmd/entire" ];
+  subPackages = [
+    "cmd/entire"
+    "cmd/git-remote-entire"
+  ];
 
   ldflags = [
     "-s"
@@ -36,6 +39,9 @@ buildGo127Module (finalAttrs: {
     git
     writableTmpDirAsHomeHook
   ];
+
+  # git-remote-entire tests bind localhost via httptest
+  __darwinAllowLocalNetworking = true;
 
   postInstall = lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
     installShellCompletion --cmd entire \
@@ -60,6 +66,7 @@ buildGo127Module (finalAttrs: {
       iamanaws
       sheeeng
       squishykid
+      toothbrush
     ];
     mainProgram = "entire";
   };
