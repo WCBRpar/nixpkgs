@@ -2171,6 +2171,13 @@
     matrix = "@anthonyrsl:matrix.org";
     keys = [ { fingerprint = "472D 368A F107 F443 F3A5  C712 9DC4 987B 1A55 E75E"; } ];
   };
+  anthr76 = {
+    email = "hello@anthonyrabbito.com";
+    github = "anthr76";
+    githubId = 25143877;
+    name = "Anthony Rabbito";
+    matrix = "@anthr76:mozilla.org";
+  };
   antipatico = {
     email = "code@bootkit.dev";
     github = "antipatico";
@@ -4174,14 +4181,6 @@
     github = "bpaulin";
     githubId = 115711;
     name = "bpaulin";
-  };
-  bpeetz = {
-    name = "Benedikt Peetz";
-    email = "benedikt.peetz@b-peetz.de";
-    matrix = "@soispha:vhack.eu";
-    github = "bpeetz";
-    githubId = 140968250;
-    keys = [ { fingerprint = "8321 ED3A 8DB9 99A5 1F3B  F80F F268 2914 EA42 DE26"; } ];
   };
   bpmct = {
     name = "Ben Potter";
@@ -27788,6 +27787,13 @@
     githubId = 7116239;
     keys = [ { fingerprint = "E067 520F 5EF2 C175 3F60  50C0 BA46 725F 6A26 7442"; } ];
   };
+  soispha = {
+    name = "Soispha Peetz";
+    email = "soispha@b-peetz.de";
+    matrix = "@soispha:vhack.eu";
+    github = "soispha";
+    githubId = 132207423;
+  };
   Soliprem = {
     email = "me@soliprem.eu";
     matrix = "@soliprem:soliprem.eu";
@@ -28064,9 +28070,10 @@
   };
   ssnoer = {
     email = "ssnoer@proton.me";
-    github = "Seba244c";
+    github = "ssnoer";
     githubId = 23051740;
     name = "Sebastian August Snoer";
+    keys = [ { fingerprint = "8ECA 72D9 49EE 21AB 2A43 71A2 207C 0213 F7FE 56D0"; } ];
   };
   sstef = {
     email = "stephane@nix.frozenid.net";
@@ -28358,6 +28365,12 @@
     github = "strager";
     githubId = 48666;
     name = "Matthew \"strager\" Glazar";
+  };
+  StrangeGirlMurph = {
+    name = "Murphy";
+    github = "StrangeGirlMurph";
+    githubId = 62220780;
+    email = "git@murphy.science";
   };
   strawbee = {
     email = "henigingames@gmail.com";

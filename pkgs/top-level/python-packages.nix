@@ -3797,7 +3797,9 @@ self: super: with self; {
 
   cram = callPackage ../development/python-modules/cram { };
 
-  cramjam = callPackage ../development/python-modules/cramjam { };
+  cramjam = callPackage ../development/python-modules/cramjam {
+    inherit (pkgs) zstd;
+  };
 
   crashtest = callPackage ../development/python-modules/crashtest { };
 
@@ -4161,8 +4163,6 @@ self: super: with self; {
   datamodeldict = callPackage ../development/python-modules/datamodeldict { };
 
   datapoint = callPackage ../development/python-modules/datapoint { };
-
-  dataprep-ml = callPackage ../development/python-modules/dataprep-ml { };
 
   dataproperty = callPackage ../development/python-modules/dataproperty { };
 
@@ -6411,8 +6411,6 @@ self: super: with self; {
 
   flask-unsign = callPackage ../development/python-modules/flask-unsign { };
 
-  flask-versioned = callPackage ../development/python-modules/flask-versioned { };
-
   flask-webtest = callPackage ../development/python-modules/flask-webtest { };
 
   flask-wtf = callPackage ../development/python-modules/flask-wtf { };
@@ -7143,8 +7141,6 @@ self: super: with self; {
   google-cloud-iam = callPackage ../development/python-modules/google-cloud-iam { };
 
   google-cloud-iam-logging = callPackage ../development/python-modules/google-cloud-iam-logging { };
-
-  google-cloud-iot = callPackage ../development/python-modules/google-cloud-iot { };
 
   google-cloud-kms = callPackage ../development/python-modules/google-cloud-kms { };
 
@@ -7970,6 +7966,8 @@ self: super: with self; {
   httpx-ws = callPackage ../development/python-modules/httpx-ws { };
 
   httpx2 = callPackage ../development/python-modules/httpx2 { };
+
+  httpx2-pytest = callPackage ../development/python-modules/httpx2-pytest { };
 
   huawei-lte-api = callPackage ../development/python-modules/huawei-lte-api { };
 
@@ -10556,8 +10554,6 @@ self: super: with self; {
 
   malduck = callPackage ../development/python-modules/malduck { };
 
-  mallard-ducktype = callPackage ../development/python-modules/mallard-ducktype { };
-
   mamba-ssm = callPackage ../development/python-modules/mamba-ssm { };
 
   mammoth = callPackage ../development/python-modules/mammoth { };
@@ -10981,8 +10977,6 @@ self: super: with self; {
   mim-solvers = callPackage ../development/python-modules/mim-solvers { inherit (pkgs) mim-solvers; };
 
   minari = callPackage ../development/python-modules/minari { };
-
-  mindsdb-evaluator = callPackage ../development/python-modules/mindsdb-evaluator { };
 
   minexr = callPackage ../development/python-modules/minexr { };
 
@@ -11469,7 +11463,9 @@ self: super: with self; {
 
   mtcnn = callPackage ../development/python-modules/mtcnn { };
 
-  mujoco = callPackage ../development/python-modules/mujoco { inherit (pkgs) mujoco; };
+  mujoco = callPackage ../development/python-modules/mujoco { };
+
+  mujoco-core = callPackage ../development/python-modules/mujoco-core { inherit (pkgs) mujoco; };
 
   mujoco-mjx = callPackage ../development/python-modules/mujoco-mjx { mujoco-main = pkgs.mujoco; };
 
@@ -12755,8 +12751,6 @@ self: super: with self; {
 
   opencensus-context = callPackage ../development/python-modules/opencensus-context { };
 
-  opencensus-ext-azure = callPackage ../development/python-modules/opencensus-ext-azure { };
-
   opencontainers = callPackage ../development/python-modules/opencontainers { };
 
   opencv-contrib-python = callPackage ../development/python-modules/opencv-contrib-python { };
@@ -12872,7 +12866,9 @@ self: super: with self; {
 
   opensimplex = callPackage ../development/python-modules/opensimplex { };
 
-  openslide = callPackage ../development/python-modules/openslide { inherit (pkgs) openslide; };
+  openslide-python = callPackage ../development/python-modules/openslide-python {
+    inherit (pkgs) openslide;
+  };
 
   openstackdocstheme = callPackage ../development/python-modules/openstackdocstheme { };
 
@@ -14941,7 +14937,9 @@ self: super: with self; {
 
   pydantic-graph = callPackage ../development/python-modules/pydantic-graph { };
 
-  pydantic-monty = callPackage ../development/python-modules/pydantic-monty { };
+  pydantic-monty = callPackage ../development/python-modules/pydantic-monty {
+    inherit (pkgs) zstd;
+  };
 
   pydantic-scim = callPackage ../development/python-modules/pydantic-scim { };
 
@@ -15367,7 +15365,9 @@ self: super: with self; {
 
   pyiceberg = callPackage ../development/python-modules/pyiceberg { };
 
-  pyiceberg-core = callPackage ../development/python-modules/pyiceberg-core { };
+  pyiceberg-core = callPackage ../development/python-modules/pyiceberg-core {
+    inherit (pkgs) zstd;
+  };
 
   pyicloud = callPackage ../development/python-modules/pyicloud { };
 
@@ -16242,7 +16242,7 @@ self: super: with self; {
 
   pyrepetierng = callPackage ../development/python-modules/pyrepetierng { };
 
-  pyreqwest = callPackage ../development/python-modules/pyreqwest { };
+  pyreqwest = callPackage ../development/python-modules/pyreqwest { zstd-c = pkgs.zstd; };
 
   pyrevolve = callPackage ../development/python-modules/pyrevolve { };
 
@@ -17425,7 +17425,9 @@ self: super: with self; {
 
   python-sql = callPackage ../development/python-modules/python-sql { };
 
-  python-statemachine = callPackage ../development/python-modules/python-statemachine { };
+  python-statemachine = callPackage ../development/python-modules/python-statemachine {
+    inherit (pkgs) graphviz;
+  };
 
   python-status = callPackage ../development/python-modules/python-status { };
 
@@ -20544,7 +20546,7 @@ self: super: with self; {
 
   symbex = callPackage ../development/python-modules/symbex { };
 
-  symbolic = callPackage ../development/python-modules/symbolic { };
+  symbolic = callPackage ../development/python-modules/symbolic { inherit (pkgs) zstd; };
 
   symengine = callPackage ../development/python-modules/symengine { inherit (pkgs) symengine; };
 
@@ -20899,6 +20901,8 @@ self: super: with self; {
   tflearn = callPackage ../development/python-modules/tflearn { };
 
   tftpy = callPackage ../development/python-modules/tftpy { };
+
+  th1 = callPackage ../development/python-modules/th1 { };
 
   theben-conexa-smgw = callPackage ../development/python-modules/theben-conexa-smgw { };
 
@@ -21369,7 +21373,9 @@ self: super: with self; {
 
   tree-sitter-json = callPackage ../development/python-modules/tree-sitter-json { };
 
-  tree-sitter-language-pack = callPackage ../development/python-modules/tree-sitter-language-pack { };
+  tree-sitter-language-pack = callPackage ../development/python-modules/tree-sitter-language-pack {
+    inherit (pkgs) zstd;
+  };
 
   tree-sitter-languages = callPackage ../development/python-modules/tree-sitter-languages { };
 
@@ -21467,8 +21473,6 @@ self: super: with self; {
   trx-python = callPackage ../development/python-modules/trx-python { };
 
   trytond = callPackage ../development/python-modules/trytond { };
-
-  ts1-signatures = callPackage ../development/python-modules/ts1-signatures { };
 
   tsfresh = callPackage ../development/python-modules/tsfresh { };
 
@@ -21583,8 +21587,6 @@ self: super: with self; {
   txzmq = callPackage ../development/python-modules/txzmq { };
 
   ty = callPackage ../development/python-modules/ty { inherit (pkgs) ty; };
-
-  type-infer = callPackage ../development/python-modules/type-infer { };
 
   typechecks = callPackage ../development/python-modules/typechecks { };
 
@@ -22497,6 +22499,12 @@ self: super: with self; {
   verilogae = callPackage ../development/python-modules/verilogae { };
 
   verlib2 = callPackage ../development/python-modules/verlib2 { };
+
+  vermin = (toPythonModule (pkgs.vermin.override { python3Packages = self; })).overrideAttrs (old: {
+    # hack to not cause a rebuild of python3Packages.python-discovery
+    # FIXME remove on staging
+    nativeBuildInputs = lib.remove pythonMetadataCheckHook old.nativeBuildInputs;
+  });
 
   versioneer = callPackage ../development/python-modules/versioneer { };
 
