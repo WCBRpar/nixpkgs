@@ -6,5 +6,5 @@ fetchOdooAddon {
   owner = "OCA";
   repo = "mail";
   subdir = "mail_activity_plan_domain";
-  hash = "sha256-VnbDc/VXC5m1rYS9931QtCwKQkhPFGF8eY+K2+e32pA=";
+  hash = "sha256-pnYaPTINP2IQFeCZacgQVQ/16//fsALxRBfTtth1sQM=";
 }

@@ -6,5 +6,5 @@ fetchOdooAddon {
   owner = "OCA";
   repo = "mail";
   subdir = "outgoing_email_by_model";
-  hash = "sha256-VnbDc/VXC5m1rYS9931QtCwKQkhPFGF8eY+K2+e32pA=";
+  hash = "sha256-pnYaPTINP2IQFeCZacgQVQ/16//fsALxRBfTtth1sQM=";
 }
