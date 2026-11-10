@@ -1944,11 +1944,6 @@ with pkgs;
 
   steampipePackages = recurseIntoAttrs (callPackage ../tools/misc/steampipe-packages { });
 
-  inherit (callPackages ../servers/rainloop { })
-    rainloop-community
-    rainloop-standard
-    ;
-
   roundcubePlugins = recurseIntoAttrs (callPackage ../by-name/ro/roundcube/plugins { });
 
   xmlsort = perlPackages.XMLFilterSort;
@@ -2116,6 +2111,7 @@ with pkgs;
     cudaPackages_13_2
     cudaPackages_13_3
     cudaPackages_13_4
+    cudaPackages_13_5
     ;
 
   cudaPackages_12 = cudaPackages_12_9;
@@ -2372,31 +2368,6 @@ with pkgs;
   hassil = with python3Packages; toPythonApplication hassil;
 
   hareThirdParty = recurseIntoAttrs (callPackage ./hare-third-party.nix { });
-
-  hdf5 = callPackage ../tools/misc/hdf5 {
-    fortranSupport = false;
-    fortran = gfortran;
-  };
-
-  hdf5-mpi = hdf5.override {
-    mpiSupport = true;
-    cppSupport = false;
-  };
-
-  hdf5-cpp = hdf5.override { cppSupport = true; };
-
-  hdf5-fortran = hdf5.override { fortranSupport = true; };
-
-  hdf5-fortran-mpi = hdf5.override {
-    fortranSupport = true;
-    mpiSupport = true;
-    cppSupport = false;
-  };
-
-  hdf5-threadsafe = hdf5.override {
-    cppSupport = false;
-    threadsafe = true;
-  };
 
   host = bind.host;
 
@@ -3301,8 +3272,6 @@ with pkgs;
   #Use this instead of stdenv to build with clang
   clangStdenv = if stdenv.cc.isClang then stdenv else lowPrio llvmPackages.stdenv;
   libcxxStdenv = if stdenv.hostPlatform.isDarwin then stdenv else lowPrio llvmPackages.libcxxStdenv;
-
-  comby = callPackage ../development/tools/comby { };
 
   inherit (rocqPackages_9_2) compcert;
 
@@ -4737,12 +4706,7 @@ with pkgs;
   spark4 = spark_4_0;
   spark = spark_4_0;
 
-  inherit
-    ({
-      spidermonkey_128 = callPackage ../development/interpreters/spidermonkey/128.nix { };
-      spidermonkey_140 = callPackage ../development/interpreters/spidermonkey/140.nix { };
-    })
-    spidermonkey_128
+  inherit ({ spidermonkey_140 = callPackage ../development/interpreters/spidermonkey/140.nix { }; })
     spidermonkey_140
     ;
 
@@ -4933,9 +4897,9 @@ with pkgs;
     electron_44
     electron_45
     ;
-  electron = electron_43;
-  electron-bin = electron_43-bin;
-  electron-chromedriver = electron-chromedriver_43;
+  electron = electron_45;
+  electron-bin = electron_45-bin;
+  electron-chromedriver = electron-chromedriver_45;
 
   bandit = with python3Packages; toPythonApplication bandit;
 
@@ -5510,7 +5474,7 @@ with pkgs;
 
   certbot-full = certbot.withPlugins (
     cp: with cp; [
-      # FIXME unbreak certbot-dns-cloudflare
+      certbot-dns-cloudflare
       certbot-dns-google
       certbot-dns-inwx
       certbot-dns-ovh
