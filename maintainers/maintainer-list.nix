@@ -2907,6 +2907,13 @@
     github = "auchter";
     githubId = 1190483;
   };
+  AugustDeer = {
+    email = "august@augustdeer.com";
+    github = "AugustDeer";
+    githubId = 153777330;
+    keys = [ { fingerprint = "20E3 D713 5379 ACEF C9BF  E537 4D9B FFF0 C24F 5930"; } ];
+    name = "August Deer";
+  };
   augustebaum = {
     email = "auguste.apple@gmail.com";
     github = "augustebaum";
@@ -20845,6 +20852,12 @@
     githubId = 74260683;
     name = "Nuno David";
   };
+  ndenissov = {
+    email = "n.denissov@proton.me";
+    github = "ndenissov";
+    githubId = 70575593;
+    name = "Nikita Denissov";
+  };
   ndl = {
     email = "ndl@endl.ch";
     github = "ndl";
@@ -23005,6 +23018,12 @@
     github = "PedroHLC";
     githubId = 1368952;
     name = "Pedro Lara Campos";
+  };
+  pedrosandre = {
+    name = "Pedro André";
+    github = "PedroSAndre";
+    githubId = 48893259;
+    email = "pedro@ndre.pt";
   };
   peelz = {
     email = "peelz.dev+nixpkgs@gmail.com";
@@ -30249,6 +30268,12 @@
     githubId = 144389458;
     name = "sapii";
   };
+  treierxyz = {
+    email = "me@treier.xyz";
+    github = "treierxyz";
+    githubId = 33978534;
+    name = "Oliver Jõgar";
+  };
   trespaul = {
     email = "paul@trespaul.com";
     github = "trespaul";
@@ -30387,6 +30412,11 @@
     matrix = "@tudbut:matrix.tudbut.de";
     github = "tudbut";
     githubId = 48156391;
+  };
+  tulku = {
+    name = "Lucas Chiesa";
+    github = "tulku";
+    githubId = 764126;
   };
   Tungsten842 = {
     name = "Tungsten842";
