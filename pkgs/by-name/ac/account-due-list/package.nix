@@ -5,5 +5,5 @@ fetchOdooAddon {
   owner = "OCA";
   repo = "account-payment";
   subdir = "account_due_list";
-  hash = "sha256-5f9FwQBaawaLKTh590kU2aWIXB2KATuwhR/QZooCQ4E=";
+  hash = "sha256-3PALUAZugUr5WzgyCyl4XPua8pupSy5+VYVzrywyXFo=";
 }
