@@ -6,5 +6,5 @@ fetchOdooAddon {
   owner = "OCA";
   repo = "server-brand";
   subdir = "mail_debranding";
-  hash = "sha256-f9VCNJf03Ur4Do/bUpiWemEV0/Wd+FtovOMi5a6Sexg=";
+  hash = "sha256-a1NwjTxDte5qQxYW7T/LHKidsAMbEdx75Kkp0JKCYC8=";
 }

@@ -1,9 +1,9 @@
 { fetchOdooAddon }:
 fetchOdooAddon {
   pname = "l10n-br-nfse";
-  version = "18.0";
+  version = "19.0";
   owner = "OCA";
   repo = "l10n-brazil";
   subdir = "l10n_br_nfse";
-  hash = "sha256-7y5a++RniDd4hciAJPAE6vhVKyGObv2IwLgymYRVZuQ=";
+  hash = "sha256-BWjE+yzOuSQ4IMkv11GMAJMAulAtx5Hb3cZVfCLzbV4=";
 }
