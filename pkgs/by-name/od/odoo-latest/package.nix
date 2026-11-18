@@ -55,7 +55,7 @@ python.pkgs.buildPythonApplication rec {
   src = fetchzip {
     url = "https://nightly.odoo.com/${odoo_version}/nightly/src/odoo_${version}.zip";
     name = "odoo-${version}";
-    hash = "sha256-iad1ygsA1tZCo26rt8T7RkHaFri0oSQ40ZKva3kFq9s=";
+    hash = "sha256-eGfQGNS7W/wAqoZ3sPBnUl65llkyFrKxcbzKELcJDTE=";
   };
 
   postPatch = ''
