@@ -9,14 +9,14 @@
 
 buildPythonPackage rec {
   pname = "pyxb-x";
-  version = "1.2.6.3";
+  version = "1.2.6.4";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "renalreg";
     repo = "PyXB-X";
     rev = "v${version}";
-    hash = "sha256-NIlFDxDtitpxJP/xkThpFD4MYJvt1zUc9nhd7sZquFo=";
+    hash = "sha256-J6VyNZZbZgcfjqrJh8huD9sPYrSLlo4ZyFmc2EY7nJQ=";
   };
 
   build-system = [ setuptools ];
