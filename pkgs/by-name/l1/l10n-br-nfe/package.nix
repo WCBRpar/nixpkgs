@@ -5,5 +5,5 @@ fetchOdooAddon {
   owner = "OCA";
   repo = "l10n-brazil";
   subdir = "l10n_br_nfe";
-  hash = "sha256-O0gSPsb/QdO4fiirK7E3y8EquXJI7I1xV7nNLVEQZ7c=";
+  hash = "sha256-XLspLVGXoPnewMdprADyRqMvDFV6mAr59rKJly82ZVk=";
 }
