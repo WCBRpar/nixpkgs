@@ -88,6 +88,7 @@ python.pkgs.buildPythonApplication rec {
       python-magic
       python-dateutil
       pypdf2
+      transitions
     ] ++ addonsPythonDeps))
   ];
 
@@ -118,6 +119,7 @@ python.pkgs.buildPythonApplication rec {
     python-magic        # DMS
     python-dateutil     # hr_employee_relative
     pypdf2
+    transitions
   ] ++ addonsPythonDeps;
 
 
