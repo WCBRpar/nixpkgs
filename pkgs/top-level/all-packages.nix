@@ -782,6 +782,28 @@ with pkgs;
     base-name-search-improved = callPackage ../by-name/ba/base-name-search-improved/package.nix { };
     base-sequence-option = callPackage ../by-name/ba/base-sequence-option/package.nix { };
 
+    # OCA/server-ux (19.0)
+    barcode-action = callPackage ../by-name/ba/barcode-action/package.nix { };
+    base-cancel-confirm = callPackage ../by-name/ba/base-cancel-confirm/package.nix { };
+    base-export-manager = callPackage ../by-name/ba/base-export-manager/package.nix { };
+    base-line-numbering = callPackage ../by-name/ba/base-line-numbering/package.nix { };
+    base-menu-visibility-restriction = callPackage ../by-name/ba/base-menu-visibility-restriction/package.nix { };
+    base-optional-quick-create = callPackage ../by-name/ba/base-optional-quick-create/package.nix { };
+    base-revision = callPackage ../by-name/ba/base-revision/package.nix { };
+    base-search-custom-field-filter = callPackage ../by-name/ba/base-search-custom-field-filter/package.nix { };
+    base-substate = callPackage ../by-name/ba/base-substate/package.nix { };
+    base-technical-features = callPackage ../by-name/ba/base-technical-features/package.nix { };
+    date-range = callPackage ../by-name/da/date-range/package.nix { };
+    date-range-account = callPackage ../by-name/da/date-range-account/package.nix { };
+    developer-menu = callPackage ../by-name/de/developer-menu/package.nix { };
+    document-quick-access = callPackage ../by-name/do/document-quick-access/package.nix { };
+    filter-multi-user = callPackage ../by-name/fi/filter-multi-user/package.nix { };
+    mail-message-destiny-link-template = callPackage ../by-name/ma/mail-message-destiny-link-template/package.nix{ };
+    sequence-reset-period = callPackage ../by-name/se/sequence-reset-period/package.nix { };
+    server-action-mass-edit = callPackage ../by-name/se/server-action-mass-edit/package.nix { };
+    server-action-mass-edit-onchange = callPackage ../by-name/se/server-action-mass-edit-onchange/package.nix { };
+    template-content-swapper = callPackage ../by-name/te/template-content-swapper/package.nix { };
+
     # account-financial-tools (18.0)
     account-sequence-option = callPackage ../by-name/ac/account-sequence-option/package.nix { };
 
