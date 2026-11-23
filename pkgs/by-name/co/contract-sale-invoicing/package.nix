@@ -2,9 +2,9 @@
 
 fetchOdooAddon {
   pname = "contract-sale-invoicing";
-  version = "18.0";
+  version = "19.0";
   owner = "OCA";
   repo = "contract";
   subdir = "contract_sale_invoicing";
-  hash = "sha256-kaye6OMzgTKv4fXSDnUyKj5Ly2ilKMnwkPYSZgL7pr4=";
+  hash = "sha256-HjQjcVmfJWw9PrW2KSJ8BEppgC/doUB672RRJFr21xE=";
 }
