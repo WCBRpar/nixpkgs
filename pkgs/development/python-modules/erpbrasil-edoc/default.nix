@@ -15,14 +15,14 @@
 
 buildPythonPackage rec {
   pname = "erpbrasil.edoc";
-  version = "3.1.1";
+  version = "3.3.3";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "erpbrasil";
     repo = "erpbrasil.edoc";
     rev = "v${version}";
-    hash = "sha256-KN33fAwJV48Zok5NhryN4AUL94MBqbzSjt8RgkahZfk=";
+    hash = "sha256-hoTUa0Ejb3xK/J1aOI6102eJRlGs79WGwsqv9vh+Evc=";
   };
 
   build-system = [ setuptools ];

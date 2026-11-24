@@ -16,14 +16,14 @@
 
 buildPythonPackage rec {
   pname = "erpbrasil.assinatura";
-  version = "1.7.0";
+  version = "1.9.0";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "erpbrasil";
     repo = "erpbrasil.assinatura";
     rev = "v${version}";
-    hash = "sha256-hHpep9yCpmI0J8rlb/HwHS9BcCt2E50BrcT6DbFhLfE=";
+    hash = "sha256-yjQSXuR2rGhmFm+buuc0mSJEv/L1EZPavt27X78fI9c=";
   };
 
   build-system = [ setuptools wheel ];
