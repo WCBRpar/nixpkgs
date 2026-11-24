@@ -82,6 +82,7 @@ python.pkgs.buildPythonApplication rec {
       brazilfiscalreport
       nfelib
       num2words
+      openupgradelib
       email-validator
       phonenumbers
       workalendar
@@ -114,6 +115,7 @@ python.pkgs.buildPythonApplication rec {
     brazilfiscalreport  # l10n_br
     nfelib              # l10n_br
     email-validator     # l10n_br
+    openupgradelib      # l10n_br_hr_ressources
     phonenumbers        # l10n_br
     workalendar         # l10n_br
     python-magic        # DMS

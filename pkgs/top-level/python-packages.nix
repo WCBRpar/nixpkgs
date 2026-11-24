@@ -13043,6 +13043,8 @@ self: super: with self; {
 
   opentypespec = callPackage ../development/python-modules/opentypespec { };
 
+  openupgradelib = callPackage ../development/python-modules/openupgradelib { };
+
   openusd = callPackage ../development/python-modules/openusd { alembic = pkgs.alembic; };
 
   openvino = callPackage ../development/python-modules/openvino {
