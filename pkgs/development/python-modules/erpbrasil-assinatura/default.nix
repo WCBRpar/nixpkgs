@@ -28,6 +28,14 @@ buildPythonPackage rec {
 
   build-system = [ setuptools wheel ];
 
+  # Upper bounds do upstream incompatíveis com o nixpkgs.
+  # APIs usadas (SignXMLVerifier, signxml.XMLVerifier, OpenSSL.crypto.*)
+  # são estáveis entre as versões relaxadas.
+  pythonRelaxDeps = [
+    "signxml"
+    "pyopenssl"
+  ];
+
   dependencies = [
     chardet
     lxml
