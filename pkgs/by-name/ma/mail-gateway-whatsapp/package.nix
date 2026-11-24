@@ -2,9 +2,9 @@
 
 fetchOdooAddon {
   pname = "mail-gateway-whatsapp";
-  version = "18.0";
+  version = "19.0";
   owner = "OCA";
-  repo = "social";
+  repo = "mail";
   subdir = "mail_gateway_whatsapp";
-  hash = "sha256-n6oJmROKNUGktv51IeZjioYZEbGym5IAGop/o49tgkg=";
+  hash = "sha256-hbW1TIIqFD/dq8DEKGChEBa9KORgcFUn4YuUCzUtGBg=";
 }
