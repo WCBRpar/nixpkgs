@@ -770,6 +770,13 @@ with pkgs;
     # redcom.digital-odoo-addons (18.0)
     contacts-political-party-PT = callPackage ../by-name/co/contacts-political-party-PT/package.nix { };
 
+    # OCA/mis-builder (19.0)
+    docs = callPackage ../by-name/do/docs/package.nix { };
+    mis-builder = callPackage ../by-name/mi/mis-builder/package.nix { };
+    mis-builder-budget = callPackage ../by-name/mi/mis-builder-budget/package.nix { };
+    mis-builder-demo = callPackage ../by-name/mi/mis-builder-demo/package.nix { };
+
+
     # server-tools (19,0)
     bus-alt-connection = callPackage ../by-name/bu/bus-alt-connection/package.nix { };
     dbfilter-from-header = callPackage ../by-name/db/dbfilter-from-header/package.nix { };
