@@ -10468,6 +10468,8 @@ self: super: with self; {
 
   lunarcalendar = callPackage ../development/python-modules/lunarcalendar { };
 
+  lunardate = callPackage ../development/python-modules/lunardate { };
+
   lunatone-rest-api-client = callPackage ../development/python-modules/lunatone-rest-api-client { };
 
   lupa = callPackage ../development/python-modules/lupa { };
@@ -15622,6 +15624,8 @@ self: super: with self; {
   pylsp-rope = callPackage ../development/python-modules/pylsp-rope { };
 
   pylsqpack = callPackage ../development/python-modules/pylsqpack { };
+
+  pyluach = callPackage ../development/python-modules/pyluach { };
 
   pylutron = callPackage ../development/python-modules/pylutron { };
 
