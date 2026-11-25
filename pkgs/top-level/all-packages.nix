@@ -988,6 +988,30 @@ with pkgs;
     # product-atributes (19.0)
     uom-alias = callPackage ../by-name/uo/uom-alias/package.nix { };
 
+   # OCA/reporting-engine (19.0)
+    base-comment-template = callPackage ../by-name/ba/base-comment-template/package.nix { };
+    bi-sql-editor = callPackage ../by-name/bi/bi-sql-editor/package.nix { };
+    kpi = callPackage ../by-name/kp/kpi/package.nix { };
+    pdf-xml-attachment = callPackage ../by-name/pd/pdf-xml-attachment/package.nix { };
+    report-async = callPackage ../by-name/re/report-async/package.nix { };
+    report-context = callPackage ../by-name/re/report-context/package.nix { };
+    report-csv = callPackage ../by-name/re/report-csv/package.nix { };
+    report-partner-address = callPackage ../by-name/re/report-partner-address/package.nix { };
+    report-positioned-image = callPackage ../by-name/re/report-positioned-image/package.nix { };
+    report-py3o = callPackage ../by-name/re/report-py3o/package.nix { };
+    report-qr = callPackage ../by-name/re/report-qr/package.nix { };
+    report-qweb-element-page-visibility = callPackage ../by-name/re/report-qweb-element-page-visibility/package.nix { };
+    report-qweb-encrypt = callPackage ../by-name/re/report-qweb-encrypt/package.nix { };
+    report-qweb-field-option = callPackage ../by-name/re/report-qweb-field-option/package.nix { };
+    report-qweb-parameter = callPackage ../by-name/re/report-qweb-parameter/package.nix { };
+    report-qweb-pdf-watermark = callPackage ../by-name/re/report-qweb-pdf-watermark/package.nix { };
+    report-substitute = callPackage ../by-name/re/report-substitute/package.nix { };
+    report-wkhtmltopdf-param = callPackage ../by-name/re/report-wkhtmltopdf-param/package.nix { };
+    report-xlsx = callPackage ../by-name/re/report-xlsx/package.nix { };
+    report-xlsx-helper = callPackage ../by-name/re/report-xlsx-helper/package.nix { };
+    report-xml = callPackage ../by-name/re/report-xml/package.nix { };
+    sql-request-abstract = callPackage ../by-name/sq/sql-request-abstract/package.nix { };
+
     # OCA/server-auth (18.0)
     auth-admin-passkey = callPackage ../by-name/au/auth-admin-passkey/package.nix { };
     auth-api-key = callPackage ../by-name/au/auth-api-key/package.nix { };
