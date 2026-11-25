@@ -4,16 +4,17 @@
   fetchurl,
   jdk_headless,
   makeWrapper,
+  nix-update-script,
   stdenvNoCC,
   testers,
 }:
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "maven";
-  version = "3.10.0";
+  version = "3.10.2";
 
   src = fetchurl {
     url = "mirror://apache/maven/maven-3/${finalAttrs.version}/binaries/apache-maven-${finalAttrs.version}-bin.tar.gz";
-    hash = "sha256-pGzFG8dPoj/SZ8eguRMrFG3PUm2mDTGqUXTlZWMung4=";
+    hash = "sha256-i6ExIXlCQ+YE28pQQ59q5knOYCZ1oWcSlVb9UClHskk=";
   };
 
   sourceRoot = ".";
@@ -68,6 +69,15 @@ stdenvNoCC.mkDerivation (finalAttrs: {
       inherit mkBuildMavenPackage;
 
       buildMavenPackage = mkBuildMavenPackage finalAttrs.finalPackage;
+
+      updateScript = nix-update-script {
+        extraArgs = [
+          "--url"
+          "https://github.com/apache/maven"
+          "--version-regex"
+          "maven-(3\\..*)"
+        ];
+      };
 
       tests = {
         version = testers.testVersion {

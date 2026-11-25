@@ -30,16 +30,16 @@
 
 rustPlatform.buildRustPackage.override { stdenv = clangStdenv; } (finalAttrs: {
   pname = "neovide";
-  version = "0.17.1";
+  version = "0.17.3";
 
   src = fetchFromGitHub {
     owner = "neovide";
     repo = "neovide";
     tag = finalAttrs.version;
-    hash = "sha256-trl/YctM/E9vIXeJfwBEZLfNK7LS5fEaWthTbeg7Ba0=";
+    hash = "sha256-F2Z3NsbEaDyfIH27XsI62AgYKsySJUgcx4wtSP0RCKw=";
   };
 
-  cargoHash = "sha256-WS44afUizU6qhXQY77TayNRvlUoS6GrBZ/uaXk+gjU0=";
+  cargoHash = "sha256-AplCrgM4iVZr/7rsy425weroxywgptl5nIFr6zS39vk=";
 
   env = {
     SKIA_SOURCE_DIR =

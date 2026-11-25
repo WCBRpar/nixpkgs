@@ -21,11 +21,11 @@
 
 buildDunePackage (finalAttrs: {
   pname = "console";
-  version = "0.9.0";
+  version = "0.10.1";
 
   src = fetchzip {
     url = "https://github.com/samoht/ocaml-console/releases/download/${finalAttrs.version}/console-${finalAttrs.version}.tbz";
-    hash = "sha256-6gABaGs48TAXGMSsipeT1/o1sHYq0v0GLnSgPMbFgQM=";
+    hash = "sha256-/tXLPkYfiupXd9oIM3XjYx1qmxrJSvjM1CaQjI9c754=";
   };
 
   minimalOCamlVersion = "5.4";

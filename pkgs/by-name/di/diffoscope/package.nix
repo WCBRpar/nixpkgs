@@ -112,12 +112,12 @@ in
 # Note: when upgrading this package, please run the list-missing-tools.sh script as described below!
 python.pkgs.buildPythonApplication rec {
   pname = "diffoscope";
-  version = "337";
+  version = "339";
   pyproject = true;
 
   src = fetchurl {
     url = "https://diffoscope.org/archive/diffoscope-${version}.tar.bz2";
-    hash = "sha256-6rE7X0nx5vdRsV8VBDtA1mrZnykjAfjpfPzJP/RYDh8=";
+    hash = "sha256-57jsc5s2kP/nfy73t+GxTrZ6ZI0OxwXPRWiQncysfjI=";
   };
 
   outputs = [
@@ -320,11 +320,7 @@ python.pkgs.buildPythonApplication rec {
     "test_libmix_differences"
   ];
 
-  disabledTestPaths = [
-    # slight difference how files are listed
-    "tests/comparators/test_elf.py::test_lib_differences"
-  ]
-  ++ lib.optionals stdenv.hostPlatform.isDarwin [
+  disabledTestPaths = lib.optionals stdenv.hostPlatform.isDarwin [
     "tests/comparators/test_git.py"
     "tests/comparators/test_java.py"
     "tests/comparators/test_uimage.py"
@@ -332,6 +328,8 @@ python.pkgs.buildPythonApplication rec {
     "tests/comparators/test_macho.py"
     # OSError: AF_UNIX path too long
     "tests/comparators/test_sockets.py"
+    # Attempts a recursive call to pytestCheckHook
+    "tests/comparators/test_rpm.py"
   ];
 
   passthru = {

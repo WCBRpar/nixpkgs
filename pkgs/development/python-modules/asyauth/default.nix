@@ -11,12 +11,12 @@
 
 buildPythonPackage (finalAttrs: {
   pname = "asyauth";
-  version = "0.0.24";
+  version = "0.0.26";
   pyproject = true;
 
   src = fetchPypi {
     inherit (finalAttrs) pname version;
-    hash = "sha256-/Z+BrLpBSBxl0wXFfZ4Xv8ydbUWZ1uWV2RImRUtvGx0=";
+    hash = "sha256-TA3yfpuhppzVnjdVEYFpi6d/UD5OzZlmsKUI9MRy9NI=";
   };
 
   build-system = [ setuptools ];

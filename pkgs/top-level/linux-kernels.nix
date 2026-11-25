@@ -49,7 +49,6 @@ in
             kernelPatches.bridge_stp_helper
             kernelPatches.request_key_helper
             kernelPatches.libbpf_C23_compat
-            kernelPatches.tools_128bit_types
           ];
         };
 
@@ -58,7 +57,6 @@ in
           kernelPatches = [
             kernelPatches.bridge_stp_helper
             kernelPatches.request_key_helper
-            kernelPatches.tools_128bit_types
           ];
         };
 
@@ -67,7 +65,6 @@ in
           kernelPatches = [
             kernelPatches.bridge_stp_helper
             kernelPatches.request_key_helper
-            kernelPatches.tools_128bit_types
           ];
         };
 
@@ -76,7 +73,6 @@ in
           kernelPatches = [
             kernelPatches.bridge_stp_helper
             kernelPatches.request_key_helper
-            kernelPatches.tools_128bit_types
           ];
         };
 
@@ -111,7 +107,6 @@ in
           kernelPatches = [
             kernelPatches.bridge_stp_helper
             kernelPatches.request_key_helper
-            kernelPatches.tools_128bit_types
           ];
         };
 
@@ -123,7 +118,6 @@ in
           kernelPatches = [
             kernelPatches.bridge_stp_helper
             kernelPatches.request_key_helper
-            kernelPatches.tools_128bit_types
           ];
         };
         linux_xanmod_stable = xanmodKernels {
@@ -321,6 +315,10 @@ in
 
         gtp5g = callPackage ../os-specific/linux/gtp5g { };
 
+        hailo1x = callPackage ../os-specific/linux/hailo1x { };
+
+        hailo8 = callPackage ../os-specific/linux/hailo8 { };
+
         hyperv-daemons = callPackage ../os-specific/linux/hyperv-daemons { };
 
         iio-utils =
@@ -390,6 +388,7 @@ in
         nvidia_x11_legacy390 = nvidiaPackages.legacy_390;
         nvidia_x11_legacy470 = nvidiaPackages.legacy_470;
         nvidia_x11_legacy535 = nvidiaPackages.legacy_535;
+        nvidia_x11_legacy580 = nvidiaPackages.legacy_580;
         nvidia_x11_production = nvidiaPackages.production;
         nvidia_x11_vulkan_beta = nvidiaPackages.vulkan_beta;
         nvidia_dc = nvidiaPackages.dc;

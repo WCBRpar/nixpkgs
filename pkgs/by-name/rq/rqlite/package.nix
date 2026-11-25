@@ -11,17 +11,19 @@ buildGo127Module (
     cmdPackage = "github.com/rqlite/rqlite/v${lib.versions.major finalAttrs.version}/cmd";
   in
   {
+    __structuredAttrs = true;
+
     pname = "rqlite";
-    version = "10.6.6";
+    version = "10.7.3";
 
     src = fetchFromGitHub {
       owner = "rqlite";
       repo = "rqlite";
       tag = "v${finalAttrs.version}";
-      hash = "sha256-N3X5VPczKK7U53oYezeY7UbWXqfOK/41yNl14/t8zEg=";
+      hash = "sha256-KRma6v3KCCwecLTsdaV+EQWvEK60rpDS7cXFd6U/FOI=";
     };
 
-    vendorHash = "sha256-IJlT9GPjfmY9bevMXi8Z4MDmuHQiWlzNbYd71OB0lN0=";
+    vendorHash = "sha256-USNJD+bcw327yj+yD+eohtlwdWT86Bp455DE/Cjm6hg=";
 
     subPackages = [
       "cmd/rqlite"

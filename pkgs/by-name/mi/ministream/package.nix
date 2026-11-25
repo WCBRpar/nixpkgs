@@ -4,6 +4,7 @@
   buildPackages,
   fetchurl,
   meson,
+  mesonEmulatorHook,
   ninja,
   pkg-config,
   glib,
@@ -26,6 +27,10 @@ stdenv.mkDerivation (finalAttrs: {
 
   strictDeps = true;
   __structuredAttrs = true;
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   nativeBuildInputs = [
     meson
@@ -34,6 +39,9 @@ stdenv.mkDerivation (finalAttrs: {
   ]
   ++ lib.optionals withIntrospection [
     gobject-introspection
+  ]
+  ++ lib.optionals (withIntrospection && !stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
+    mesonEmulatorHook
   ];
 
   buildInputs = [
@@ -50,7 +58,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   passthru = {
     tests.pkg-config = testers.hasPkgConfigModules {
-      package = finalAttrs.finalPackage;
+      package = finalAttrs.finalPackage.dev;
       versionCheck = true;
     };
     updateScript = gnome.updateScript {

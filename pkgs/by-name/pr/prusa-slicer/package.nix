@@ -292,10 +292,10 @@ clangStdenv.mkDerivation (finalAttrs: {
     license = lib.licenses.agpl3Plus;
     maintainers = with lib.maintainers; [
       tweber
-      tmarkus
+      AAAAAASomeThingsFailToEvaluate
       fliegendewurst
     ];
-    mainDarwinApp = "mainDarwinApp.app";
+    mainDarwinApp = "PrusaSlicer.app";
     platforms = lib.platforms.unix;
   };
 })

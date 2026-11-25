@@ -86,8 +86,8 @@ rec {
   thunderbird = thunderbird-latest;
 
   thunderbird-latest = common {
-    version = "159.0";
-    sha512 = "97d993f8825b74854ba87248aa823d8573af84fe1c0baf38bc826234671d1b4e614c3ec1efc85058449b7552920baacc438359fd0212092f1d9bfd069649d664";
+    version = "161.0";
+    sha512 = "8570e4a92c79a7f9fe4d90cba9d8eb6be50c6089520330ed56686f0b31de2067361e2f834960ce222ee96076c7a897323d18235029003bdf27d7c5b3b4543a43";
 
     updateScript = callPackage ./update.nix {
       attrPath = "thunderbirdPackages.thunderbird-latest";
@@ -100,8 +100,8 @@ rec {
   thunderbird-153 = common {
     applicationName = "Thunderbird ESR";
 
-    version = "153.6.0esr";
-    sha512 = "fe7a4bdd6bb4627141982600da2d76b8c0e0e6fb2f876715cc58f1cfb42b1c0d03e66e8b75d8e62e89bb8348eeac85ce9fc8c9a58ee3bccf365d82061a1161fc";
+    version = "153.7.0esr";
+    sha512 = "fb963b005cfb255c607acab81762d385a0768dff2c09ce3f373f6d7f6fd04c3448bfe526aef1f772775f2a779e5d85457ec9989316fd6d82e7a620621429bef3";
 
     updateScript = callPackage ./update.nix {
       attrPath = "thunderbirdPackages.thunderbird-153";

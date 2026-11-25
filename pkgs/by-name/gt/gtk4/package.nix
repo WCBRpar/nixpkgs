@@ -75,7 +75,7 @@ in
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "gtk4";
-  version = "4.24.0";
+  version = "4.24.1";
 
   outputs = [
     "out"
@@ -91,7 +91,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   src = fetchurl {
     url = "mirror://gnome/sources/gtk/${lib.versions.majorMinor finalAttrs.version}/gtk-${finalAttrs.version}.tar.xz";
-    hash = "sha256-KLpKwcBPhurAm3mhY8sWOkwrVEQtn37MwEZ5BipYEEQ=";
+    hash = "sha256-6Yq+cg4WEpyMD1B2He4KLpriR4BV4xAY9s+Xf89lE+k=";
   };
 
   depsBuildBuild = [
@@ -292,6 +292,9 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     homepage = "https://www.gtk.org/";
     license = lib.licenses.lgpl2Plus;
+    identifiers.cpeParts = lib.meta.cpeFullVersionWithVendor "gnome" finalAttrs.version // {
+      product = "gtk";
+    };
     teams = [ lib.teams.gnome ];
     platforms = lib.platforms.all;
     changelog = "https://gitlab.gnome.org/GNOME/gtk/-/raw/${finalAttrs.version}/NEWS";

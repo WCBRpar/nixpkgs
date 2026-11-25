@@ -29,7 +29,7 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "gst-plugins-ugly";
-  version = "1.28.8";
+  version = "1.28.9";
 
   outputs = [
     "out"
@@ -38,7 +38,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   src = fetchurl {
     url = "https://gstreamer.freedesktop.org/src/gst-plugins-ugly/gst-plugins-ugly-${finalAttrs.version}.tar.xz";
-    hash = "sha256-Ua5TAC47vp7Q8iFQIMWiSL8O1BudmipOECuFg/7athw=";
+    hash = "sha256-VQpSU2liGG9UiOBrXAjzGuDxhACu4yozhRVtMctLEYk=";
   };
 
   separateDebugInfo = true;
@@ -126,6 +126,6 @@ stdenv.mkDerivation (finalAttrs: {
     license = if enableGplPlugins then lib.licenses.gpl2Plus else lib.licenses.lgpl2Plus;
     identifiers.cpeParts = gstreamer.passthru.gstreamerCpeParts finalAttrs.version;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ tmarkus ];
+    maintainers = with lib.maintainers; [ AAAAAASomeThingsFailToEvaluate ];
   };
 })

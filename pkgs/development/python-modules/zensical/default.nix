@@ -3,8 +3,12 @@
   buildPythonPackage,
   fetchFromGitHub,
   hatchling,
+  nix-update,
+  nix,
   rustPlatform,
   versionCheckHook,
+  writeShellApplication,
+  yq-go,
 
   # dependencies
   click,
@@ -20,19 +24,19 @@
 
 buildPythonPackage (finalAttrs: {
   pname = "zensical";
-  version = "0.1.0";
+  version = "0.1.3";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "zensical";
     repo = "zensical";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-dhNQe6fnKeEN/8LmMWWAP6dyFsB5iUKLdsYKQiyP5Go=";
+    hash = "sha256-NcUV63x+rzzhsryIPBUfHNcJiSADCuNC9K0ANV+UxXs=";
   };
 
   cargoDeps = rustPlatform.fetchCargoVendor {
     inherit (finalAttrs) pname version src;
-    hash = "sha256-sVAWbIii0f+murNRcEy7w/+BR7/mrjqBhMop7DYdmmM=";
+    hash = "sha256-eFFNd/jJ8l4a6sxisiunGZp+6wLh8VhPT31jO0btgts=";
   };
 
   nativeBuildInputs = with rustPlatform; [
@@ -42,13 +46,13 @@ buildPythonPackage (finalAttrs: {
 
   ui = buildPythonPackage (finalAttrs: {
     pname = "zensical-ui";
-    version = "0.0.41";
+    version = "0.0.43";
     pyproject = true;
     src = fetchFromGitHub {
       owner = "zensical";
       repo = "ui";
       rev = "v${finalAttrs.version}";
-      hash = "sha256-pgygAqMMRQckjFmfEhG3p6YHcQUGs1M7drEMvSEbt24=";
+      hash = "sha256-T5ZrxjD1A8gbUMReIzKgobH1ZtiXOK6ytBMILWuvduo=";
     };
     build-system = [ hatchling ];
   });
@@ -70,6 +74,21 @@ buildPythonPackage (finalAttrs: {
 
   nativeCheckInputs = [ versionCheckHook ];
   versionCheckProgramArg = "--version";
+
+  passthru.updateScript = lib.getExe (writeShellApplication {
+    name = "zensical-update";
+    runtimeInputs = [
+      nix
+      nix-update
+      yq-go
+    ];
+    text = ''
+      nix-update zensical
+      toml=$(nix-instantiate --eval -A zensical.src.outPath --json | yq -r)/pyproject.toml
+      version=$(yq -r '.project.dependencies[] | select(test("^zensical-ui==")) | sub("^zensical-ui=="; "")' "$toml")
+      nix-update zensical.ui --version "$version"
+    '';
+  });
 
   meta = {
     description = "Static site generator for documentation";

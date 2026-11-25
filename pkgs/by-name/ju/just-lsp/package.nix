@@ -8,7 +8,7 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "just-lsp";
-  version = "0.11.0";
+  version = "0.11.2";
 
   __structuredAttrs = true;
 
@@ -16,10 +16,10 @@ rustPlatform.buildRustPackage (finalAttrs: {
     owner = "terror";
     repo = "just-lsp";
     tag = finalAttrs.version;
-    hash = "sha256-Yv66dRCZ/DieyuzhAn660oYEPgljrvhnTUGCahD+238=";
+    hash = "sha256-tZTbDENMllnYxxbxp9kbPPidgyeyA10/e0Zo3ST9V6w=";
   };
 
-  cargoHash = "sha256-DEPWaZsYwiXjfw+0t9PzneZ/aW+NbyvAv/fplVoAGAc=";
+  cargoHash = "sha256-Z8qbuHmXIhCf0+UWwFwlMSy1UzWPvPXLYCHagpUgRlU=";
 
   nativeInstallCheckInputs = [
     versionCheckHook

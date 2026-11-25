@@ -22,20 +22,20 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "rufin";
-  version = "0.17.0";
+  version = "0.20.0";
 
   __structuredAttrs = true;
 
   src = fetchFromGitHub {
-    owner = "screwys";
-    repo = "Rufin";
+    owner = "rufin-app";
+    repo = "rufin";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-q7QGUUYxcJ20My9J/AIy1N7aagLrkQBXFuhh/BGbf+I=";
+    hash = "sha256-LwfJsM71neip2/S6D9c81cvRLX3YKAKIYqOSwv7TxdE=";
   };
 
   cargoDeps = rustPlatform.fetchCargoVendor {
     inherit (finalAttrs) pname version src;
-    hash = "sha256-jvJQ1TP48AGW9g4JSKre+PoYVycwlnukeOrJnJLp7TI=";
+    hash = "sha256-4S69PzFxNlu6MqPidCNMf8XECDpp7AS/uWsRKry8ywk=";
   };
 
   strictDeps = true;
@@ -78,7 +78,7 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   postInstall = ''
-    substituteInPlace "$out/share/applications/io.github.screwys.Rufin.desktop" \
+    substituteInPlace "$out/share/applications/app.rufin.rufin.desktop" \
       --replace-fail "Exec=rufin" "Exec=$out/bin/rufin"
   '';
 
@@ -91,10 +91,13 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = {
     description = "Native music player for Jellyfin, Navidrome/OpenSubsonic, Plex, and Emby servers;  local folders,  WebDAV including a direct Nextcloud browser login path, Samba and NAS shares";
-    homepage = "https://github.com/screwys/Rufin";
-    changelog = "https://github.com/screwys/Rufin/releases/tag/v${finalAttrs.version}";
+    homepage = "https://github.com/rufin-app/rufin";
+    changelog = "https://github.com/rufin-app/rufin/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ screwys ];
+    maintainers = with lib.maintainers; [
+      screwys
+      Superredstone
+    ];
     mainProgram = "rufin";
     platforms = lib.platforms.linux;
   };

@@ -16,7 +16,7 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "arf";
-  version = "0.6.0";
+  version = "0.7.2";
 
   __structuredAttrs = true;
 
@@ -24,16 +24,16 @@ rustPlatform.buildRustPackage (finalAttrs: {
     owner = "eitsupi";
     repo = "arf";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-eMmuk4g7+vVFa2VuvbsEuRAGpPzh/hv016hz3rHBnmc=";
+    hash = "sha256-zrS9CabsxCBRHGW/DscM8T+0yYRcIAQDSuDc+sbxiB0=";
   };
 
-  cargoHash = "sha256-aVb3SwPKpgQXPRQJpSQxlor0AFVoPtXfH7bndkwHnfk=";
+  cargoHash = "sha256-ZF1MbluiYu4X3q2HRCcqS40fJiJjU3nlP/EFjSVH41g=";
 
   # Some tests spawn `/usr/bin/env` to relaunch arf with modified environment,
   # which does not exist inside the build sandbox.
   postPatch = ''
     substituteInPlace \
-      crates/arf-console/tests/tui/support.rs \
+      crates/arf-console/tests/tui_tests/support/builder.rs \
       --replace-fail '/usr/bin/env' '${lib.getExe' coreutils "env"}'
   '';
 

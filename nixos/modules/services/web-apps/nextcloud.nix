@@ -1441,6 +1441,15 @@ in
               script = ''
                 export OCC_BIN="${lib.getExe occ}"
 
+                if $OCC_BIN maintenance:mode | grep enabled; then
+                  echo "This is possibly the result of an earlier failed update."
+                  echo "nextcloud-setup performs commands that need maintenance mode to be disabled."
+                  echo "We will not disable maintenance mode on your behalf out of caution."
+                  echo "You can disable maintenance mode interactively with:"
+                  echo "  $OCC_BIN maintenance:mode --off"
+                  exit 1
+                fi
+
                 ${lib.optionalString (c.dbpassFile != null) ''
                   if [ -z "$(<"$CREDENTIALS_DIRECTORY/dbpass")" ]; then
                     echo "dbpassFile ${c.dbpassFile} is empty!"
@@ -1548,6 +1557,14 @@ in
             #        user by copying them somewhere else and overriding CREDENTIALS_DIRECTORY
             #        for php. This is currently necessary as the unit runs as root.
             serviceConfig.RuntimeDirectory = lib.mkForce "phpfpm phpfpm-nextcloud";
+
+            # Needed for the preStart script below.
+            # It's being run as root and phpfpm doesn't have capabilities on its own to override
+            # these checks.
+            # Running this as nextcloud isn't an option either since we need root permissions to
+            # create & chown the 'credentials' dir inside $RUNTIME_DIRECTORY.
+            # Proper fix would be to actually run rootless phpfpm.
+            serviceConfig.CapabilityBoundingSet = [ "CAP_DAC_OVERRIDE" ];
             preStart = ''
               umask 0077
 

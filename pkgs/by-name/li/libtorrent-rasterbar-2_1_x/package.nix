@@ -18,14 +18,14 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "libtorrent-rasterbar";
-  version = "2.1.2";
+  version = "2.1.3";
 
   src = fetchFromGitHub {
     owner = "arvidn";
     repo = "libtorrent";
     tag = "v${finalAttrs.version}";
     fetchSubmodules = true;
-    hash = "sha256-z2G4T+eJQjFspOIyOo8pz+CgNYJT2MByegoSjok/FeM=";
+    hash = "sha256-SVtE8VKXxQLUWCSz0m+AihwgcLx05Ebo6mpKTchu8sU=";
   };
 
   nativeBuildInputs = [
@@ -57,6 +57,10 @@ stdenv.mkDerivation (finalAttrs: {
 
     substituteInPlace cmake/Modules/GeneratePkgConfig/pkg-config.cmake.in \
       --replace-fail '$'{prefix}/@_INSTALL_LIBDIR@ @_INSTALL_FULL_LIBDIR@
+
+    substituteInPlace deps/libdatachannel/deps/libjuice/CMakeLists.txt --replace-fail "set(CMAKE_C_STANDARD 11)" ""
+    substituteInPlace deps/libdatachannel/deps/libsrtp/CMakeLists.txt --replace-fail "set(CMAKE_C_STANDARD 99)" ""
+    substituteInPlace deps/libdatachannel/deps/usrsctp/CMakeLists.txt --replace-fail "-std=c99" ""
   '';
 
   postInstall = ''

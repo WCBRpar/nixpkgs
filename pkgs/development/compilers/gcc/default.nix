@@ -59,6 +59,7 @@
   apple-sdk_14,
   apple-sdk_15,
   darwin,
+  dejagnu,
 }:
 
 let
@@ -136,6 +137,7 @@ let
       cargo
       withoutTargetLibc
       darwin
+      dejagnu
       disableBootstrap
       disableGdbPlugin
       enableDefaultPie
@@ -262,7 +264,7 @@ pipe
       # insert into default search paths.
       + optionalString hostPlatform.isDarwin ''
         substituteInPlace gcc/config/darwin-c.cc \
-          --replace 'if (stdinc)' 'if (0)'
+          --replace-fail 'if (stdinc)' 'if (0)'
 
         substituteInPlace libgcc/config/t-slibgcc-darwin \
           --replace "-install_name @shlib_slibdir@/\$(SHLIB_INSTALL_NAME)" "-install_name ''${!outputLib}/lib/\$(SHLIB_INSTALL_NAME)"

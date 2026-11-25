@@ -10,13 +10,13 @@
 
 buildDunePackage (finalAttrs: {
   pname = "dockerfile";
-  version = "8.4.6";
+  version = "8.4.8";
 
   src = fetchFromGitHub {
     owner = "ocurrent";
     repo = "ocaml-dockerfile";
     tag = finalAttrs.version;
-    hash = "sha256-hE+81KGk9MVM0iVthpaUgE8y9NNmuLUssv4+r2zTX4I=";
+    hash = "sha256-iGtTJL+cTaISMsEk0j3bBzSg0T6+Oiisj6F8P8hppdU=";
   };
 
   propagatedBuildInputs = [

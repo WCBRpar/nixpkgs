@@ -46,16 +46,16 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "rapidraw";
-  version = "1.6.7";
+  version = "1.7.1";
 
   src = fetchFromGitHub {
     owner = "CyberTimon";
     repo = "RapidRAW";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-VLIXy6phMtz/DJ+PiyeCgJ3yS7t6M8E95RrRQXuWz08=";
+    hash = "sha256-+C6L/1Yo7hqDw5dLso96UvjFUkt27R0+B6DwN/otnsk=";
   };
 
-  cargoHash = "sha256-xJTOk1rLj5lA4oIauS9wf009tlx9CVUnsj8YJKn8aqU=";
+  cargoHash = "sha256-EuR0faese+x90Pc4Fu4rsXc+zLeUdqZGnJuj8sRA2co=";
 
   npmDeps = fetchNpmDeps {
     inherit (finalAttrs) src;
@@ -128,6 +128,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   '';
 
   tauriBuildFlags = [
+    "--no-sign"
     "--features"
     "tethering"
   ];

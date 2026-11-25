@@ -268,6 +268,9 @@ let
       dockerCliPluginsDirs = lib.strings.concatStringsSep ":" (
         map (p: "${p}/libexec/docker/cli-plugins") plugins
       );
+
+      # Older versions' manpage script needs network access to vendor go-md2man
+      withManPages = lib.versionAtLeast version "29";
     in
     buildGoModule (
       {
@@ -313,7 +316,7 @@ let
           ];
 
         postPatch = ''
-          patchShebangs man scripts/build/
+          patchShebangs man scripts/
           substituteInPlace ./scripts/build/.variables --replace-fail "set -eu" ""
         '';
 
@@ -331,16 +334,25 @@ let
           export VERSION="${version}"
           export BUILDTIME="1970-01-01T00:00:00Z"
           make dynbinary
-
+        ''
+        + lib.optionalString withManPages ''
+          make manpages
+        ''
+        + ''
           runHook postBuild
         '';
 
-        outputs = [ "out" ];
+        outputs = [ "out" ] ++ lib.optional withManPages "man";
 
         installPhase = ''
           runHook preInstall
 
           install -Dm755 ./build/docker $out/libexec/docker/docker
+        ''
+        + lib.optionalString withManPages ''
+          installManPage man/man*/*.[1-9]
+        ''
+        + ''
 
           makeWrapper $out/libexec/docker/docker $out/bin/docker \
             --prefix PATH : "$out/libexec/docker" \
@@ -428,14 +440,14 @@ in
 
   docker_29 =
     let
-      version = "29.9.2";
+      version = "29.9.3";
     in
     callPackage dockerGen {
       inherit version;
       cliRev = "v${version}";
-      cliHash = "sha256-4zkbutgBREYn90r5cxc/dH7VAKCway3VLtENXbRjvCw=";
+      cliHash = "sha256-Wb1JRfML8olvQtOoMbcBwFsYKnejX5k6JH+tfXSPRAI=";
       mobyRev = "docker-v${version}";
-      mobyHash = "sha256-GZClQfJCONvkUUjX0rrTNWeSPgA8cmpDlAj5vDUtzL0=";
+      mobyHash = "sha256-xtLqR9pOw53vlKE0E+1wVrRgV0ag22A94NXq/FUqW6A=";
       runcRev = "v1.5.2";
       runcHash = "sha256-DOEnEK/1KlMCzJHW5bWCVChfBUzWOgbgPJn7GMatwAc=";
       containerdRev = "v2.4.2";

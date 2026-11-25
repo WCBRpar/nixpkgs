@@ -13,7 +13,7 @@
 
 buildGo127Module (finalAttrs: {
   pname = "glab";
-  version = "1.128.0";
+  version = "1.131.0";
 
   __structuredAttrs = true;
 
@@ -21,10 +21,10 @@ buildGo127Module (finalAttrs: {
     owner = "gitlab-org";
     repo = "cli";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-Uihcx/2y+FMp30JikEWd91/AL6RxUBeZjuCmtUlMP4g=";
+    hash = "sha256-Zfgd3OqU4EPJr0Cy/0ZY1OmHSqukBN1ZFZ11U9BnsOk=";
   };
 
-  vendorHash = "sha256-wlDtdRd/op7aLQszGrw7DTHDAGjXVOgpupGHu6MRn7M=";
+  vendorHash = "sha256-jNtobjqz1sa8wTckyt9OMNKI0QOwotM8TR9wxrkA/Ag=";
 
   ldflags = [
     "-s"

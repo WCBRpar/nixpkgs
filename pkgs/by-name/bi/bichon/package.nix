@@ -18,17 +18,17 @@ let
 in
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "bichon";
-  version = "2.2.0";
+  version = "2.4.4";
   __structuredAttrs = true;
 
   src = fetchFromGitHub {
     owner = "rustmailer";
     repo = "bichon";
     tag = finalAttrs.version;
-    hash = "sha256-NwEv7BUmBviK6ZjLWhUcaldQxQHLsJm7URNOkzbrTUE=";
+    hash = "sha256-Wv7EBl6Wa0/v5dphHg9ba6uEtjWnf6YRwJdGGnGycl8=";
   };
 
-  cargoHash = "sha256-cGRPZd3V+6T/JWWm0giV19EvXuoPZBNUtf37xCud7Ow=";
+  cargoHash = "sha256-YrF9EFOYZh8dBqMZNn5s8zCtq8iRI9+2AM0N8lMsnJ4=";
 
   pnpmDeps = fetchPnpmDeps {
     inherit (finalAttrs) pname version src;

@@ -10,6 +10,8 @@
   libx11,
   libsForQt5,
   lua5_5,
+  libssh2,
+  replaceVars,
   writableTmpDirAsHomeHook,
 }:
 
@@ -29,6 +31,13 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-pl/0YmZxPZfb+nubzig9DmyGonvnitVPr5f4n8ll3Bs=";
   };
 
+  patches = [
+    (replaceVars ./nix-paths.patch {
+      inherit lazarus;
+      libssh2 = lib.getLib libssh2;
+    })
+  ];
+
   nativeBuildInputs = [
     fpc
     getopt
@@ -41,26 +50,20 @@ stdenv.mkDerivation (finalAttrs: {
     dbus
     glib
     libx11
+    libssh2
   ]
   ++ lib.optional (!stdenv.hostPlatform.isDarwin) libsForQt5.libqtpas;
 
   env.NIX_LDFLAGS = lib.optionalString stdenv.hostPlatform.isLinux "--as-needed -rpath ${lib.makeLibraryPath finalAttrs.buildInputs}";
 
   postPatch = ''
-    # Double Commander saves this default into the user's configuration, so use
-    # the symlink installed next to the executable instead of a store path.
-    substituteInPlace src/platform/lua.pas \
-      --replace-fail "LuaDLL = 'liblua5.1.so.0';" "LuaDLL = '%COMMANDER_PATH%/liblua.so';"
-    ${lib.optionalString stdenv.hostPlatform.isDarwin ''
-      substituteInPlace src/platform/lua.pas \
-        --replace-fail "LuaDLL = 'liblua5.1.dylib';" "LuaDLL = '%COMMANDER_PATH%/liblua.dylib';"
-      patchShebangs install/darwin/install.sh
-    ''}
-    patchShebangs build.sh install/linux/install.sh
-    substituteInPlace build.sh \
-      --replace-warn '$(which lazbuild)' '"${lazarus}/bin/lazbuild --lazarusdir=${lazarus}/share/lazarus"'
+    substituteInPlace src/platform/udcversion.pas \
+      --replace-fail '{$I %DATE%}' "'$(date -u -d "@$SOURCE_DATE_EPOCH" +%Y/%m/%d)'"
     substituteInPlace install/linux/install.sh \
-      --replace-warn '$DC_INSTALL_PREFIX/usr' '$DC_INSTALL_PREFIX'
+      --replace-fail '$DC_INSTALL_PREFIX/usr' '$DC_INSTALL_PREFIX'
+    patchShebangs build.sh install/${
+      if stdenv.hostPlatform.isDarwin then "darwin" else "linux"
+    }/install.sh
   '';
 
   buildPhase = ''
@@ -78,13 +81,12 @@ stdenv.mkDerivation (finalAttrs: {
       if stdenv.hostPlatform.isDarwin then
         ''
           rm -f doublecmd.app/Contents/MacOS/doublecmd
-          install/darwin/install.sh "$TMPDIR"
-          mkdir -p $out/Applications
-          mv "$TMPDIR/doublecmd.app" $out/Applications/
-          cd $out/Applications/doublecmd.app/Contents/MacOS
+          install/darwin/install.sh "$out/Applications"
+          mv "$out/Applications/doublecmd.app" "$out/Applications/Double Commander.app"
+          cd "$out/Applications/Double Commander.app/Contents/MacOS"
           ln -vs ${lib.getLib lua}/lib/liblua.${lua.version}.dylib ./liblua.dylib
           mkdir -p $out/bin
-          ln -s $out/Applications/doublecmd.app/Contents/MacOS/doublecmd $out/bin/doublecmd
+          ln -s "../Applications/Double Commander.app/Contents/MacOS/doublecmd" $out/bin/doublecmd
         ''
       else
         ''
@@ -104,8 +106,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Two-panel graphical file manager written in Pascal";
     license = lib.licenses.gpl2Plus;
     mainProgram = "doublecmd";
-    maintainers = [ ];
+    maintainers = [ lib.maintainers.gordon01 ];
     platforms = lib.platforms.linux ++ lib.platforms.darwin;
   };
 })
-# TODO: deal with other platforms too

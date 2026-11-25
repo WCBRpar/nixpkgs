@@ -15,15 +15,15 @@
 
 buildPythonPackage rec {
   pname = "python-xapp";
-  version = "3.0.4";
+  version = "3.0.5";
 
   pyproject = false;
 
   src = fetchFromGitHub {
     owner = "linuxmint";
-    repo = "python-xapp";
+    repo = "python3-xapp";
     rev = version;
-    hash = "sha256-sDK2ytQfJA3fCBrmf/WNI3jJqg1n0+EeQEJ7YEumf8Q=";
+    hash = "sha256-aHjWNGNMBlgMx9l5ifPD7RsxtTW52AEYYFBER90eLiM=";
   };
 
   nativeBuildInputs = [
@@ -58,7 +58,7 @@ buildPythonPackage rec {
   };
 
   meta = {
-    homepage = "https://github.com/linuxmint/python-xapp";
+    homepage = "https://github.com/linuxmint/python3-xapp";
     description = "Cross-desktop libraries and common resources for python";
     license = lib.licenses.lgpl2Plus;
     platforms = lib.platforms.linux;

@@ -79,9 +79,9 @@ let
 
       outputHash =
         if stdenv.hostPlatform.isLinux then
-          "sha256-UOF9owEBSuVKX/hBhef7Wr4ymlNgTL21BiVBr+9a8Zo="
+          "sha256-4PJINKZ1f5syNHT3xGezCX78GECIiCgKZG8BXm0Ethw="
         else if stdenv.hostPlatform.isDarwin then
-          "sha256-6VvzodSiEko+Q9UldOJ0V4eV2Gd6JelpYNUMBnI5W/c="
+          "sha256-nhJXzJ6Q8UNz10goMO2qwRxRl+72qzndacuL4WJNgNQ="
         else
           throw "Unsupported platform";
       outputHashMode = "recursive";
@@ -89,7 +89,7 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "opencode";
-  version = "2.2.6";
+  version = "2.4.1";
 
   __structuredAttrs = true;
   strictDeps = true;
@@ -98,7 +98,7 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "anomalyco";
     repo = "opencode";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-6Of4/r4SKYtxMbHISu8/4yzSpCfHNGuTwfKdAKjNJnM=";
+    hash = "sha256-0bgTMqKMooQZ2MO8O64uvp/XI0NluBvmxR+wKXMUScI=";
   };
 
   postPatch =
@@ -182,7 +182,7 @@ stdenv.mkDerivation (finalAttrs: {
 
     install -Dm644 cli.json $out/share/cli.json
     install -Dm644 config.json $out/share/config.json
-    install -Dm644 ../web/public/theme.json $out/share/theme.json
+    install -Dm644 ../../services/site/public/v1/docs/theme.json $out/share/theme.json
 
     runHook postInstall
   '';

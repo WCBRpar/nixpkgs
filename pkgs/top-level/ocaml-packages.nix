@@ -271,8 +271,6 @@ let
 
         chrome-trace = callPackage ../development/ocaml-modules/chrome-trace { };
 
-        cil = callPackage ../development/ocaml-modules/cil { };
-
         clap = callPackage ../development/ocaml-modules/clap { };
 
         class_group_vdf = callPackage ../development/ocaml-modules/class_group_vdf { };
@@ -1308,8 +1306,6 @@ let
 
         minisat = callPackage ../development/ocaml-modules/minisat { };
 
-        minttea = callPackage ../development/ocaml-modules/minttea { };
-
         miou = callPackage ../development/ocaml-modules/miou { };
 
         mirage = callPackage ../development/ocaml-modules/mirage { };
@@ -1491,10 +1487,6 @@ let
 
         ### O ###
 
-        ocaml_cairo = callPackage ../development/ocaml-modules/ocaml-cairo { };
-
-        ocaml_cryptgps = callPackage ../development/ocaml-modules/cryptgps { };
-
         ocaml_expat = callPackage ../development/ocaml-modules/expat { };
 
         ocaml_gettext = callPackage ../development/ocaml-modules/ocaml-gettext { };
@@ -1614,6 +1606,8 @@ let
         ocplib-simplex_0_4 = callPackage ../development/ocaml-modules/ocplib-simplex/0_4.nix { };
 
         ocplib_stuff = callPackage ../development/ocaml-modules/ocplib_stuff { };
+
+        ocsigen-dune-rules = callPackage ../development/ocaml-modules/ocsigen-dune-rules { };
 
         ocsigen-ppx-rpc = callPackage ../development/ocaml-modules/ocsigen-ppx-rpc { };
 
@@ -1826,8 +1820,6 @@ let
 
         ppx_cstruct = callPackage ../development/ocaml-modules/cstruct/ppx.nix { };
 
-        ppx_cstubs = callPackage ../development/ocaml-modules/ppx_cstubs { };
-
         ppx_derivers = callPackage ../development/ocaml-modules/ppx_derivers { };
 
         ppx_deriving = callPackage ../development/ocaml-modules/ppx_deriving { };
@@ -2003,8 +1995,6 @@ let
 
         rio = callPackage ../development/ocaml-modules/rio { };
 
-        riot = callPackage ../development/ocaml-modules/riot { };
-
         rock = callPackage ../development/ocaml-modules/rock { };
 
         rope = callPackage ../development/ocaml-modules/rope { };
@@ -2176,6 +2166,8 @@ let
         theora = callPackage ../development/ocaml-modules/theora { };
 
         thread-table = callPackage ../development/ocaml-modules/thread-table { };
+
+        thumper = callPackage ../development/ocaml-modules/thumper { };
 
         timed = callPackage ../development/ocaml-modules/timed { };
 
